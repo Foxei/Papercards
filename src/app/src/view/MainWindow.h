@@ -1,7 +1,8 @@
-//
-// Created by Simon on 14.07.2019.
-//
-
+/**
+ * @author Simon Schaefer
+ * @date 12.07.2019
+ * @file MainWindow.h
+ */
 #ifndef PAPERCARDS_MAINWINDOW_H
 #define PAPERCARDS_MAINWINDOW_H
 
