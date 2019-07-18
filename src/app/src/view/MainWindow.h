@@ -6,13 +6,26 @@
 #ifndef PAPERCARDS_MAINWINDOW_H
 #define PAPERCARDS_MAINWINDOW_H
 
-#include <QtWidgets/QMainWindow>
+#include <QMainWindow>
+#include <QFrame>
 
-class MainWindow : public QMainWindow{
+#include "src/view/card/CardEditor.h"
+
+class MainWindow : public QMainWindow {
   Q_OBJECT
  private:
 
+  CardEditor* container_card = Q_NULLPTR;
+
+  void setupGui();
+
+  void setupConnections();
+
  public:
+
+  explicit MainWindow(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = Qt::WindowFlags());
+
+  ~MainWindow() override;
 
 };
 
