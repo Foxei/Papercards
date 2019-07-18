@@ -48,17 +48,12 @@ QScrollArea
 	border: 0px solid white;
 }
 
-QWidget[accessibleName="storebar"]
-{
-    background-color: rgb(25,25,25);
-}
-
 QListView
 {
     border: 0px solid white;
 }
 
-CardView
+DualCardView .QFrame
 {
     border: 1px solid palette(base);
     background-color: palette(window-text);

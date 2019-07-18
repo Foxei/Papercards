@@ -9,13 +9,13 @@
 #include <QScrollArea>
 #include <QWheelEvent>
 
-#include "CardView.h"
+#include "DualCardView.h"
 
 class CardEditor : public QScrollArea {
  Q_OBJECT
  private:
 
-  CardView* card_view = Q_NULLPTR;
+  DualCardView* card_view = Q_NULLPTR;
 
   QPointF scale_factor_boundaries = QPointF(0.5, 2);
 

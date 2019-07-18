@@ -17,7 +17,7 @@ void CardEditor::setupGui() {
   auto* parent_widget = new QWidget(this);
   auto* parent_layout = new QHBoxLayout(parent_widget);
 
-  card_view = new CardView(this);
+  card_view = new DualCardView(this);
 
   parent_layout->addStretch();
   parent_layout->addWidget(card_view, Qt::AlignCenter);
@@ -51,19 +51,15 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
   double scale_factor = card_view->scaleFactor();
   double new_scale_factor = scale_factor + scrolled_factor;
 
-  if(new_scale_factor>scale_factor_boundaries.y()){
+  if(new_scale_factor>scale_factor_boundaries.y())
     new_scale_factor = scale_factor_boundaries.y();
-    scrolled_factor = 0;
-  }else if(new_scale_factor<scale_factor_boundaries.x()){
+  else if(new_scale_factor<scale_factor_boundaries.x())
     new_scale_factor = scale_factor_boundaries.x();
-    scrolled_factor = 0;
-  }
-
-  QPoint new_event_pos = event->pos()*(1+scrolled_factor);
 
   card_view->setScaleFactor(new_scale_factor);
 
-  ensureVisible(new_event_pos.x(), new_event_pos.y(), 100,100);
+  QPoint new_event_pos = event->pos()*new_scale_factor;
+  ensureVisible(new_event_pos.x(),new_event_pos.y(),0,0);
 
   event->accept();
 }
