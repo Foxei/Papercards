@@ -3,8 +3,8 @@
  * @date 12.07.2019
  * @file MainWindow.h
  */
-#ifndef PAPERCARDS_MAINWINDOW_H
-#define PAPERCARDS_MAINWINDOW_H
+#ifndef PAPERCARDS_MAIN_WINDOW_H
+#define PAPERCARDS_MAIN_WINDOW_H
 
 #include <QMainWindow>
 #include <QFrame>
@@ -29,4 +29,4 @@ class MainWindow : public QMainWindow {
 
 };
 
-#endif //PAPERCARDS_MAINWINDOW_H
+#endif //PAPERCARDS_MAIN_WINDOW_H

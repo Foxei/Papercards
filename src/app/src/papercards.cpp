@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
   std::unique_ptr<QApplication> application =
       std::make_unique<QApplication>(argc, argv);
 
-  application->setOrganizationName("Team Köln");
+  application->setOrganizationName("Team Koeln");
   application->setApplicationName("Papercards");
   application->setApplicationVersion(
       QString(
