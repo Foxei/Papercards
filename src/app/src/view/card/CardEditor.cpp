@@ -9,15 +9,19 @@
 #include <QHBoxLayout>
 #include <QScrollBar>
 
-#include <QDebug>
+#include <QSettings>
 
 void CardEditor::setupGui() {
+  QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
+  qreal scale_factor = settings.value("scale_factor", qreal(1.0)).toReal();
+
   setWidgetResizable(true);
 
   auto* parent_widget = new QWidget(this);
   auto* parent_layout = new QHBoxLayout(parent_widget);
 
   card_view = new DualCardView(this);
+  card_view->setScaleFactor(scale_factor);
 
   parent_layout->addStretch();
   parent_layout->addWidget(card_view, Qt::AlignCenter);
@@ -35,6 +39,11 @@ void CardEditor::setupConnections() {
 CardEditor::CardEditor(QWidget *parent) : QScrollArea(parent) {
   setupGui();
   setupConnections();
+}
+
+CardEditor::~CardEditor() {
+  QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
+  settings.setValue("scale_factor",card_view->scaleFactor());
 }
 
 void CardEditor::wheelEvent(QWheelEvent* event) {

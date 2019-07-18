@@ -27,6 +27,8 @@ class CardEditor : public QScrollArea {
 
   explicit CardEditor(QWidget *parent = Q_NULLPTR);
 
+  ~CardEditor() override;
+
   void wheelEvent(QWheelEvent* event) override;
 
 };
