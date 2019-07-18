@@ -7,6 +7,7 @@
 #include "DualCardView.h"
 
 #include <QVBoxLayout>
+#include <QPainter>
 
 void DualCardView::setupGui() {
   auto* layout = new QVBoxLayout(container_widget_cards);
@@ -35,7 +36,7 @@ void DualCardView::scaleCards(qreal scale_factor) {
   setFixedSize(base_size*m_scale_factor);
 }
 
-DualCardView::DualCardView(QWidget *parent, Qt::WindowFlags flags) : QFrame(parent,
+DualCardView::DualCardView(QWidget *parent, Qt::WindowFlags flags) : QWidget(parent,
                                                                      flags) {
   QSizeF page_size_inches = page_size.size(QPageSize::Unit::Inch);
   int pixel_width = static_cast<int>(page_size_inches.width()*screen_dpi.x());
@@ -60,5 +61,3 @@ void DualCardView::setScaleFactor(qreal scale_factor) {
 qreal DualCardView::scaleFactor() const {
   return m_scale_factor;
 }
-
-

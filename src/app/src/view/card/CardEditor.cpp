@@ -5,11 +5,14 @@
  */
 
 #include "CardEditor.h"
+#include "CardEditorBackground.h"
 
 #include <QHBoxLayout>
 #include <QScrollBar>
 
 #include <QSettings>
+#include <QPainter>
+#include <QBrush>
 
 void CardEditor::setupGui() {
   QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
@@ -17,7 +20,7 @@ void CardEditor::setupGui() {
 
   setWidgetResizable(true);
 
-  auto* parent_widget = new QWidget(this);
+  auto* parent_widget = new CardEditorBackground(this);
   auto* parent_layout = new QHBoxLayout(parent_widget);
 
   card_view = new DualCardView(this);
@@ -30,6 +33,7 @@ void CardEditor::setupGui() {
   parent_widget->setLayout(parent_layout);
 
   setWidget(parent_widget);
+  setAutoFillBackground(true);
 }
 
 void CardEditor::setupConnections() {
@@ -72,3 +76,4 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
 
   event->accept();
 }
+

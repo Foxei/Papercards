@@ -8,6 +8,7 @@
 
 #include <QScrollArea>
 #include <QWheelEvent>
+#include <QPaintEvent>
 
 #include "DualCardView.h"
 

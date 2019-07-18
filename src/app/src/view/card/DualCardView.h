@@ -14,7 +14,7 @@
 #include <QApplication>
 #include <QScreen>
 
-class DualCardView : public QFrame{
+class DualCardView : public QWidget{
   Q_OBJECT
   Q_PROPERTY(qreal scale_factor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
  private:
@@ -49,9 +49,11 @@ class DualCardView : public QFrame{
   void setScaleFactor(qreal scale_factor);
   qreal scaleFactor() const;
 
-  signals:
+ signals:
 
   void scaleFactorChanged(qreal);
+
+
 };
 
 #endif //PAPERCARDS_DUAL_CARD_VIEW_H
