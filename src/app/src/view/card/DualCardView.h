@@ -49,6 +49,9 @@ class DualCardView : public QWidget{
   void setScaleFactor(qreal scale_factor);
   qreal scaleFactor() const;
 
+  QPoint positionFrontCard() const;
+  QPoint positionBackCard() const;
+
  signals:
 
   void scaleFactorChanged(qreal);

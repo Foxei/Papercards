@@ -8,6 +8,7 @@
 
 #include <QVBoxLayout>
 #include <QPainter>
+#include <QToolTip>
 
 void DualCardView::setupGui() {
   auto* layout = new QVBoxLayout(container_widget_cards);
@@ -23,7 +24,7 @@ void DualCardView::setupGui() {
 
   card_view_front->setFixedSize(card_size*m_scale_factor);
   card_view_back->setFixedSize(card_size*m_scale_factor);
-  setFixedSize(base_size*m_scale_factor);
+  //setFixedSize(base_size*m_scale_factor);
 }
 
 void DualCardView::setupConnections() {
@@ -33,7 +34,7 @@ void DualCardView::setupConnections() {
 void DualCardView::scaleCards(qreal scale_factor) {
   card_view_front->setFixedSize(card_size*m_scale_factor);
   card_view_back->setFixedSize(card_size*m_scale_factor);
-  setFixedSize(base_size*m_scale_factor);
+  //setFixedSize(base_size*m_scale_factor);
 }
 
 DualCardView::DualCardView(QWidget *parent, Qt::WindowFlags flags) : QWidget(parent,
@@ -60,4 +61,12 @@ void DualCardView::setScaleFactor(qreal scale_factor) {
 
 qreal DualCardView::scaleFactor() const {
   return m_scale_factor;
+}
+
+QPoint DualCardView::positionBackCard() const {
+  return mapToParent(card_view_back->pos());
+}
+
+QPoint DualCardView::positionFrontCard() const {
+  return mapToParent(card_view_front->pos());
 }

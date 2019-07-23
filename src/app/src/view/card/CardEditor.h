@@ -11,11 +11,13 @@
 #include <QPaintEvent>
 
 #include "DualCardView.h"
+#include "CardEditorBackground.h"
 
 class CardEditor : public QScrollArea {
  Q_OBJECT
  private:
 
+  CardEditorBackground* card_view_background = Q_NULLPTR;
   DualCardView* card_view = Q_NULLPTR;
 
   QPointF scale_factor_boundaries = QPointF(0.5, 2);

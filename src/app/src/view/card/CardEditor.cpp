@@ -5,7 +5,6 @@
  */
 
 #include "CardEditor.h"
-#include "CardEditorBackground.h"
 
 #include <QHBoxLayout>
 #include <QScrollBar>
@@ -13,6 +12,7 @@
 #include <QSettings>
 #include <QPainter>
 #include <QBrush>
+#include <QDebug>
 
 void CardEditor::setupGui() {
   QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
@@ -20,20 +20,22 @@ void CardEditor::setupGui() {
 
   setWidgetResizable(true);
 
-  auto* parent_widget = new CardEditorBackground(this);
-  auto* parent_layout = new QHBoxLayout(parent_widget);
+  card_view_background = new CardEditorBackground(this);
+  auto* parent_layout = new QHBoxLayout(card_view_background);
 
   card_view = new DualCardView(this);
   card_view->setScaleFactor(scale_factor);
 
   parent_layout->addStretch();
-  parent_layout->addWidget(card_view, Qt::AlignCenter);
+  parent_layout->addWidget(card_view, 0, Qt::AlignCenter);
   parent_layout->addStretch();
   parent_layout->setMargin(0);
-  parent_widget->setLayout(parent_layout);
+  card_view_background->setLayout(parent_layout);
 
-  setWidget(parent_widget);
+  setWidget(card_view_background);
   setAutoFillBackground(true);
+
+  card_view_background->addText(QPoint(100,100),QString("Test"),50, Qt::AlignRight);
 }
 
 void CardEditor::setupConnections() {
@@ -74,6 +76,8 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
   QPoint new_event_pos = event->pos()*new_scale_factor;
   ensureVisible(new_event_pos.x(),new_event_pos.y(),0,0);
 
+  qInfo() << card_view->positionFrontCard();
+  card_view_background->moveText(QString("Test"),card_view->positionFrontCard()+QPoint(0,100));
+
   event->accept();
 }
-
