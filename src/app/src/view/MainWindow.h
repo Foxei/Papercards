@@ -11,6 +11,7 @@
 
 #include "card/CardEditor.h"
 #include "card/CardEditorToolbar.h"
+#include "base/StatusBar.h"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow {
 
   CardEditor* card_editor = Q_NULLPTR;
   CardEditorToolbar* card_editor_toolbar = Q_NULLPTR;
+  StatusBar* status_bar = Q_NULLPTR;
 
   void setupGui();
 

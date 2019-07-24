@@ -15,7 +15,6 @@
 void CardEditorToolbar::setupGui() {
   setMovable(false);
   setFloatable(false);
-  setBackgroundRole(QPalette::WindowText);
 
   auto* action_clipboard = addAction(QIcon(":clipboard.png"), QString("clipboard"));
 

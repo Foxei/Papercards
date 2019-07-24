@@ -17,9 +17,13 @@ void MainWindow::setupGui() {
 
   card_editor = new CardEditor(this);
   card_editor_toolbar = new CardEditorToolbar(this);
+  status_bar = new StatusBar(this);
 
   setCentralWidget(card_editor);
   addToolBar(Qt::ToolBarArea::TopToolBarArea, card_editor_toolbar);
+  setStatusBar(status_bar);
+
+  status_bar->showMessage(QString("Ready!"));
 }
 
 void MainWindow::setupConnections() {
