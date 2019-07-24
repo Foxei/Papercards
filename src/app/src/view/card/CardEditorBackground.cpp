@@ -45,7 +45,7 @@ CardEditorBackground::CardEditorBackground(QWidget *parent,
                                            Qt::WindowFlags flags) : QWidget(
     parent,
     flags) {
-
+  setObjectName(QString("card_editor_background"));
 }
 
 void CardEditorBackground::addText(QPoint position,

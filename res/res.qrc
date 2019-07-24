@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>document_orientation_landscape.png</file>
+        <file>font_bold.png</file>
+        <file>font_italic.png</file>
+        <file>font_underlined.png</file>
+        <file>font_color.png</file>
+        <file>highlighter.png</file>
+        <file>down_arrow.png</file>
+        <file>bullet.png</file>
+        <file>decrease_indentation.png</file>
+        <file>increase_indentation.png</file>
+        <file>clipboard.png</file>
+        <file>stylesheet.qss</file>
+        <file>WorkSans-Light.ttf</file>
+        <file>WorkSans-Regular.ttf</file>
+    </qresource>
+</RCC>

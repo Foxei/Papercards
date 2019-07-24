@@ -55,23 +55,23 @@ void setStyle(QApplication* application)
   qInfo("Do app style processing");
   QPalette darkPalette;
   darkPalette.setColor(QPalette::Window, Color::BACKGROUND);
-  darkPalette.setColor(QPalette::WindowText, Color::WHITE);
+  darkPalette.setColor(QPalette::WindowText, Color::BLACK);
   darkPalette.setColor(QPalette::Base, Color::BASE);
   darkPalette.setColor(QPalette::AlternateBase, Color::BACKGROUND);
   darkPalette.setColor(QPalette::ToolTipBase, Color::BASE);
-  darkPalette.setColor(QPalette::ToolTipText, Color::WHITE);
-  darkPalette.setColor(QPalette::Text, Color::WHITE);
+  darkPalette.setColor(QPalette::ToolTipText, Color::BLACK);
+  darkPalette.setColor(QPalette::Text, Color::BLACK);
   darkPalette.setColor(QPalette::Button, Color::BACKGROUND);
-  darkPalette.setColor(QPalette::ButtonText, Color::WHITE);
-  darkPalette.setColor(QPalette::BrightText, Color::BASE);
+  darkPalette.setColor(QPalette::ButtonText, Color::BLACK);
+  darkPalette.setColor(QPalette::BrightText, Color::WHITE);
   darkPalette.setColor(QPalette::Link, Color::CYAN);
 
   darkPalette.setColor(QPalette::Highlight, Color::BLUE);
-  darkPalette.setColor(QPalette::HighlightedText, Color::WHITE);
+  darkPalette.setColor(QPalette::HighlightedText, Color::BLACK);
 
   // Stylesheet
-  qInfo("Loading Stylesheet: %s", "res/stylesheet.qss");
-  QFile file_stylesheet("res/stylesheet.qss");
+  qInfo("Loading Stylesheet: %s", "stylesheet.qss");
+  QFile file_stylesheet(":stylesheet.qss");
   file_stylesheet.open(QFile::ReadOnly);
   QString stylesheet = QLatin1String(file_stylesheet.readAll());
 
@@ -81,11 +81,11 @@ void setStyle(QApplication* application)
   QApplication::setStyle(QStyleFactory::create("Fusion"));
   application->setStyleSheet(stylesheet);
 
-  qInfo("Setting font: %s", "res/WorkSans-Light.ttf");
-  QFileInfo file_font("res/WorkSans-Light.ttf");
+  qInfo("Setting font: %s", "WorkSans-Light.ttf");
+  QFileInfo file_font(":WorkSans-Light.ttf");
   QFontDatabase::addApplicationFont(file_font.absoluteFilePath());
 
-  QFileInfo file_icon("res/document_orientation_landscape.png");
+  QFileInfo file_icon(":document_orientation_landscape.png");
   QApplication::setWindowIcon(QIcon(file_icon.absoluteFilePath()));
 
   qInfo("Finished app style processing");

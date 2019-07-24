@@ -39,6 +39,8 @@ void DualCardView::scaleCards(qreal scale_factor) {
 
 DualCardView::DualCardView(QWidget *parent, Qt::WindowFlags flags) : QWidget(parent,
                                                                      flags) {
+  setObjectName(QString("dual_card_view"));
+
   QSizeF page_size_inches = page_size.size(QPageSize::Unit::Inch);
   int pixel_width = static_cast<int>(page_size_inches.width()*screen_dpi.x());
   int pixel_height = static_cast<int>(page_size_inches.height()*screen_dpi.y());

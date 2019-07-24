@@ -41,6 +41,8 @@ void CardEditor::setupConnections() {
 }
 
 CardEditor::CardEditor(QWidget *parent) : QScrollArea(parent) {
+  setObjectName(QString("card_editor"));
+
   setupGui();
   setupConnections();
 }
