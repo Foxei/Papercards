@@ -34,8 +34,6 @@ void CardEditor::setupGui() {
 
   setWidget(card_view_background);
   setAutoFillBackground(true);
-
-  card_view_background->addText(QPoint(100,100),QString("Test"),50, Qt::AlignRight);
 }
 
 void CardEditor::setupConnections() {
@@ -75,9 +73,6 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
 
   QPoint new_event_pos = event->pos()*new_scale_factor;
   ensureVisible(new_event_pos.x(),new_event_pos.y(),0,0);
-
-  qInfo() << card_view->positionFrontCard();
-  card_view_background->moveText(QString("Test"),card_view->positionFrontCard()+QPoint(0,100));
 
   event->accept();
 }

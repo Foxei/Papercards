@@ -15,9 +15,11 @@ void MainWindow::setupGui() {
 
   setMinimumSize(QSize(800,600));
 
-  container_card = new CardEditor(this);
+  card_editor = new CardEditor(this);
+  card_editor_toolbar = new CardEditorToolbar(this);
 
-  setCentralWidget(container_card);
+  setCentralWidget(card_editor);
+  addToolBar(Qt::ToolBarArea::TopToolBarArea, card_editor_toolbar);
 }
 
 void MainWindow::setupConnections() {

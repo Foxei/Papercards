@@ -9,13 +9,15 @@
 #include <QMainWindow>
 #include <QFrame>
 
-#include "src/view/card/CardEditor.h"
+#include "card/CardEditor.h"
+#include "card/CardEditorToolbar.h"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
  private:
 
-  CardEditor* container_card = Q_NULLPTR;
+  CardEditor* card_editor = Q_NULLPTR;
+  CardEditorToolbar* card_editor_toolbar = Q_NULLPTR;
 
   void setupGui();
 

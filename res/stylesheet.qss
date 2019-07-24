@@ -3,54 +3,26 @@
 	font-size: 14pt;
 	font-family: Work Sans;
 }
-QLabel[accessibleName="headline"]
-{
-    font-size: 24pt;
-    font-weight: 110;
-}
-
-QLabel[accessibleName="description"]
-{
-    font-size: 12pt;
-}
-
-QLabel[accessibleName="statusbar"]
-{
-    font-size: 13pt;
-}
-
-
-QPushButton:hover:pressed[accessibleName="button.flat"]
-{
-    border: 0px solid black;
-	background-color: transparent;
-}
 
 QToolTip
 {
 	border: 1px solid white;
 }
 
-QWidget[accessibleName="popup.base"]
+QComboBox
 {
-    background-color: rgba(25,25,25,10%);
-
+    font-size: 12pt;
+    combobox-popup: 0;
 }
 
-QLabel[accessibleName="title"]
+QComboBox QAbstractItemView
 {
-    font-size: 11pt;
-    font-weight: bold;
 }
 
-QScrollArea
+QComboBox QAbstractItemView::item
 {
-	border: 0px solid white;
-}
-
-QListView
-{
-    border: 0px solid white;
+    font-size: 12pt;
+    min-height: 35px;
 }
 
 DualCardView .QFrame
