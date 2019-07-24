@@ -7,6 +7,7 @@
 #include "MainWindow.h"
 
 #include <QSettings>
+#include <QDateTime>
 
 void MainWindow::setupGui() {
   QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Window");
@@ -23,16 +24,24 @@ void MainWindow::setupGui() {
   addToolBar(Qt::ToolBarArea::TopToolBarArea, card_editor_toolbar);
   setStatusBar(status_bar);
 
-  status_bar->showMessage(QString("Ready!"));
+  QDateTime current_time = QDateTime::currentDateTime();
+  QString current_time_string = current_time.toString(Qt::DateFormat::LocalDate);
+
+  status_bar->showMessage(QString("Application started on: "+current_time_string));
 }
 
 void MainWindow::setupConnections() {
-
+  connect(card_editor, &CardEditor::scaleFactorChanged, status_bar, &StatusBar::setScaleFactor);
+  connect(status_bar, &StatusBar::scaleFactorChanged, card_editor, &CardEditor::setScaleFactor);
 }
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags) {
   this->setupGui();
   this->setupConnections();
+
+  QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
+  qreal scale_factor = settings.value("scale_factor", qreal(1.0)).toReal();
+  card_editor->setScaleFactor(scale_factor);
 }
 
 MainWindow::~MainWindow() {

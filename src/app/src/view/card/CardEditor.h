@@ -34,6 +34,10 @@ class CardEditor : public QScrollArea {
 
   void wheelEvent(QWheelEvent* event) override;
 
+ signals:
+  void setScaleFactor(qreal);
+  void scaleFactorChanged(qreal);
+
 };
 
 #endif //PAPERCARDS_CARD_EDITOR_H

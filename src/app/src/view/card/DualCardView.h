@@ -46,11 +46,14 @@ class DualCardView : public QWidget{
 
   explicit DualCardView(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = Qt::WindowFlags());
 
-  void setScaleFactor(qreal scale_factor);
   qreal scaleFactor() const;
 
   QPoint positionFrontCard() const;
   QPoint positionBackCard() const;
+
+  public slots:
+
+  void setScaleFactor(qreal scale_factor);
 
  signals:
 

@@ -114,3 +114,16 @@ QStatusBar
 {
     border-top: 1px solid palette(base);
 }
+
+QSlider::groove:horizontal {
+    height: 2px;
+    background: palette(base);
+}
+
+QSlider::handle:horizontal {
+    background: palette(base);
+    border: 1px solid palette(window);
+    width: 8px;
+    margin: -10px 0px -10px 0px;
+    border-radius: 0px;
+}

@@ -15,8 +15,7 @@
 #include <QDebug>
 
 void CardEditor::setupGui() {
-  QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Papercards", "Editor");
-  qreal scale_factor = settings.value("scale_factor", qreal(1.0)).toReal();
+
 
   setWidgetResizable(true);
 
@@ -24,7 +23,6 @@ void CardEditor::setupGui() {
   auto* parent_layout = new QHBoxLayout(card_view_background);
 
   card_view = new DualCardView(this);
-  card_view->setScaleFactor(scale_factor);
 
   parent_layout->addStretch();
   parent_layout->addWidget(card_view, 0, Qt::AlignCenter);
@@ -37,7 +35,8 @@ void CardEditor::setupGui() {
 }
 
 void CardEditor::setupConnections() {
-
+  connect(this, &CardEditor::setScaleFactor, card_view, &DualCardView::setScaleFactor);
+  connect(card_view, &DualCardView::scaleFactorChanged, this, &CardEditor::scaleFactorChanged);
 }
 
 CardEditor::CardEditor(QWidget *parent) : QScrollArea(parent) {
@@ -61,8 +60,8 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
   if(event->modifiers() & Qt::ShiftModifier)
     return;
 
-  double scroll_degrees = event->angleDelta().y() / 8.0;
-  double scrolled_factor = scroll_degrees / 360.0;
+  double scroll_direction= event->angleDelta().y() / abs(event->angleDelta().y());
+  double scrolled_factor = scroll_direction*0.1;
   double scale_factor = card_view->scaleFactor();
   double new_scale_factor = scale_factor + scrolled_factor;
 
