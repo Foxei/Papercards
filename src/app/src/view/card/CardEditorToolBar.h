@@ -9,7 +9,7 @@
 
 #include <QToolBar>
 
-class CardEditorToolbar : public QToolBar{
+class CardEditorToolBar : public QToolBar{
  private:
 
   void setupGui();
@@ -17,7 +17,7 @@ class CardEditorToolbar : public QToolBar{
   void setupConnections();
 
  public:
-  explicit CardEditorToolbar(QWidget *parent = Q_NULLPTR);
+  explicit CardEditorToolBar(QWidget *parent = Q_NULLPTR);
 };
 
 #endif //PAPERCARDS_CARD_EDITOR_TOOLBAR_H

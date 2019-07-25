@@ -4,7 +4,7 @@
  * @file CardEditorToolbar.h
  */
 
-#include "CardEditorToolbar.h"
+#include "CardEditorToolBar.h"
 
 #include <QComboBox>
 #include <QFontDatabase>
@@ -12,7 +12,7 @@
 #include <QStyledItemDelegate>
 #include <QStringList>
 
-void CardEditorToolbar::setupGui() {
+void CardEditorToolBar::setupGui() {
   setMovable(false);
   setFloatable(false);
 
@@ -69,11 +69,11 @@ void CardEditorToolbar::setupGui() {
   auto* action_increase = addAction(QIcon(":increase_indentation.png"), QString("increase"));
 }
 
-void CardEditorToolbar::setupConnections() {
+void CardEditorToolBar::setupConnections() {
 
 }
 
-CardEditorToolbar::CardEditorToolbar(QWidget *parent) : QToolBar(parent) {
+CardEditorToolBar::CardEditorToolBar(QWidget *parent) : QToolBar(parent) {
   setObjectName(QString("card_editor_toolbar"));
 
   setupGui();
