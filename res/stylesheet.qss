@@ -50,7 +50,7 @@ QComboBox:editable {
 }
 
 
-DualCardView .QFrame
+CardView
 {
     border: 1px solid palette(base);
     background-color: palette(bright-text);
