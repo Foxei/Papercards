@@ -18,20 +18,15 @@
 
 class DualCardView : public QWidget {
  Q_OBJECT
-  Q_PROPERTY(qreal scale_factor
-                 READ
-                 scaleFactor
-                 WRITE
-                 setScaleFactor
-                 NOTIFY
-                 scaleFactorChanged)
+ Q_PROPERTY(qreal scale_factor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+
  private:
 
   QPointF screen_dpi_ =
       QPointF(QApplication::primaryScreen()->logicalDotsPerInchX(),
               QApplication::primaryScreen()->logicalDotsPerInchY());
   QPageSize page_size_ = QPageSize(QPageSize::definitionSize(QPageSize::A6),
-                                  QPageSize::Unit::Millimeter);
+                                   QPageSize::Unit::Millimeter);
   QPageLayout::Orientation
       page_orientation_ = QPageLayout::Orientation::Landscape;
 
@@ -71,6 +66,7 @@ class DualCardView : public QWidget {
  signals:
 
   void scaleFactorChanged(qreal);
+
 
 };
 

@@ -3,8 +3,8 @@
  * @date 24.07.2019
  * @file StatusBar.h
  */
-#ifndef PAPERCARDS_STATUSBAR_H
-#define PAPERCARDS_STATUSBAR_H
+#ifndef PAPER_CARDS_STATUS_BAR_H
+#define PAPER_CARDS_STATUS_BAR_H
 
 #include <QStatusBar>
 #include <QSlider>
@@ -38,4 +38,4 @@ class StatusBar : public QStatusBar {
   void scaleFactorChanged(qreal scale_factor);
 };
 
-#endif //PAPERCARDS_STATUSBAR_H
+#endif //PAPER_CARDS_STATUS_BAR_H

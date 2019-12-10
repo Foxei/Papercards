@@ -40,6 +40,7 @@ void MainWindow::setupConnections() {
           &StatusBar::scaleFactorChanged,
           card_editor,
           &CardEditor::setScaleFactor);
+  connect(application_, &QApplication::focusChanged, this, &MainWindow::handleFocusChanged);
 }
 
 void MainWindow::restoreWindowStates() {
@@ -55,15 +56,31 @@ void MainWindow::storeWindowState() {
   settings.setValue("geometry", saveGeometry());
   settings.setValue("window_state", saveState());
 }
+#include <QDebug>
+void MainWindow::handleFocusChanged(QWidget *old_widget, QWidget *new_widget) {
+  assert(card_editor_toolbar != Q_NULLPTR);
+  assert(card_editor != Q_NULLPTR);
+  assert(status_bar != Q_NULLPTR);
+  if(!new_widget) return;
+
+  QString object_name = new_widget->objectName();
+  if (object_name.startsWith("card-content")) {
+    auto *object = dynamic_cast<ScalableTextEdit *>(new_widget);
+    this->card_editor_toolbar->updateFont(object->baseFont());
+  } else if (object_name.startsWith("card-title")) {
+    auto *object = dynamic_cast<ScalableLineEdit *>(new_widget);
+    this->card_editor_toolbar->updateFont(object->baseFont());
+  }
+}
 
 void MainWindow::closeEvent(QCloseEvent *event) {
   storeWindowState();
   QMainWindow::closeEvent(event);
 }
 
-MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(
+MainWindow::MainWindow(QApplication *application, QWidget *parent, Qt::WindowFlags flags) : QMainWindow(
     parent,
-    flags) {
+    flags), application_(application) {
   this->setupGui();
   this->setupConnections();
 

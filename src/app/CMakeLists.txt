@@ -6,5 +6,11 @@ add_executable(Papercards ${QT_RES}
     src/view/card/CardEditorBackground.cpp
     src/view/card/CardEditorToolBar.cpp
     src/view/base/StatusBar.cpp
+    src/view/base/ScalableVBoxLayout.cpp
+    src/view/base/ScalableLineEdit.cpp
+    src/view/base/ScalableTextEdit.cpp
     src/view/card/CardView.cpp)
+
+target_include_directories(Papercards PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 qt5_use_modules(Papercards Widgets)

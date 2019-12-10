@@ -36,6 +36,8 @@ class MainWindow : public QMainWindow {
    */
   StatusBar *status_bar = Q_NULLPTR;
 
+  QApplication *application_ = Q_NULLPTR;
+
   /**
    * @brief Setup all window elements and there behavior that don't include
    * interaction with other widgets.
@@ -56,6 +58,10 @@ class MainWindow : public QMainWindow {
    */
   void storeWindowState();
 
+ private slots:
+
+  void handleFocusChanged(QWidget *old_widget, QWidget *new_widget);
+
  protected:
 
   /**
@@ -73,7 +79,7 @@ class MainWindow : public QMainWindow {
    * @param parent Parent of this window.
    * @param flags Flags for this window.
    */
-  explicit MainWindow(QWidget *parent = Q_NULLPTR,
+  explicit MainWindow(QApplication *application, QWidget *parent = Q_NULLPTR,
                       Qt::WindowFlags flags = Qt::WindowFlags());
 
 };

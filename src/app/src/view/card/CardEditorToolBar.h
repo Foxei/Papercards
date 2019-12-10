@@ -4,13 +4,21 @@
  * @file CardEditorToolbar.h
  */
 
-#ifndef PAPERCARDS_CARD_EDITOR_TOOLBAR_H
-#define PAPERCARDS_CARD_EDITOR_TOOLBAR_H
+#ifndef PAPER_CARDS_CARD_EDITOR_TOOLBAR_H
+#define PAPER_CARDS_CARD_EDITOR_TOOLBAR_H
 
 #include <QToolBar>
+#include <QComboBox>
 
-class CardEditorToolBar : public QToolBar{
+class CardEditorToolBar : public QToolBar {
  private:
+
+  QComboBox *font_family_combobox_ = Q_NULLPTR;
+  QComboBox *font_size_combobox_ = Q_NULLPTR;
+
+  QAction* action_bold_ = Q_NULLPTR;
+  QAction* action_italic_ = Q_NULLPTR;
+  QAction* action_underlined_ = Q_NULLPTR;
 
   void setupGui();
 
@@ -18,6 +26,10 @@ class CardEditorToolBar : public QToolBar{
 
  public:
   explicit CardEditorToolBar(QWidget *parent = Q_NULLPTR);
+
+ public slots:
+
+  void updateFont(const QFont& font);
 };
 
-#endif //PAPERCARDS_CARD_EDITOR_TOOLBAR_H
+#endif //PAPER_CARDS_CARD_EDITOR_TOOLBAR_H

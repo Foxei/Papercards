@@ -3,8 +3,8 @@
  * @date 18.07.2019
  * @file CardEditor.h
  */
-#ifndef PAPERCARDS_CARD_EDITOR_H
-#define PAPERCARDS_CARD_EDITOR_H
+#ifndef PAPER_CARDS_CARD_EDITOR_H
+#define PAPER_CARDS_CARD_EDITOR_H
 
 #include <QScrollArea>
 #include <QWheelEvent>
@@ -15,12 +15,16 @@
 
 class CardEditor : public QScrollArea {
  Q_OBJECT
+  Q_PROPERTY(qreal scale_factor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+
  private:
 
-  CardEditorBackground* card_view_background = Q_NULLPTR;
-  DualCardView* card_view = Q_NULLPTR;
+  const QPointF scale_factor_boundaries = QPointF(1.0, 2);
 
-  QPointF scale_factor_boundaries = QPointF(0.5, 2);
+  qreal scale_factor_ = 1.0;
+
+  CardEditorBackground *card_view_background = Q_NULLPTR;
+  DualCardView *card_view = Q_NULLPTR;
 
   void setupGui();
 
@@ -32,12 +36,18 @@ class CardEditor : public QScrollArea {
 
   ~CardEditor() override;
 
-  void wheelEvent(QWheelEvent* event) override;
+  void wheelEvent(QWheelEvent *event) override;
+
+  qreal scaleFactor() const;
+
+ public slots:
+
+  void setScaleFactor(qreal scale_factor);
 
  signals:
-  void setScaleFactor(qreal);
+
   void scaleFactorChanged(qreal);
 
 };
 
-#endif //PAPERCARDS_CARD_EDITOR_H
+#endif //PAPER_CARDS_CARD_EDITOR_H

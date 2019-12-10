@@ -29,6 +29,8 @@ void DualCardView::setupGui() {
 
 void DualCardView::setupConnections() {
   connect(this, &DualCardView::scaleFactorChanged, this, &DualCardView::scaleCards);
+  connect(this, &DualCardView::scaleFactorChanged, card_view_front_, &CardView::scaleCards);
+  connect(this, &DualCardView::scaleFactorChanged, card_view_back_, &CardView::scaleCards);
 }
 
 void DualCardView::scaleCards(qreal scale_factor) {

@@ -91,6 +91,7 @@ void setStyle(QApplication* application)
   qInfo("Finished app style processing");
   qInfo("");
 }
+#include <QTimer>
 
 int main(int argc, char* argv[]) {
   qInfo("Executing %s, version %i.%i.%i",
@@ -115,7 +116,7 @@ int main(int argc, char* argv[]) {
   loadConfigFiles();
 
   std::unique_ptr<MainWindow> main_window =
-      std::make_unique<MainWindow>();
+      std::make_unique<MainWindow>(application.get());
   main_window->show();
 
   int return_value = application->exec();

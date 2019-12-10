@@ -35,8 +35,7 @@ void CardEditor::setupGui() {
 }
 
 void CardEditor::setupConnections() {
-  connect(this, &CardEditor::setScaleFactor, card_view, &DualCardView::setScaleFactor);
-  connect(card_view, &DualCardView::scaleFactorChanged, this, &CardEditor::scaleFactorChanged);
+  connect(this, &CardEditor::scaleFactorChanged, card_view, &DualCardView::setScaleFactor);
 }
 
 CardEditor::CardEditor(QWidget *parent) : QScrollArea(parent) {
@@ -60,20 +59,32 @@ void CardEditor::wheelEvent(QWheelEvent* event) {
   if(event->modifiers() & Qt::ShiftModifier)
     return;
 
-  double scroll_direction= event->angleDelta().y() / abs(event->angleDelta().y());
+  double scroll_direction = 1.0;
+  if(event->angleDelta().y() < 0){
+    scroll_direction = -1.0;
+  }
   double scrolled_factor = scroll_direction*0.1;
-  double scale_factor = card_view->scaleFactor();
-  double new_scale_factor = scale_factor + scrolled_factor;
+  double new_scale_factor = scale_factor_ + scrolled_factor;
 
   if(new_scale_factor>scale_factor_boundaries.y())
     new_scale_factor = scale_factor_boundaries.y();
   else if(new_scale_factor<scale_factor_boundaries.x())
     new_scale_factor = scale_factor_boundaries.x();
 
-  card_view->setScaleFactor(new_scale_factor);
+
+  setScaleFactor(new_scale_factor);
 
   QPoint new_event_pos = event->pos()*new_scale_factor;
   ensureVisible(new_event_pos.x(),new_event_pos.y(),0,0);
 
   event->accept();
+}
+
+void CardEditor::setScaleFactor(qreal scale_factor) {
+  scale_factor_ = scale_factor;
+  emit scaleFactorChanged(scale_factor);
+}
+
+qreal CardEditor::scaleFactor() const {
+  return scale_factor_;
 }

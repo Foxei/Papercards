@@ -20,41 +20,41 @@ void CardEditorToolBar::setupGui() {
 
   addSeparator();
 
-  auto* dummy = new QComboBox(this);
+  font_family_combobox_ = new QComboBox(this);
   QFontDatabase font_database;
-  dummy->addItems(font_database.families());
-  dummy->setMaxVisibleItems(5);
-  dummy->setEditable(true);
-  dummy->setItemDelegate(new QStyledItemDelegate());
+  font_family_combobox_->addItems(font_database.families());
+  font_family_combobox_->setMaxVisibleItems(5);
+  font_family_combobox_->setEditable(true);
+  font_family_combobox_->setItemDelegate(new QStyledItemDelegate());
 
-  addWidget(dummy);
+  addWidget(font_family_combobox_);
 
-  auto* dummy1 = new QComboBox(this);
-  dummy1->setMaxVisibleItems(5);
-  dummy1->setEditable(true);
-  dummy1->setItemDelegate(new QStyledItemDelegate());
+  font_size_combobox_ = new QComboBox(this);
+  font_size_combobox_->setMaxVisibleItems(5);
+  font_size_combobox_->setEditable(true);
+  font_size_combobox_->setItemDelegate(new QStyledItemDelegate());
 
-  QStringList dummy1_list;
+  QStringList default_font_sizes_list;
   for(int number: QFontDatabase::standardSizes()) {
-    dummy1_list << QString::number(number);
+    default_font_sizes_list << QString::number(number);
   }
-  dummy1->addItems(dummy1_list);
+  font_size_combobox_->addItems(default_font_sizes_list);
 
   QValidator* validator1 = new QIntValidator;
   auto* int_validator1 = qobject_cast<QIntValidator*>(validator1);
   int_validator1->setBottom(1);
-  dummy1->setValidator(validator1);
+  font_size_combobox_->setValidator(validator1);
 
-  addWidget(dummy1);
+  addWidget(font_size_combobox_);
 
   addSeparator();
 
-  auto* action_bold = addAction(QIcon(":font_bold.png"), QString("bold"));
-  action_bold->setCheckable(true);
-  auto* action_italic = addAction(QIcon(":font_italic.png"), QString("italic"));
-  action_italic->setCheckable(true);
-  auto* action_underlined = addAction(QIcon(":font_underlined.png"), QString("underlined"));
-  action_underlined->setCheckable(true);
+  action_bold_ = addAction(QIcon(":font_bold.png"), QString("bold"));
+  action_bold_->setCheckable(true);
+  action_italic_ = addAction(QIcon(":font_italic.png"), QString("italic"));
+  action_italic_->setCheckable(true);
+  action_underlined_ = addAction(QIcon(":font_underlined.png"), QString("underlined"));
+  action_underlined_->setCheckable(true);
 
   addSeparator();
 
@@ -78,4 +78,12 @@ CardEditorToolBar::CardEditorToolBar(QWidget *parent) : QToolBar(parent) {
 
   setupGui();
   setupConnections();
+}
+
+void CardEditorToolBar::updateFont(const QFont& font) {
+  font_family_combobox_->setCurrentText(font.family());
+  font_size_combobox_->setCurrentText(QString::number(font.pointSize()));
+  action_bold_->setChecked(font.bold());
+  action_italic_->setChecked(font.italic());
+  action_underlined_->setChecked(font.underline());
 }
