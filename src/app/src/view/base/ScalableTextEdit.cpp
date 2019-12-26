@@ -4,39 +4,48 @@
 #include <QDebug>
 #include <QMargins>
 
-void ScalableTextEdit::scale(qreal scale_factor) {
-  this->scale_factor_ = scale_factor;
-  zoomIn();
-  setBaseFont(base_font_);
-  setContentsMargins(base_margin_);
-}
-
 ScalableTextEdit::ScalableTextEdit(QWidget *parent) : QTextEdit(parent) {
-  base_font_ = font();
-  base_margin_ = contentsMargins();
+  // Copy base values from current values.
+  this->base_font_ = font();
+  this->base_margins_ = contentsMargins();
+
+  // Set fix document margins to
   document()->setDocumentMargin(2);
   setAutoFormatting(AutoFormattingFlag::AutoAll);
 }
 
+void ScalableTextEdit::wheelEvent(QWheelEvent *event) {
+  // Cancel the wheels event to prevent the scroll pane from working.
+}
+
 void ScalableTextEdit::setBaseFont(const QFont &font) {
+  const double CORRECTION_FACTOR = 1.15;
+
   this->base_font_ = font;
-  QFont new_font = base_font_;
-  new_font.setPointSizeF(new_font.pointSizeF() * scale_factor_ * 1.15);
-  QTextEdit::setFont(new_font);
+  QFont scaled_font = this->base_font_;
+  scaled_font.setPointSizeF(scaled_font.pointSizeF() * this->scale_factor_ * CORRECTION_FACTOR);
+  QTextEdit::setFont(scaled_font);
+
+  emit baseFontChanged(this->base_font_);
 }
 
-void ScalableTextEdit::setContentsMargins(int left, int top, int right, int bottom) {
-  base_margin_ = QMargins(left, top, right, bottom);
-  QTextEdit::setContentsMargins(static_cast<int>(left * scale_factor_),
-                            static_cast<int>(top * scale_factor_),
-                            static_cast<int>(right * scale_factor_),
-                            static_cast<int>(bottom * scale_factor_));
+void ScalableTextEdit::setScaleFactor(qreal scale_factor) {
+  this->scale_factor_ = scale_factor;
+  setBaseFont(this->base_font_);
+  setBaseMargins(this->base_margins_);
+
+  emit scaleFactorChanged(this->scale_factor_);
 }
 
-void ScalableTextEdit::setContentsMargins(const QMargins &margins) {
-  setContentsMargins(margins.left(),margins.top(),margins.right(),margins.bottom());
+void ScalableTextEdit::setBaseMargins(const QMargins &margins) {
+  this->base_margins_ = margins;
+  QTextEdit::setContentsMargins(margins * this->scale_factor_);
+
+  emit baseMarginsChanged(this->base_margins_);
 }
 
-QFont ScalableTextEdit::baseFont() {
-  return base_font_;
-}
+QFont ScalableTextEdit::baseFont() { return this->base_font_; }
+
+qreal ScalableTextEdit::scaleFactor() { return this->scale_factor_; }
+
+QMargins ScalableTextEdit::baseMargins() { return this->base_margins_; }

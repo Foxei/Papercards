@@ -30,12 +30,12 @@ void MainWindow::setupGui() {
 }
 
 void MainWindow::setupConnections() {
-  // Pass through the scale by scroll wheel events
+  // Pass through the setScaleFactor by scroll wheel events
   connect(card_editor,
           &CardEditor::scaleFactorChanged,
           status_bar,
           &StatusBar::setScaleFactor);
-  // Pass through the scale by slider events
+  // Pass through the setScaleFactor by slider events
   connect(status_bar,
           &StatusBar::scaleFactorChanged,
           card_editor,

@@ -10,7 +10,7 @@ void CardView::scaleCards(qreal scale_factor) {
   this->scale_factor_ = scale_factor;
   this->content_layout_->scale(scale_factor_);
   this->title_text_edit_->scale(scale_factor_);
-  this->content_text_edit_->scale(scale_factor_);
+  this->content_text_edit_->setScaleFactor(scale_factor_);
 }
 
 void CardView::setupGui() {

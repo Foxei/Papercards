@@ -21,6 +21,7 @@ QComboBox
     border: 1px solid palette(base);
     border-radius: 0;
     padding: 3px;
+    background: palette(window);
 }
 QComboBox:drop-down {
     subcontrol-origin: padding;

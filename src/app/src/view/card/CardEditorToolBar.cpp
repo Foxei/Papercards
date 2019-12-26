@@ -24,7 +24,7 @@ void CardEditorToolBar::setupGui() {
   QFontDatabase font_database;
   font_family_combobox_->addItems(font_database.families());
   font_family_combobox_->setMaxVisibleItems(5);
-  font_family_combobox_->setEditable(true);
+  font_family_combobox_->setEditable(false);
   font_family_combobox_->setItemDelegate(new QStyledItemDelegate());
 
   addWidget(font_family_combobox_);
@@ -70,7 +70,13 @@ void CardEditorToolBar::setupGui() {
 }
 
 void CardEditorToolBar::setupConnections() {
+  connect(font_family_combobox_, &QComboBox::currentTextChanged, this, &CardEditorToolBar::handleFontFamilyChanged);
+}
 
+void CardEditorToolBar::handleFontFamilyChanged(const QString &font_family_name) {
+  if(font_family_name == current_card_font_.family()) return;
+  this->selected_font_.setFamily(font_family_name);
+  emit selectedFontChanged(this->selected_font_);
 }
 
 CardEditorToolBar::CardEditorToolBar(QWidget *parent) : QToolBar(parent) {
@@ -80,6 +86,10 @@ CardEditorToolBar::CardEditorToolBar(QWidget *parent) : QToolBar(parent) {
   setupConnections();
 }
 
+QFont CardEditorToolBar::selectedFont() {
+  return this->selected_font_;
+}
+
 void CardEditorToolBar::updateFont(const QFont& font) {
   font_family_combobox_->setCurrentText(font.family());
   font_size_combobox_->setCurrentText(QString::number(font.pointSize()));
@@ -87,3 +97,4 @@ void CardEditorToolBar::updateFont(const QFont& font) {
   action_italic_->setChecked(font.italic());
   action_underlined_->setChecked(font.underline());
 }
+
