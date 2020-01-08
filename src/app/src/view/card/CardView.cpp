@@ -13,6 +13,30 @@ void CardView::scaleCards(qreal scale_factor) {
   this->content_text_edit_->setScaleFactor(scale_factor_);
 }
 
+void CardView::showCard(Card* card){
+  qInfo("Received signal to show card in editor.");
+  if(!card) return;
+
+  Field* title_field = card->getField("title", this->site_);
+  if(title_field){
+    this->title_text_edit_->setVisible(true);
+    this->title_text_edit_->setBaseFont(title_field->font());
+    this->title_text_edit_->setText(title_field->text());
+  }
+  else this->title_text_edit_->setVisible(false);
+
+  Field* content_field = card->getField("content", this->site_);
+  if(content_field){
+    this->content_text_edit_->setVisible(true);
+    this->content_text_edit_->setBaseFont(content_field->font());
+    this->content_text_edit_->setText(content_field->text());
+  }
+  else this->content_text_edit_->setVisible(false);
+
+  this->title_text_edit_->setFocus();
+}
+
+
 void CardView::setupGui() {
   content_layout_ = new ScalableVBoxLayout(this);
 
@@ -32,7 +56,8 @@ void CardView::setupGui() {
 void CardView::setupConnections() {
 }
 
-CardView::CardView(QWidget *parent) : QFrame(parent) {
+CardView::CardView(Card::Site site, QWidget *parent) : QFrame(parent) {
+  this->site_ = site;
   setupGui();
   setupConnections();
 }

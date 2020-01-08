@@ -13,8 +13,8 @@
 void DualCardView::setupGui() {
   auto* layout = new QVBoxLayout(container_widget_cards_);
 
-  card_view_front_ = new CardView(container_widget_cards_);
-  card_view_back_ = new CardView(container_widget_cards_);
+  card_view_front_ = new CardView(Card::Site::FRONT, container_widget_cards_);
+  card_view_back_ = new CardView(Card::Site::BACK, container_widget_cards_);
 
   layout->addWidget(card_view_front_);
   layout->addWidget(card_view_back_);
@@ -31,6 +31,8 @@ void DualCardView::setupConnections() {
   connect(this, &DualCardView::scaleFactorChanged, this, &DualCardView::scaleCards);
   connect(this, &DualCardView::scaleFactorChanged, card_view_front_, &CardView::scaleCards);
   connect(this, &DualCardView::scaleFactorChanged, card_view_back_, &CardView::scaleCards);
+  connect(this, &DualCardView::showCard, card_view_back_, &CardView::showCard);
+  connect(this, &DualCardView::showCard, card_view_front_, &CardView::showCard);
 }
 
 void DualCardView::scaleCards(qreal scale_factor) {

@@ -13,6 +13,8 @@
 #include "src/view/card/CardEditorToolBar.h"
 #include "base/StatusBar.h"
 
+#include "model/Model.h"
+
 /**
  * @brief The main window for the papercards application
  * @details The main window will have a edit/view area in the center of the
@@ -81,6 +83,10 @@ class MainWindow : public QMainWindow {
    */
   explicit MainWindow(QApplication *application, QWidget *parent = Q_NULLPTR,
                       Qt::WindowFlags flags = Qt::WindowFlags());
+
+  signals:
+
+  void showCardInEditor(Card* card);
 
 };
 

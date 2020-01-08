@@ -67,6 +67,7 @@ class DualCardView : public QWidget {
 
   void scaleFactorChanged(qreal);
 
+  void showCard(Card* card);
 
 };
 

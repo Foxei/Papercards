@@ -28,6 +28,8 @@ add_library(boost INTERFACE IMPORTED)
 set_property(TARGET boost PROPERTY
     INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR})
 
-set(QT_RES ${CMAKE_CURRENT_SOURCE_DIR}/res/res.qrc)
+set(QT_RES
+    ${CMAKE_CURRENT_SOURCE_DIR}/res/res.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/config/config.qrc)
 # Targets that we develop here
 add_subdirectory(src)

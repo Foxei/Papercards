@@ -5,6 +5,7 @@
  */
 
 #include "MainWindow.h"
+#include "View.h"
 
 #include <QSettings>
 #include <QDateTime>
@@ -40,7 +41,15 @@ void MainWindow::setupConnections() {
           &StatusBar::scaleFactorChanged,
           card_editor,
           &CardEditor::setScaleFactor);
-  connect(application_, &QApplication::focusChanged, this, &MainWindow::handleFocusChanged);
+  connect(application_,
+          &QApplication::focusChanged,
+          this,
+          &MainWindow::handleFocusChanged);
+
+  connect(View::instance(),
+      &View::showCardInEditor,
+      card_editor,
+      &CardEditor::showCard);
 }
 
 void MainWindow::restoreWindowStates() {
@@ -61,7 +70,7 @@ void MainWindow::handleFocusChanged(QWidget *old_widget, QWidget *new_widget) {
   assert(card_editor_toolbar != Q_NULLPTR);
   assert(card_editor != Q_NULLPTR);
   assert(status_bar != Q_NULLPTR);
-  if(!new_widget) return;
+  if (!new_widget) return;
 
   QString object_name = new_widget->objectName();
   if (object_name.startsWith("card-content")) {

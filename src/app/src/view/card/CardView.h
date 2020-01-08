@@ -5,6 +5,8 @@
 #include "view/base/ScalableLineEdit.h"
 #include "view/base/ScalableTextEdit.h"
 
+#include "model/Model.h"
+
 #include <QFrame>
 #include <QPageSize>
 #include <QLineEdit>
@@ -25,9 +27,13 @@ class CardView : public QFrame {
   ScalableLineEdit *title_text_edit_ = nullptr;
   ScalableTextEdit *content_text_edit_ = nullptr;
 
+  Card::Site site_;
+
  public slots:
 
   void scaleCards(qreal scale_factor);
+
+  void showCard(Card* card);
 
  private:
 
@@ -37,7 +43,7 @@ class CardView : public QFrame {
 
  public:
 
-  explicit CardView(QWidget *parent = Q_NULLPTR);
+  explicit CardView(Card::Site site, QWidget *parent = Q_NULLPTR);
 };
 
 #endif //PAPER_CARDS_CARD_VIEW_H

@@ -1,0 +1,39 @@
+{
+  "front" : {
+    "style": "title_only",
+    "fields": [
+      {
+        "name": "title",
+        "type": "line",
+        "text": "This is testing title",
+        "font": {
+          "family": "Arial",
+          "size": 16
+        }
+      }
+    ]
+  },
+  "back" : {
+    "style": "title_content",
+    "fields": [
+      {
+        "name": "title",
+        "type": "line",
+        "text": "This is testing title",
+        "font": {
+          "family": "Arial",
+          "size": 16
+        }
+      },
+      {
+        "name": "content",
+        "type": "block",
+        "text": "This is a testing content.",
+        "font": {
+          "family": "Arial",
+          "size": 12
+        }
+      }
+    ]
+  }
+}

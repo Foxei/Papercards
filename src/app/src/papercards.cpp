@@ -10,48 +10,63 @@
 
 #include <QApplication>
 #include <QMessageLogger>
-#include <QSettings>
 #include <QFile>
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QStyleFactory>
+#include <QJsonDocument>
 
 #include <memory>
 
 #include "view/MainWindow.h"
 #include "view/ColorDefinitions.h"
+#include "model/Model.h"
+#include "controller/Controller.h"
+#include "view/View.h"
+
+Q_DECLARE_METATYPE(Card*)
+Q_DECLARE_METATYPE(Field*)
 
 /**
  * @brief Initiates background management.
  *
  */
-void initiateDataManager(){}
+void initiateDataManager(QApplication *application) {
+  Model::instance()->init();
+  View::instance()->init();
+  Controller::instance()->init();
+}
 
 /**
  * @brief Load config files.
  *
  */
-void loadConfigFiles(){}
+void loadConfigFiles() {
+  Model::instance()->loadConfig();
+}
 
 /**
  * @brief Store config files.
  *
  */
-void storeConfigFiles(){
-
+void storeConfigFiles() {
+  Model::instance()->storeConfig();
 }
 
 /**
  * @brief Frees background management.
  */
-void freeDataManager(){}
+void freeDataManager() {
+  Controller::instance()->free();
+  View::instance()->free();
+  Model::instance()->free();
+}
 
 /**
  * @brief Setting style to dark theme and cross platform fonts
  * @param application Application were the style will be changed
  */
-void setStyle(QApplication* application)
-{
+void setStyle(QApplication *application) {
   qInfo("Do app style processing");
   QPalette darkPalette;
   darkPalette.setColor(QPalette::Window, Color::BACKGROUND);
@@ -76,7 +91,7 @@ void setStyle(QApplication* application)
   QString stylesheet = QLatin1String(file_stylesheet.readAll());
 
   // Setup Fusion style
-  qInfo("Loading Style: %s" , "Fusion");
+  qInfo("Loading Style: %s", "Fusion");
   QApplication::setPalette(darkPalette);
   QApplication::setStyle(QStyleFactory::create("Fusion"));
   application->setStyleSheet(stylesheet);
@@ -93,31 +108,30 @@ void setStyle(QApplication* application)
 }
 #include <QTimer>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   qInfo("Executing %s, version %i.%i.%i",
-      APPLICATION_NAME, MAJOR_VERSION, MINOR_VERSION, REVISION);
-  std::unique_ptr<QApplication> application =
-      std::make_unique<QApplication>(argc, argv);
+        APPLICATION_NAME, MAJOR_VERSION, MINOR_VERSION, REVISION);
+  std::unique_ptr<QApplication> application = std::make_unique<QApplication>(argc, argv);
 
   application->setOrganizationName("Team Koeln");
   application->setApplicationName("Papercards");
   application->setApplicationVersion(
       QString(
-          QString::number(MAJOR_VERSION)+"."+
-          QString::number(MINOR_VERSION)+"."+
-          QString::number(REVISION)
-          ));
+          QString::number(MAJOR_VERSION) + "." +
+              QString::number(MINOR_VERSION) + "." +
+              QString::number(REVISION)
+      ));
 
   setStyle(application.get());
 
   qInfo("Initiating background management");
-  initiateDataManager();
+  initiateDataManager(application.get());
   qInfo("Load config file");
   loadConfigFiles();
 
-  std::unique_ptr<MainWindow> main_window =
-      std::make_unique<MainWindow>(application.get());
-  main_window->show();
+  std::shared_ptr<MainWindow> main_window = std::make_shared<MainWindow>(application.get());
+
+  View::instance()->showMainWindow(main_window);
 
   int return_value = application->exec();
 

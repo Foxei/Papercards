@@ -12,6 +12,7 @@
 #include <QAction>
 
 class CardEditorToolBar : public QToolBar {
+  Q_OBJECT
   Q_PROPERTY(QFont selected_font_ READ selectedFont NOTIFY selectedFontChanged)
 
  private:

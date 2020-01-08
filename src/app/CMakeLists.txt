@@ -9,7 +9,13 @@ add_executable(Papercards ${QT_RES}
     src/view/base/ScalableVBoxLayout.cpp
     src/view/base/ScalableLineEdit.cpp
     src/view/base/ScalableTextEdit.cpp
-    src/view/card/CardView.cpp)
+    src/view/card/CardView.cpp
+    src/view/View.cpp
+    src/controller/Controller.cpp
+    src/model/utility/JsonParser.cpp
+    src/model/Model.cpp
+    src/model/Card.cpp
+    src/model/Field.cpp)
 
 target_include_directories(Papercards PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
