@@ -4,6 +4,7 @@
 #include "view/base/ScalableVBoxLayout.h"
 #include "view/base/ScalableLineEdit.h"
 #include "view/base/ScalableTextEdit.h"
+#include "view/base/ScalableMediaEdit.h"
 
 #include "model/Model.h"
 
@@ -14,26 +15,36 @@
 #include <QPageLayout>
 
 class CardView : public QFrame {
- Q_OBJECT
- private:
-  QPageSize page_size_ = QPageSize(QPageSize::definitionSize(QPageSize::A6),
-                                   QPageSize::Unit::Millimeter);
-  QPageLayout::Orientation
-      page_orientation_ = QPageLayout::Orientation::Landscape;
+  //@formatter:off
+  Q_OBJECT
+  Q_PROPERTY(qreal scale_factor_ READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+  //@formatter:on
 
-  qreal scale_factor_ = 1.0;
+ private:
+  QSize base_content_size;
+
+  qreal scale_factor_ = 1.0; ///< Scale factor of the font and margins.
 
   ScalableVBoxLayout *content_layout_ = nullptr;
   ScalableLineEdit *title_text_edit_ = nullptr;
   ScalableTextEdit *content_text_edit_ = nullptr;
+  ScalableMediaEdit *media_edit_ = nullptr;
 
   Card::Site site_;
 
+  Card *current_card = nullptr;
+
  public slots:
 
-  void scaleCards(qreal scale_factor);
+  /**
+   * @brief Setter for the scale factor. This will scale the widget.
+   * @details This will only scale the font and margins not the size of the widget.
+   * @see scale_factor_
+   * @param scale_factor New scale factor.
+   */
+  void setScaleFactor(qreal scale_factor);
 
-  void showCard(Card* card);
+  void showCard(Card *card);
 
  private:
 
@@ -44,6 +55,26 @@ class CardView : public QFrame {
  public:
 
   explicit CardView(Card::Site site, QWidget *parent = Q_NULLPTR);
+
+  void dragEnterEvent(QDragEnterEvent *event) override;
+
+  void dropEvent(QDropEvent *event) override;
+
+  /**
+   * @brief Getter for the scale factor.
+   * @see scale_factor_
+   * @return Current scale factor.
+   */
+  qreal scaleFactor();
+
+ signals:
+
+  /**
+   * @brief Emit if the scale factor changed.
+   * @see scale_factor_
+   */
+  void scaleFactorChanged(qreal);
+
 };
 
 #endif //PAPER_CARDS_CARD_VIEW_H

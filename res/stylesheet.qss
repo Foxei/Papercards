@@ -148,3 +148,12 @@ QTextEdit
     background: palette(window);
     margin: 0px;
 }
+QLabel#card-media
+{
+    font-size: 12pt;
+    border: 1px solid palette(base);
+    border-radius: 0;
+    padding: 0px;
+    background: palette(window);
+    margin: 0px;
+}

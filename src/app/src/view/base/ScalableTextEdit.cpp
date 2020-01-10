@@ -3,6 +3,11 @@
 #include <QLayout>
 #include <QDebug>
 #include <QMargins>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QFile>
+#include <QImage>
+#include <QImageReader>
 
 ScalableTextEdit::ScalableTextEdit(QWidget *parent) : QTextEdit(parent) {
   // Copy base values from current values.
@@ -12,6 +17,7 @@ ScalableTextEdit::ScalableTextEdit(QWidget *parent) : QTextEdit(parent) {
   // Set fix document margins to
   document()->setDocumentMargin(2);
   setAutoFormatting(AutoFormattingFlag::AutoAll);
+  setAcceptDrops(false);
 }
 
 void ScalableTextEdit::wheelEvent(QWheelEvent *event) {
@@ -49,3 +55,4 @@ QFont ScalableTextEdit::baseFont() { return this->base_font_; }
 qreal ScalableTextEdit::scaleFactor() { return this->scale_factor_; }
 
 QMargins ScalableTextEdit::baseMargins() { return this->base_margins_; }
+

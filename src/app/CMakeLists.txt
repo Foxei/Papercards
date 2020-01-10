@@ -9,6 +9,7 @@ add_executable(Papercards ${QT_RES}
     src/view/base/ScalableVBoxLayout.cpp
     src/view/base/ScalableLineEdit.cpp
     src/view/base/ScalableTextEdit.cpp
+    src/view/base/ScalableMediaEdit.cpp
     src/view/card/CardView.cpp
     src/view/View.cpp
     src/controller/Controller.cpp

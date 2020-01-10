@@ -37,7 +37,7 @@ void CardEditor::setupGui() {
 void CardEditor::setupConnections() {
   connect(this, &CardEditor::scaleFactorChanged, card_view, &DualCardView::setScaleFactor);
 
-  connect(this, &CardEditor::showCard, card_view, &DualCardView::showCard);
+  connect(this, &CardEditor::showCard, card_view, &DualCardView::setCurrentCard);
 }
 
 CardEditor::CardEditor(QWidget *parent) : QScrollArea(parent) {

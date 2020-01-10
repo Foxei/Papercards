@@ -5,7 +5,7 @@
 #include "model/Card.h"
 
 class Model : QObject {
-  Q_OBJECT
+ Q_OBJECT
 
  private:
 
@@ -13,11 +13,13 @@ class Model : QObject {
 
   Model() = default;
 
-  bool loadDefaultCard(const QString& file_name);
+  bool loadDefaultCard(const QString &file_name);
+
+  bool storeCard(const QString &file_name);
 
  public:
 
-  static Model* instance(){
+  static Model *instance() {
     static Model model;
     return &model;
   }

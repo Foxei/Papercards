@@ -17,23 +17,25 @@
 #include "CardView.h"
 
 class DualCardView : public QWidget {
- Q_OBJECT
- Q_PROPERTY(qreal scale_factor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+  //@formatter:off
+  Q_OBJECT
+  Q_PROPERTY(qreal scale_factor_ READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+  Q_PROPERTY(Card* current_card READ currentCard WRITE setCurrentCard NOTIFY currentCardChanged)
+  //@formatter:on
 
  private:
+  qreal scale_factor_ = 1.0; ///< Scale factor for this view
+  Card *current_card = nullptr; ///< Pointer to card that us displayed in the moment
+
 
   QPointF screen_dpi_ =
       QPointF(QApplication::primaryScreen()->logicalDotsPerInchX(),
               QApplication::primaryScreen()->logicalDotsPerInchY());
-  QPageSize page_size_ = QPageSize(QPageSize::definitionSize(QPageSize::A6),
-                                   QPageSize::Unit::Millimeter);
-  QPageLayout::Orientation
-      page_orientation_ = QPageLayout::Orientation::Landscape;
+  QPageSize page_size_ = QPageSize(QPageSize::PageSizeId::A6);
 
   QSize card_size_ = QSize(0, 0);
   int page_gap_ = 10;
 
-  qreal scale_factor_ = 1.0;
 
   QWidget *container_widget_cards_ = Q_NULLPTR;
 
@@ -48,26 +50,27 @@ class DualCardView : public QWidget {
 
   void scaleCards(qreal scale_factor);
 
+  void updateSizes(Card *card);
+
  public:
 
-  explicit DualCardView(QWidget *parent = Q_NULLPTR,
-                        Qt::WindowFlags flags = Qt::WindowFlags());
+  explicit DualCardView(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = Qt::WindowFlags());
 
   qreal scaleFactor() const;
 
-  QPoint positionFrontCard() const;
-
-  QPoint positionBackCard() const;
+  Card *currentCard() const;
 
  public slots:
 
   void setScaleFactor(qreal scale_factor);
 
+  void setCurrentCard(Card *card);
+
  signals:
 
   void scaleFactorChanged(qreal);
 
-  void showCard(Card* card);
+  void currentCardChanged(Card *);
 
 };
 
