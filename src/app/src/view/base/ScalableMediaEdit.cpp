@@ -10,7 +10,7 @@ ScalableMediaEdit::ScalableMediaEdit(QWidget *parent) : QLabel(parent) {
   this->base_margins_ = contentsMargins();
 }
 
-void ScalableMediaEdit::setBaseSize(const QSize &size) {
+void ScalableMediaEdit::setBaseSize(const QSizeF &size) {
   this->base_size_ = size;
   emit baseSizeChanged(this->base_size_);
 }
@@ -47,12 +47,12 @@ void ScalableMediaEdit::setBaseImage(const QImage &image) {
   this->base_image_ = image;
   if (!base_image_.isNull())
     setPixmap(QPixmap::fromImage(this->base_image_).scaled(
-        this->base_size_ * this->scale_factor_, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        this->base_size_.toSize() * this->scale_factor_, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
   emit baseImageChanged(this->base_image_);
 }
 
-QSize ScalableMediaEdit::baseSize() { return this->base_size_; }
+QSizeF ScalableMediaEdit::baseSize() { return this->base_size_; }
 
 QFont ScalableMediaEdit::baseFont() { return this->base_font_; }
 

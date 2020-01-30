@@ -20,22 +20,17 @@ class DualCardView : public QWidget {
   //@formatter:off
   Q_OBJECT
   Q_PROPERTY(qreal scale_factor_ READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
-  Q_PROPERTY(Card* current_card READ currentCard WRITE setCurrentCard NOTIFY currentCardChanged)
   //@formatter:on
 
  private:
   qreal scale_factor_ = 1.0; ///< Scale factor for this view
-  Card *current_card = nullptr; ///< Pointer to card that us displayed in the moment
-
 
   QPointF screen_dpi_ =
       QPointF(QApplication::primaryScreen()->logicalDotsPerInchX(),
               QApplication::primaryScreen()->logicalDotsPerInchY());
-  QPageSize page_size_ = QPageSize(QPageSize::PageSizeId::A6);
 
   QSize card_size_ = QSize(0, 0);
   int page_gap_ = 10;
-
 
   QWidget *container_widget_cards_ = Q_NULLPTR;
 
@@ -50,27 +45,41 @@ class DualCardView : public QWidget {
 
   void scaleCards(qreal scale_factor);
 
-  void updateSizes(Card *card);
-
  public:
 
   explicit DualCardView(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = Qt::WindowFlags());
 
   qreal scaleFactor() const;
 
-  Card *currentCard() const;
-
  public slots:
 
   void setScaleFactor(qreal scale_factor);
 
-  void setCurrentCard(Card *card);
+  void updateCardElement(bool front, const QString &field_name, const QVariant &field_content);
+
+  void updateCardElementFont(bool front, const QString &field_name, const QFont &field_content);
+
+  void showCardElement(bool front, const QString &field_name, bool visible);
+
+  void updateCardSize(QSizeF card_size, QPageLayout::Orientation card_orientation);
 
  signals:
 
   void scaleFactorChanged(qreal);
 
-  void currentCardChanged(Card *);
+  void updateFrontCardElement(QString field_name, QVariant field_content);
+
+  void updateFrontCardElementFont(QString field_name, QFont field_font);
+
+  void showFrontCardElement(QString field_name, bool visible);
+
+  void updateBackCardElement(QString field_name, QVariant field_content);
+
+  void updateBackCardElementFont(QString field_name, QFont field_font);
+
+  void showBackCardElement(QString field_name, bool visible);
+
+  void cardElementUpdated(bool front, const QString &field_name, const QVariant &field_content);
 
 };
 

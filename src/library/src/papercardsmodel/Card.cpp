@@ -1,4 +1,4 @@
-#include "Card.h"
+#include "papercardsmodel/Card.h"
 
 #include <QJsonArray>
 
@@ -177,6 +177,14 @@ Field *Card::getField(const QString &name, Site site) {
   return nullptr;
 }
 
+QVector<QString> Card::getFieldNames(Card::Site site) {
+  QVector<QString> buffer;
+  for (Field *field:card_fields_[site]) {
+    buffer.push_back(field->name());
+  }
+  return buffer;
+}
+
 QPageLayout::Orientation Card::orientation() {
   return this->card_orientation_;
 }
@@ -226,3 +234,4 @@ QString Card::toString() {
   message += "\n}";
   return message;
 }
+

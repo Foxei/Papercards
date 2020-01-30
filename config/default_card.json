@@ -16,7 +16,7 @@
     ]
   },
   "back" : {
-    "style": "title_media",
+    "style": "title_content",
     "fields": [
       {
         "name": "title",
@@ -30,7 +30,7 @@
       {
         "name": "content",
         "type": "block",
-        "text": "This is a testing content.",
+        "text": "This is a test start.\n-  This is a test numbering\n\nThis is a test end.\n",
         "font": {
           "family": "Arial",
           "size": 12

@@ -1,8 +1,9 @@
-#ifndef PAPER_CARDS_MODEL_CONTROLLER_H
-#define PAPER_CARDS_MODEL_CONTROLLER_H
+#ifndef PAPER_CARDS_MODEL_H
+#define PAPER_CARDS_MODEL_H
 
 #include <QObject>
-#include "model/Card.h"
+
+#include "Card.h"
 
 class Model : QObject {
  Q_OBJECT
@@ -36,4 +37,4 @@ class Model : QObject {
 
 };
 
-#endif //PAPER_CARDS_MODEL_CONTROLLER_H
+#endif //PAPER_CARDS_MODEL_H

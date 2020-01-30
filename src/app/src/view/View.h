@@ -3,12 +3,11 @@
 
 #include <QObject>
 #include <QApplication>
+#include <QPointer>
 
 #include <memory>
 
 #include "view/MainWindow.h"
-
-#include "model/Card.h"
 
 class View : public QObject {
  Q_OBJECT
@@ -17,23 +16,35 @@ class View : public QObject {
 
   std::weak_ptr<MainWindow> main_window_weak_;
 
+  QPointer<CardEditor> card_editor = Q_NULLPTR;
+  QPointer<DualCardView> dual_card_view = Q_NULLPTR;
+
   View() = default;
 
  public:
-  static View* instance(){
+  static View *instance() {
     static View view;
     return &view;
   }
 
   void init();
 
-  void showMainWindow(const std::shared_ptr<MainWindow>& main_window);
+  void showMainWindow(const std::shared_ptr<MainWindow> &main_window);
 
   void free();
 
  signals:
 
-  void showCardInEditor(Card* card);
+  void showCardElement(bool front, const QString &field_name, bool visible);
+
+  void updateCardElement(bool front, const QString &field_name, const QVariant &field_content);
+
+  void updateCardElementFont(bool front, const QString &field_name, const QFont &field_font);
+
+  void updateCardSize(QSizeF card_size, QPageLayout::Orientation card_orientation);
+
+  void cardElementUpdated(bool front, const QString &field_name, const QVariant &field_content);
+
 };
 
 #endif //PAPER_CARDS_VIEW_H

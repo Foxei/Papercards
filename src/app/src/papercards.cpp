@@ -17,10 +17,11 @@
 #include <QJsonDocument>
 
 #include <memory>
+#include "../../library/src/papercardsmodel/Model.h"
+
+#include "view/ColorDefinitions.h"
 
 #include "view/MainWindow.h"
-#include "view/ColorDefinitions.h"
-#include "model/Model.h"
 #include "controller/Controller.h"
 #include "view/View.h"
 
@@ -132,7 +133,7 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<MainWindow> main_window = std::make_shared<MainWindow>(application.get());
 
   View::instance()->showMainWindow(main_window);
-
+  Controller::instance()->showCard(Model::instance()->defaultCard().lock().get());
   int return_value = application->exec();
 
   qInfo("Store config file");

@@ -12,12 +12,9 @@ add_executable(Papercards ${QT_RES}
     src/view/base/ScalableMediaEdit.cpp
     src/view/card/CardView.cpp
     src/view/View.cpp
-    src/controller/Controller.cpp
-    src/model/utility/JsonParser.cpp
-    src/model/Model.cpp
-    src/model/Card.cpp
-    src/model/Field.cpp)
+    src/controller/Controller.cpp)
 
 target_include_directories(Papercards PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-qt5_use_modules(Papercards Widgets)
+target_link_libraries(Papercards papercardsmodel)
+qt5_use_modules(Papercards Core Gui Widgets)

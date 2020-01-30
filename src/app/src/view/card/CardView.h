@@ -6,8 +6,6 @@
 #include "view/base/ScalableTextEdit.h"
 #include "view/base/ScalableMediaEdit.h"
 
-#include "model/Model.h"
-
 #include <QFrame>
 #include <QPageSize>
 #include <QLineEdit>
@@ -21,7 +19,7 @@ class CardView : public QFrame {
   //@formatter:on
 
  private:
-  QSize base_content_size;
+  QSizeF base_content_size;
 
   qreal scale_factor_ = 1.0; ///< Scale factor of the font and margins.
 
@@ -30,21 +28,7 @@ class CardView : public QFrame {
   ScalableTextEdit *content_text_edit_ = nullptr;
   ScalableMediaEdit *media_edit_ = nullptr;
 
-  Card::Site site_;
-
-  Card *current_card = nullptr;
-
- public slots:
-
-  /**
-   * @brief Setter for the scale factor. This will scale the widget.
-   * @details This will only scale the font and margins not the size of the widget.
-   * @see scale_factor_
-   * @param scale_factor New scale factor.
-   */
-  void setScaleFactor(qreal scale_factor);
-
-  void showCard(Card *card);
+  bool font_site_;
 
  private:
 
@@ -54,7 +38,7 @@ class CardView : public QFrame {
 
  public:
 
-  explicit CardView(Card::Site site, QWidget *parent = Q_NULLPTR);
+  explicit CardView(bool front_site, QWidget *parent = Q_NULLPTR);
 
   void dragEnterEvent(QDragEnterEvent *event) override;
 
@@ -67,6 +51,29 @@ class CardView : public QFrame {
    */
   qreal scaleFactor();
 
+ private slots:
+  void titleEdited();
+
+  void contentEdited();
+
+ public slots:
+
+  /**
+   * @brief Setter for the scale factor. This will scale the widget.
+   * @details This will only scale the font and margins not the size of the widget.
+   * @see scale_factor_
+   * @param scale_factor New scale factor.
+   */
+  void setScaleFactor(qreal scale_factor);
+
+  void updateBaseContentSize();
+
+  void updateCardElement(const QString &field_name, const QVariant &field_content);
+
+  void updateCardElementFont(const QString &field_name, const QFont &field_font);
+
+  void showCardElement(const QString &field_name, bool visible);
+
  signals:
 
   /**
@@ -74,6 +81,8 @@ class CardView : public QFrame {
    * @see scale_factor_
    */
   void scaleFactorChanged(qreal);
+
+  void cardElementUpdated(const QString &field_name, const QVariant &field_content);
 
 };
 

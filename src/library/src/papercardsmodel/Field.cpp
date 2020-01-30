@@ -1,5 +1,5 @@
-#include "Field.h"
-#include "src/model/utility/JsonParser.h"
+#include "papercardsmodel/Field.h"
+#include "utility/JsonParser.h"
 
 #include <QStringBuilder>
 #include <QJsonValue>

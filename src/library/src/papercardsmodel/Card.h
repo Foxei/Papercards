@@ -8,7 +8,7 @@
 #include <QPageSize>
 #include <QJsonObject>
 
-#include "model/Field.h"
+#include "Field.h"
 
 /**
  * @brief Represents a card including all it fields.oth sides are a number of fields.
@@ -113,6 +113,8 @@ class Card : public QObject {
    * @return Field pointer or, nullptr if not found.
    */
   Field *getField(const QString &name, Site site);
+
+  QVector<QString> getFieldNames(Site site);
 
   /**
    * @brief Getter for the card orientation.

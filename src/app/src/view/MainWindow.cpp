@@ -32,24 +32,17 @@ void MainWindow::setupGui() {
 
 void MainWindow::setupConnections() {
   // Pass through the setScaleFactor by scroll wheel events
-  connect(card_editor,
-          &CardEditor::scaleFactorChanged,
-          status_bar,
-          &StatusBar::setScaleFactor);
+  connect(card_editor, &CardEditor::scaleFactorChanged, status_bar, &StatusBar::setScaleFactor);
   // Pass through the setScaleFactor by slider events
-  connect(status_bar,
-          &StatusBar::scaleFactorChanged,
-          card_editor,
-          &CardEditor::setScaleFactor);
-  connect(application_,
-          &QApplication::focusChanged,
-          this,
-          &MainWindow::handleFocusChanged);
+  connect(status_bar, &StatusBar::scaleFactorChanged, card_editor, &CardEditor::setScaleFactor);
+  connect(application_, &QApplication::focusChanged, this, &MainWindow::handleFocusChanged);
 
-  connect(View::instance(),
-      &View::showCardInEditor,
-      card_editor,
-      &CardEditor::showCard);
+  connect(View::instance(), &View::updateCardElement, card_editor, &CardEditor::updateCardElement);
+  connect(View::instance(), &View::updateCardElementFont, card_editor, &CardEditor::updateCardElementFont);
+  connect(View::instance(), &View::showCardElement, card_editor, &CardEditor::showCardElement);
+  connect(View::instance(), &View::updateCardSize, card_editor, &CardEditor::updateCardSize);
+
+  connect(card_editor, &CardEditor::cardElementUpdated, View::instance(), &View::cardElementUpdated);
 }
 
 void MainWindow::restoreWindowStates() {

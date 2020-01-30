@@ -17,7 +17,7 @@
 class ScalableMediaEdit : public QLabel {
   // @formatter:off
   Q_OBJECT
-  Q_PROPERTY(QSize base_size_ READ baseSize WRITE setBaseSize NOTIFY baseSizeChanged)
+  Q_PROPERTY(QSizeF base_size_ READ baseSize WRITE setBaseSize NOTIFY baseSizeChanged)
   Q_PROPERTY(QFont base_font_ READ baseFont WRITE setBaseFont NOTIFY baseFontChanged)
   Q_PROPERTY(qreal scale_factor_ READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
   Q_PROPERTY(QMargins base_margins READ baseMargins WRITE setBaseMargins NOTIFY baseMarginsChanged)
@@ -25,7 +25,7 @@ class ScalableMediaEdit : public QLabel {
   // @formatter:on
 
  private:
-  QSize base_size_; ///< Size that is used as a base for scaling.
+  QSizeF base_size_; ///< Size that is used as a base for scaling.
   QFont base_font_; ///< Font that is used as a base for scaling.
   qreal scale_factor_ = 1.0; ///< Scale factor of the font and margins.
   QMargins base_margins_; ///< Margins that are used as a base for scaling.
@@ -38,7 +38,7 @@ class ScalableMediaEdit : public QLabel {
    * @see base_size_
    * @param font New base size.
    */
-  void setBaseSize(const QSize &size);
+  void setBaseSize(const QSizeF &size);
 
   /**
    * @brief Setter for the font used as a base for scaling.
@@ -89,7 +89,7 @@ class ScalableMediaEdit : public QLabel {
    * @see base_size_
    * @return Current base size.
    */
-  QSize baseSize();
+  QSizeF baseSize();
 
   /**
    * @brief Getter for the base font.
@@ -124,7 +124,7 @@ class ScalableMediaEdit : public QLabel {
    * @brief Emit of the base size changes.
    * @see base_size_
    */
-  void baseSizeChanged(QSize);
+  void baseSizeChanged(QSizeF);
 
   /**
  * @brief Emit of the base font changes.

@@ -13,8 +13,6 @@
 #include "DualCardView.h"
 #include "CardEditorBackground.h"
 
-#include "model/Model.h"
-
 class CardEditor : public QScrollArea {
  Q_OBJECT
   Q_PROPERTY(qreal scale_factor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
@@ -48,9 +46,17 @@ class CardEditor : public QScrollArea {
 
  signals:
 
-  void showCard(Card* card);
+  void updateCardElement(bool front, QString field_name, QVariant field_content);
+
+  void updateCardElementFont(bool front, QString field_name, QFont field_font);
+
+  void showCardElement(bool front, QString field_name, bool visible);
+
+  void updateCardSize(QSizeF card_size, QPageLayout::Orientation card_orientation);
 
   void scaleFactorChanged(qreal);
+
+  void cardElementUpdated(bool front, const QString &field_name, const QVariant &field_content);
 
 };
 
