@@ -1,12 +1,14 @@
+/**
+ * @file Field.h
+ * @author Simon Schäfer
+ * @date 31.01.20
+ */
+
 #ifndef PAPER_CARDS_FIELD_H
 #define PAPER_CARDS_FIELD_H
 
-#include <QObject>
-#include <QString>
 #include <QFont>
 #include <QImage>
-#include <QJsonObject>
-#include <QDebug>
 
 /**
  * @brief A field represent a block of text with some properties.

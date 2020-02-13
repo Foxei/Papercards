@@ -1,7 +1,8 @@
 #include "Controller.h"
 
 #include "view/View.h"
-#include "../../../library/src/papercardsmodel/Model.h"
+
+#include <papercardsmodel/Model.h>
 
 void Controller::init() {
 

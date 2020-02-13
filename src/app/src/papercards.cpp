@@ -17,7 +17,7 @@
 #include <QJsonDocument>
 
 #include <memory>
-#include "../../library/src/papercardsmodel/Model.h"
+#include "../../library/include/papercardsmodel/Model.h"
 
 #include "view/ColorDefinitions.h"
 

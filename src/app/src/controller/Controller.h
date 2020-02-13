@@ -1,9 +1,9 @@
 #ifndef PAPER_CARDS_CONTROLLER_H
 #define PAPER_CARDS_CONTROLLER_H
 
-#include <QObject>
+#include <QVariant>
 
-#include "../../../library/src/papercardsmodel/Card.h"
+#include <papercardsmodel/Card.h>
 
 class Controller : public QObject {
  Q_OBJECT

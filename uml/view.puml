@@ -1,0 +1,23 @@
+@startuml
+class View{
+  .. Variables ..
+  -main_window_weak_ : std::weak_ptr<MainWindow> ;
+  -card_editor : QPointer<CardEditor>;
+  -dual_card_view : QPointer<DualCardView>;
+
+  .. Methods ..
+  -View();
+  +{static} View *instance();
+  +void init();
+  +void showMainWindow(const std::shared_ptr<MainWindow> &main_window);
+  +void free();
+
+  .. Slots ..
+  +void clearView();
+  +void showCardElement(bool front, QString field_name, bool visible);
+  +void updateCardElement(bool front, QString field_name, QVariant field_content);
+
+  .. Signals ..
+  +void showCardInEditor(Card *card);
+}
+@enduml

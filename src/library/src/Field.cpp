@@ -1,8 +1,9 @@
-#include "papercardsmodel/Field.h"
+#include "include/papercardsmodel/Field.h"
 #include "utility/JsonParser.h"
 
 #include <QStringBuilder>
-#include <QJsonValue>
+#include <QJsonObject>
+#include <QString>
 
 QString Field::name() {
   return this->name_;

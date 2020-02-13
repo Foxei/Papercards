@@ -2,17 +2,21 @@
 project(libpapercardsmodel VERSION 0.1 LANGUAGES CXX)
 
 add_library(papercardsmodel SHARED
-    src/papercardsmodel/Model.cpp
-    src/papercardsmodel/Card.cpp
-    src/papercardsmodel/Field.cpp
-    src/papercardsmodel/utility/JsonParser.cpp)
+    src/Model.cpp
+    src/Card.cpp
+    src/Field.cpp
+    src/utility/JsonParser.cpp
+    include/papercardsmodel/Card.h
+    include/papercardsmodel/Model.h
+    include/papercardsmodel/Field.h)
 
 # Define headers for this library. PUBLIC headers are used for
 # compiling the library, and will be added to consumers' build
 # paths.
 target_include_directories(papercardsmodel PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-    $<INSTALL_INTERFACE:include>)
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+    PRIVATE src)
 
 # Depend on a library that we defined in the top-level file
 qt5_use_modules(papercardsmodel Core)

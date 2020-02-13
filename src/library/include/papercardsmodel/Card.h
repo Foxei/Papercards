@@ -1,42 +1,33 @@
+/**
+ * @file Card.h
+ * @author Simon Schäfer
+ * @date 31.01.20
+ */
+
 #ifndef PAPER_CARDS_CARD_H
 #define PAPER_CARDS_CARD_H
 
-#include <QObject>
-#include <QVector>
-#include <QJsonObject>
 #include <QPageLayout>
-#include <QPageSize>
-#include <QJsonObject>
-
 #include "Field.h"
 
 /**
- * @brief Represents a card including all it fields.oth sides are a number of fields.
- * @details A card has two sides and on b
+ * @brief Represents a card including all it fields  insides are a number of fields.
+ * @details A card contains of two sides, a front and back. Typically the front contains the question and the back
+ * the answer.
  */
 class Card : public QObject {
-  //@formatter::on
- Q_OBJECT
-  Q_PROPERTY(QPageLayout::Orientation card_orientation_
-                 READ
-                     orientation
-                 WRITE
-                     setOrientation
-                 NOTIFY
-                 orientationChanged)
-  Q_PROPERTY(QPageSize card_size_
-                 READ
-                     size
-                 WRITE
-                     setSize
-                 NOTIFY
-                 sizeChanged)
-  //@formatter:off
+  // @formatter:off
+  Q_OBJECT
+  Q_PROPERTY(QPageLayout::Orientation card_orientation_ READ orientation WRITE setOrientation NOTIFY orientationChanged)
+  Q_PROPERTY(QPageSize card_size_ READ size WRITE setSize NOTIFY sizeChanged)
+  // @formatter:on
  public:
 
   /**
    * @berief Enum so separate both sides.
-   * @details A card has two sides: front and back.
+   * @details A card has two sides, front and back.
+   * @enum FRONT Front card site
+   * @enum BACK Back card site
    */
   enum Site {
     FRONT = 0,
@@ -113,8 +104,6 @@ class Card : public QObject {
    * @return Field pointer or, nullptr if not found.
    */
   Field *getField(const QString &name, Site site);
-
-  QVector<QString> getFieldNames(Site site);
 
   /**
    * @brief Getter for the card orientation.

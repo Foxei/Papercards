@@ -1,9 +1,10 @@
-#include "Model.h"
+#include "include/papercardsmodel/Model.h"
 
 #include <memory>
 
 #include <QString>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QFile>
 
 bool Model::loadDefaultCard(const QString &file_name) {

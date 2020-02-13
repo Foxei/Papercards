@@ -1,6 +1,8 @@
-#include "papercardsmodel/Card.h"
+#include "include/papercardsmodel/Card.h"
 
 #include <QJsonArray>
+#include <QJsonObject>
+#include <QPageSize>
 
 Card::Style stringToStyle(const QString &style_string) {
   if (style_string == "title_only") {
@@ -175,14 +177,6 @@ Field *Card::getField(const QString &name, Site site) {
     if (field->name() == name) return field;
   }
   return nullptr;
-}
-
-QVector<QString> Card::getFieldNames(Card::Site site) {
-  QVector<QString> buffer;
-  for (Field *field:card_fields_[site]) {
-    buffer.push_back(field->name());
-  }
-  return buffer;
 }
 
 QPageLayout::Orientation Card::orientation() {
