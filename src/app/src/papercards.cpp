@@ -87,7 +87,7 @@ void setStyle(QApplication *application) {
 
   // Stylesheet
   qInfo("Loading Stylesheet: %s", "stylesheet.qss");
-  QFile file_stylesheet(":stylesheet.qss");
+  QFile file_stylesheet(":assets/stylesheet.qss");
   file_stylesheet.open(QFile::ReadOnly);
   QString stylesheet = QLatin1String(file_stylesheet.readAll());
 

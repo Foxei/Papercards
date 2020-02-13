@@ -16,7 +16,7 @@ void CardEditorToolBar::setupGui() {
   setMovable(false);
   setFloatable(false);
 
-  auto* action_clipboard = addAction(QIcon(":clipboard.png"), QString("clipboard"));
+  auto* action_clipboard = addAction(QIcon(":assets/clipboard.png"), QString("clipboard"));
 
   addSeparator();
 
@@ -49,24 +49,24 @@ void CardEditorToolBar::setupGui() {
 
   addSeparator();
 
-  action_bold_ = addAction(QIcon(":font_bold.png"), QString("bold"));
+  action_bold_ = addAction(QIcon(":assets/font_bold.png"), QString("bold"));
   action_bold_->setCheckable(true);
-  action_italic_ = addAction(QIcon(":font_italic.png"), QString("italic"));
+  action_italic_ = addAction(QIcon(":assets/font_italic.png"), QString("italic"));
   action_italic_->setCheckable(true);
-  action_underlined_ = addAction(QIcon(":font_underlined.png"), QString("underlined"));
+  action_underlined_ = addAction(QIcon(":assets/font_underlined.png"), QString("underlined"));
   action_underlined_->setCheckable(true);
 
   addSeparator();
 
-  auto* action_color = addAction(QIcon(":font_color.png"), QString("color"));
-  auto* action_highlight = addAction(QIcon(":highlighter.png"), QString("highlight"));
+  auto* action_color = addAction(QIcon(":assets/font_color.png"), QString("color"));
+  auto* action_highlight = addAction(QIcon(":assets/highlighter.png"), QString("highlight"));
 
   addSeparator();
 
-  auto* action_bullet = addAction(QIcon(":bullet.png"), QString("bullet"));
+  auto* action_bullet = addAction(QIcon(":assets/bullet.png"), QString("bullet"));
   action_bullet->setCheckable(true);
-  auto* action_decrease = addAction(QIcon(":decrease_indentation.png"), QString("decrease"));
-  auto* action_increase = addAction(QIcon(":increase_indentation.png"), QString("increase"));
+  auto* action_decrease = addAction(QIcon(":assets/decrease_indentation.png"), QString("decrease"));
+  auto* action_increase = addAction(QIcon(":assets/increase_indentation.png"), QString("increase"));
 }
 
 void CardEditorToolBar::setupConnections() {

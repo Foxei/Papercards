@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QImage>
 #include <QImageReader>
+#include <QTextEdit>
 
 void CardView::setScaleFactor(qreal scale_factor) {
   this->scale_factor_ = scale_factor;
@@ -163,14 +164,14 @@ void CardView::titleEdited() {
 }
 
 void CardView::contentEdited() {
-  emit cardElementUpdated("content", content_text_edit_->toMarkdown());
+ // emit cardElementUpdated("content", content_text_edit_->toMarkdown());
 }
 
 void CardView::updateCardElement(const QString &field_name, const QVariant &field_content) {
   if (field_name == "title") {
     this->title_text_edit_->setText(field_content.toString());
   } else if (field_name == "content") {
-    this->content_text_edit_->setMarkdown(field_content.toString());
+   // this->content_text_edit_->setMarkdown(field_content.toString());
 
   } else if (field_name == "media") {
     this->media_edit_->setBaseImage(field_content.value<QImage>());

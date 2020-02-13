@@ -1,0 +1,24 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>assets/document_orientation_landscape.png</file>
+        <file>assets/font_bold.png</file>
+        <file>assets/font_italic.png</file>
+        <file>assets/font_underlined.png</file>
+        <file>assets/font_color.png</file>
+        <file>assets/highlighter.png</file>
+        <file>assets/down_arrow.png</file>
+        <file>assets/bullet.png</file>
+        <file>assets/decrease_indentation.png</file>
+        <file>assets/increase_indentation.png</file>
+        <file>assets/clipboard.png</file>
+        <file>assets/stylesheet.qss</file>
+        <file>assets/WorkSans-Light.ttf</file>
+        <file>assets/WorkSans-Regular.ttf</file>
+    </qresource>
+    <qresource>
+        <file>qml/main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>qml/components/EditorToolbar.qml</file>
+    </qresource>
+</RCC>

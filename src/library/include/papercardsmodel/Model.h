@@ -9,6 +9,8 @@
 
 #include <QObject>
 
+#include <memory>
+
 #include "Card.h"
 
 /**

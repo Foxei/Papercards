@@ -19,13 +19,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED 14)
 include(GNUInstallDirs)
 
 # Finding Qt
-find_package(Qt5Widgets 5.10 REQUIRED)
-message(STATUS "QT_VERSION : ${Qt5Widgets_VERSION} ")
+find_package(Qt5 COMPONENTS Quick Core Network Qml Gui Widgets QuickControls2 REQUIRED)
+message(STATUS "QT_VERSION : ${Qt5_VERSION} ")
 
 set(QT_RES
-    ${CMAKE_CURRENT_SOURCE_DIR}/res/res.qrc
-    ${CMAKE_CURRENT_SOURCE_DIR}/config/config.qrc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qml/qml.qrc)
+  ${CMAKE_CURRENT_SOURCE_DIR}/resources/res.qrc
+  ${CMAKE_CURRENT_SOURCE_DIR}/config/config.qrc
+  )
 
 #enable_testing()
 

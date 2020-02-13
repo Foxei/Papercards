@@ -1,16 +1,39 @@
+#include <QtGui/QFontDatabase>
 #include "Backend.h"
 
 BackEnd::BackEnd(QObject *parent) : QObject(parent) {}
 
-QString BackEnd::userName() {
-  return m_userName;
+void BackEnd::onComplete() {
+  qInfo("Interface ready!");
+
+  qInfo("Parsing Font families from database.");
+  QFontDatabase font_database;
+  this->_available_font_families = font_database.families();
+  qInfo("Found %i font families in database.", this->_available_font_families.length());
+  emit availableFontFamiliesChanged();
+
+  qInfo("Parsing Font sizes from database.");
+  QStringList default_font_sizes_list;
+  for(int number: QFontDatabase::standardSizes()) {
+    default_font_sizes_list << QString::number(number);
+  }
+  this->_default_font_sizes.append(default_font_sizes_list);
+  qInfo("Found %i font sizes in database.", this->_default_font_sizes.length());
+  emit defaultFontSizesChanged();
 }
 
-void BackEnd::setUserName(const QString &userName) {
-  if (userName == m_userName)
-    return;
+QStringList BackEnd::availableFontFamilies() {
+  return this->_available_font_families;
+}
 
-  m_userName = userName;
-  emit userNameChanged();
-  qInfo("New user name: %s", userName.toStdString().c_str());
+QStringList BackEnd::defaultFontSizes() {
+  return this->_default_font_sizes;
+}
+
+void BackEnd::setAvailableFontFamilies(const QStringList &available_font_families) {
+  this->_available_font_families = available_font_families;
+}
+
+void BackEnd::setDefaultFontSizes(const QStringList &default_font_sizes) {
+  this->_default_font_sizes = default_font_sizes;
 }
