@@ -8,13 +8,18 @@ void BackEnd::onComplete() {
 
   qInfo("Parsing Font families from database.");
   QFontDatabase font_database;
-  this->_available_font_families = font_database.families();
+  QStringList default_font_families_list;
+  for (const auto &family: font_database.families()) {
+    if (family.startsWith(".")) continue;
+    default_font_families_list << family;
+  }
+  this->_available_font_families.append(default_font_families_list);
   qInfo("Found %i font families in database.", this->_available_font_families.length());
   emit availableFontFamiliesChanged();
 
   qInfo("Parsing Font sizes from database.");
   QStringList default_font_sizes_list;
-  for(int number: QFontDatabase::standardSizes()) {
+  for (auto number: QFontDatabase::standardSizes()) {
     default_font_sizes_list << QString::number(number);
   }
   this->_default_font_sizes.append(default_font_sizes_list);
