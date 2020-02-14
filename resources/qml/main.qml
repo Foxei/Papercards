@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 800
     height: 600
 
-    header: Components.EditorToolbar{
+    header: Components.EditorToolBar{
 
     }
 
@@ -24,5 +24,9 @@ ApplicationWindow {
             placeholderText: qsTr("User name")
             anchors.centerIn: parent
         }
+    }
+
+    footer: Components.EditorStatusBar{
+
     }
 }

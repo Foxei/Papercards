@@ -19,6 +19,7 @@
     <qresource>
         <file>qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>qml/components/EditorToolbar.qml</file>
+        <file>qml/components/EditorToolBar.qml</file>
+        <file>qml/components/EditorStatusBar.qml</file>
     </qresource>
 </RCC>
