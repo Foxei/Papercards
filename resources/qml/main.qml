@@ -18,12 +18,8 @@ ApplicationWindow {
     }
 
 
-    Pane {
-        anchors.fill: parent
-        TextField {
-            placeholderText: qsTr("User name")
-            anchors.centerIn: parent
-        }
+    Components.DualCardView {
+        anchors.centerIn: parent
     }
 
     footer: Components.EditorStatusBar{
