@@ -13,16 +13,27 @@ ApplicationWindow {
     width: 800
     height: 600
 
+    MouseArea {
+        anchors.fill: parent
+        onWheel: {
+            if (wheel.modifiers & Qt.ControlModifier) {
+                console.log(wheel.angleDelta.y);
+            }
+        }
+     }
+
     header: Components.EditorToolBar{
 
     }
 
-
     Components.DualCardView {
+        id: cardView
         anchors.centerIn: parent
+        scaleFactor: statusBar.scaleFactor
     }
 
     footer: Components.EditorStatusBar{
-
+        id: statusBar
+        scaleFactor: cardView.scaleFactor
     }
 }

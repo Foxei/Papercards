@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.12
 import io.papercards.backend 1.0
 
 Pane {
-    property real scale_factor: 1.0
+    property real scaleFactor: 1.0
 
     padding: 0
     leftPadding: 10
@@ -33,12 +33,12 @@ Pane {
                 from: 100
                 stepSize:1
                 to: 200
-                value: scale_factor*100.0
+                value: scaleFactor*100.0
                 snapMode: Slider.SnapAlways
                 Layout.alignment: Qt.AlignRight
 
                 onMoved: {
-                    scale_factor = value/100.0;
+                    scaleFactor = value/100.0;
                 }
             }
 
