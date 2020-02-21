@@ -1,7 +1,19 @@
 #include <QtGui/QFontDatabase>
 #include "Backend.h"
 
+BackEnd* BackEnd::only_instance_ = nullptr;
+
 BackEnd::BackEnd(QObject *parent) : QObject(parent) {}
+
+BackEnd *BackEnd::instance() {
+  if (only_instance_ == nullptr) // avoid creation of new instances
+    only_instance_ = new BackEnd;
+  return only_instance_;
+}
+
+QObject *BackEnd::qmlInstance(QQmlEngine */*engine*/, QJSEngine */*scriptEngine*/) {
+  return BackEnd::instance();
+}
 
 void BackEnd::onComplete() {
   qInfo("Interface ready!");
@@ -13,8 +25,8 @@ void BackEnd::onComplete() {
     if (family.startsWith(".")) continue;
     default_font_families_list << family;
   }
-  this->_available_font_families.append(default_font_families_list);
-  qInfo("Found %i font families in database.", this->_available_font_families.length());
+  this->available_font_families_.append(default_font_families_list);
+  qInfo("Found %i font families in database.", this->available_font_families_.length());
   emit availableFontFamiliesChanged();
 
   qInfo("Parsing Font sizes from database.");
@@ -22,23 +34,23 @@ void BackEnd::onComplete() {
   for (auto number: QFontDatabase::standardSizes()) {
     default_font_sizes_list << QString::number(number);
   }
-  this->_default_font_sizes.append(default_font_sizes_list);
-  qInfo("Found %i font sizes in database.", this->_default_font_sizes.length());
+  this->default_font_sizes_.append(default_font_sizes_list);
+  qInfo("Found %i font sizes in database.", this->default_font_sizes_.length());
   emit defaultFontSizesChanged();
 }
 
 QStringList BackEnd::availableFontFamilies() {
-  return this->_available_font_families;
+  return this->available_font_families_;
 }
 
 QStringList BackEnd::defaultFontSizes() {
-  return this->_default_font_sizes;
+  return this->default_font_sizes_;
 }
 
 void BackEnd::setAvailableFontFamilies(const QStringList &available_font_families) {
-  this->_available_font_families = available_font_families;
+  this->available_font_families_ = available_font_families;
 }
 
 void BackEnd::setDefaultFontSizes(const QStringList &default_font_sizes) {
-  this->_default_font_sizes = default_font_sizes;
+  this->default_font_sizes_ = default_font_sizes;
 }

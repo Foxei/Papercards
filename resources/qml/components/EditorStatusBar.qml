@@ -4,7 +4,12 @@ import QtQuick.Layouts 1.11
 import QtQuick.Controls.Material 2.12
 import io.papercards.backend 1.0
 
+/**
+ * @brief QML implementation of the status bar on the bottom of the screen.
+ * @details
+ */
 Pane {
+    id: statusBar
     property real scaleFactor: 1.0
 
     padding: 0
@@ -12,6 +17,10 @@ Pane {
     rightPadding: 10
 
     Material.background: Material.primary
+
+    onScaleFactorChanged: {
+        scaleSlider.value = scaleFactor * 100.0;
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -30,15 +39,15 @@ Pane {
             }
 
             Slider {
+                id: scaleSlider
                 from: 100
                 stepSize:1
                 to: 200
-                value: scaleFactor*100.0
+                //value: scaleFactor*100.0
                 snapMode: Slider.SnapAlways
                 Layout.alignment: Qt.AlignRight
-
                 onMoved: {
-                    scaleFactor = value/100.0;
+                    statusBar.scaleFactor = value/100.0;
                 }
             }
 

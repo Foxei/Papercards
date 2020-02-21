@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.12
 import "components" as Components
 
 ApplicationWindow {
+    property real scaleFactor: 1.0
 
     id: root
     visible: true
@@ -14,13 +15,25 @@ ApplicationWindow {
     height: 600
 
     MouseArea {
-        anchors.fill: parent
+    anchors.fill: parent
         onWheel: {
             if (wheel.modifiers & Qt.ControlModifier) {
-                console.log(wheel.angleDelta.y);
+                var scaleFactorBuffer = scaleFactor + (wheel.angleDelta.y/1200);
+
+                if(scaleFactorBuffer > 2.0){
+                    scaleFactorBuffer = 2.0;
+                }else if(scaleFactorBuffer < 1.0){
+                    scaleFactorBuffer = 1.0;
+                }
+                scaleFactor = scaleFactorBuffer;
             }
         }
-     }
+    }
+
+    onScaleFactorChanged: {
+        cardView.scaleFactor = scaleFactor;
+        statusBar.scaleFactor = scaleFactor;
+    }
 
     header: Components.EditorToolBar{
 
@@ -29,11 +42,12 @@ ApplicationWindow {
     Components.DualCardView {
         id: cardView
         anchors.centerIn: parent
-        scaleFactor: statusBar.scaleFactor
     }
 
     footer: Components.EditorStatusBar{
         id: statusBar
-        scaleFactor: cardView.scaleFactor
+        onScaleFactorChanged: {
+            root.scaleFactor = statusBar.scaleFactor
+        }
     }
 }

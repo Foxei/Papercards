@@ -5,11 +5,8 @@ import QtQuick.Controls.Material 2.12
 import io.papercards.backend 1.0
 
 ToolBar{
-    BackEnd {
-        id: backend
-    }
 
-    Component.onCompleted: backend.onComplete()
+    Component.onCompleted: BackEnd.onComplete()
 
     RowLayout {
         spacing: 1
@@ -18,12 +15,12 @@ ToolBar{
         }
         ToolSeparator {}
         ComboBox {
-            model: backend.available_font_families
+            model: BackEnd.available_font_families
             displayText: currentIndex === -1 ? "Font Families..." : currentText
             Layout.preferredWidth: 250
         }
         ComboBox {
-            model: backend.default_font_sizes
+            model: BackEnd.default_font_sizes
             displayText: currentIndex === -1 ? "Font Sizes..." : currentText
             Layout.preferredWidth: 70
         }

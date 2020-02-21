@@ -2,6 +2,7 @@
 #define PAPER_CARDS_QML_BACKEND_H
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QStringList>
 
 class BackEnd : public QObject {
@@ -12,11 +13,15 @@ class BackEnd : public QObject {
   // @formatter::on
 
  private:
-  QStringList _available_font_families;
-  QStringList _default_font_sizes;
+  QStringList available_font_families_;
+  QStringList default_font_sizes_;
+
+  static BackEnd* only_instance_;
+  explicit BackEnd(QObject *parent = nullptr);
 
  public:
-  explicit BackEnd(QObject *parent = nullptr);
+  static BackEnd *instance();
+  static QObject *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
 
   Q_INVOKABLE void onComplete();
 
@@ -27,8 +32,12 @@ class BackEnd : public QObject {
   void setDefaultFontSizes(const QStringList &default_font_sizes);
 
  signals:
+
+  #pragma clang diagnostic push
+  #pragma ide diagnostic ignored "NotImplementedFunctions"
   void availableFontFamiliesChanged();
   void defaultFontSizesChanged();
+  #pragma clang diagnostic pop
 
 };
 
