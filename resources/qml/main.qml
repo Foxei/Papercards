@@ -14,7 +14,7 @@ ApplicationWindow {
     width: 800
     height: 600
 
-    MouseArea {
+    /*MouseArea {
     anchors.fill: parent
         onWheel: {
             if (wheel.modifiers & Qt.ControlModifier) {
@@ -28,7 +28,7 @@ ApplicationWindow {
                 scaleFactor = scaleFactorBuffer;
             }
         }
-    }
+    }*/
 
     onScaleFactorChanged: {
         cardView.scaleFactor = scaleFactor;
@@ -39,15 +39,15 @@ ApplicationWindow {
 
     }
 
-    Components.DualCardView {
-        id: cardView
-        anchors.centerIn: parent
-    }
-
     footer: Components.EditorStatusBar{
         id: statusBar
         onScaleFactorChanged: {
             root.scaleFactor = statusBar.scaleFactor
         }
+    }
+
+    Components.DualCardView {
+        id: cardView
+        anchors.fill: parent
     }
 }

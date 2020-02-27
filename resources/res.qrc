@@ -1,6 +1,5 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file>assets/document_orientation_landscape.png</file>
         <file>assets/font_bold.png</file>
         <file>assets/font_italic.png</file>
@@ -15,12 +14,11 @@
         <file>assets/stylesheet.qss</file>
         <file>assets/WorkSans-Light.ttf</file>
         <file>assets/WorkSans-Regular.ttf</file>
-    </qresource>
-    <qresource>
         <file>qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>qml/components/EditorToolBar.qml</file>
         <file>qml/components/DualCardView.qml</file>
         <file>qml/components/EditorStatusBar.qml</file>
+        <file>qml/components/CardView.qml</file>
     </qresource>
 </RCC>

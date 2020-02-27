@@ -6,35 +6,31 @@ import QtQuick.Controls.Material 2.12
 
 Pane {
     property real scaleFactor: 1.0
+    property real contentHeightBuffer: contentPane.height*scaleFactor
+    property real contentWidthBuffer: contentPane.width*scaleFactor
 
-    scale: scaleFactor
+    padding: 0
 
-    ColumnLayout {
-        Pane {
-            Layout.preferredWidth: 100
-            Layout.preferredHeight: 100
-            Material.elevation: 6
-            Material.background: "white"
+    ScrollView {
+        id: contentScroll
+        anchors.fill: parent
+        contentWidth: Math.max(parent.width,contentWidthBuffer)
+        contentHeight: contentHeightBuffer
 
-            //anchors.fill: parent
-            Label {
-                text: "Test Content"
-                Material.foreground: "black"
-                anchors.centerIn: parent
-            }
-        }
+        Pane{
+            id: contentPane
+            anchors.centerIn: parent
+            scale: scaleFactor
 
-        Pane {
-            Layout.preferredWidth: 100
-            Layout.preferredHeight: 100
-            Material.elevation: 6
-            Material.background: "white"
+            ColumnLayout {
 
-            //anchors.fill: parent
-            Label {
-                text: "Test Content"
-                Material.foreground: "black"
-                anchors.centerIn: parent
+                CardView {
+                    Layout.alignment: Qt.AlignCenter
+                }
+
+                CardView {
+                    Layout.alignment: Qt.AlignCenter
+                }
             }
         }
     }
