@@ -12,8 +12,6 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 
-#include <papercardsmodel/Model.h>
-
 #include "Backend.h"
 
 int main(int argc, char *argv[]) {
@@ -32,12 +30,14 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication application(argc, argv);
   qInfo("Initiating background management.");
-  Model::instance()->init();
+  Card *default_card = new Card;
+  BackEnd::instance()->setCurrentCard(default_card);
+ // Model::instance()->init();
   qInfo("Load config files.");
-  Model::instance()->loadConfig();
+  //Model::instance()->loadConfig();
 
   qmlRegisterSingletonType<BackEnd>("io.papercards.backend", 1, 0, "BackEnd", &BackEnd::qmlInstance);
-
+  qmlRegisterType<Card>("io.papercards.card", 1, 0, "Card");
   QQuickStyle::setStyle("Material");
 
   QQmlApplicationEngine engine;
@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
   auto return_code =  QGuiApplication::exec();
 
   qInfo("Store config files.");
-  Model::instance()->storeConfig();
+  //Model::instance()->storeConfig();
   qInfo("Free background management.");
-  Model::instance()->free();
+  //Model::instance()->free();
 
   qInfo("Terminating %s", APPLICATION_NAME);
   return return_code;

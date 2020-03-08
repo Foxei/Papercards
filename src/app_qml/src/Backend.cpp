@@ -1,7 +1,7 @@
 #include <QtGui/QFontDatabase>
 #include "Backend.h"
 
-BackEnd* BackEnd::only_instance_ = nullptr;
+BackEnd *BackEnd::only_instance_ = nullptr;
 
 BackEnd::BackEnd(QObject *parent) : QObject(parent) {}
 
@@ -47,6 +47,10 @@ QStringList BackEnd::defaultFontSizes() {
   return this->default_font_sizes_;
 }
 
+Card *BackEnd::currentCard() {
+  return this->current_card_;
+}
+
 void BackEnd::setAvailableFontFamilies(const QStringList &available_font_families) {
   this->available_font_families_ = available_font_families;
 }
@@ -54,3 +58,9 @@ void BackEnd::setAvailableFontFamilies(const QStringList &available_font_familie
 void BackEnd::setDefaultFontSizes(const QStringList &default_font_sizes) {
   this->default_font_sizes_ = default_font_sizes;
 }
+
+void BackEnd::setCurrentCard(Card *card) {
+  this->current_card_ = card;
+  emit currentCardChanged();
+}
+

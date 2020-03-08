@@ -34,16 +34,16 @@ Pane {
             Layout.alignment: Qt.AlignRight
 
             Label {
-                text: "100%"
+                text: "50%"
                 Layout.alignment: Qt.AlignRight
             }
 
             Slider {
                 id: scaleSlider
-                from: 100
+                from: 50
                 stepSize:1
-                to: 200
-                //value: scaleFactor*100.0
+                to: 150
+                value: scaleFactor*100.0
                 snapMode: Slider.SnapAlways
                 Layout.alignment: Qt.AlignRight
                 onMoved: {
@@ -52,7 +52,7 @@ Pane {
             }
 
             Label {
-                text: "200%"
+                text: "150%"
                 Layout.alignment: Qt.AlignRight
             }
 

@@ -3,12 +3,14 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.11
 import QtQuick.Controls.Material 2.12
 import QtQuick.Window 2.2
+import io.papercards.card 1.0
+import io.papercards.backend 1.0
 
 
 Pane {
     property int cardId: 0
-    property real cardWidth: 148
-    property real cardHeight: 105
+    property real cardWidth: BackEnd.current_card.card_size.width
+    property real cardHeight: BackEnd.current_card.card_size.height
 
     Layout.preferredWidth: cardWidth*Screen.pixelDensity
     Layout.preferredHeight: cardHeight*Screen.pixelDensity
@@ -36,10 +38,7 @@ Pane {
             selectByMouse: true
             persistentSelection: true
 
-            leftPadding: 6
-            rightPadding: 6
-            topPadding: 0
-            bottomPadding: 0
+            padding: 0
 
             onLinkActivated: Qt.openUrlExternally(link)
         }

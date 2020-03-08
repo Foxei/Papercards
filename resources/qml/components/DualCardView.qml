@@ -31,6 +31,10 @@ Pane {
                 CardView {
                     Layout.alignment: Qt.AlignCenter
                 }
+
+                CardView {
+                    Layout.alignment: Qt.AlignCenter
+                }
             }
         }
     }
