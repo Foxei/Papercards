@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>assets/document_orientation_landscape.png</file>
-        <file>assets/font_bold.png</file>
-        <file>assets/font_italic.png</file>
-        <file>assets/font_underlined.png</file>
-        <file>assets/font_color.png</file>
-        <file>assets/highlighter.png</file>
+        <file>assets/format_bold.png</file>
+        <file>assets/format_italic.png</file>
+        <file>assets/format_underlined.png</file>
+        <file>assets/color_lens.png</file>
+        <file>assets/highlight.png</file>
         <file>assets/down_arrow.png</file>
-        <file>assets/bullet.png</file>
-        <file>assets/decrease_indentation.png</file>
-        <file>assets/increase_indentation.png</file>
+        <file>assets/format_list_bulleted.png</file>
+        <file>assets/format_indent_decrease.png</file>
+        <file>assets/format_indent_increase.png</file>
         <file>assets/clipboard.png</file>
         <file>assets/stylesheet.qss</file>
         <file>assets/WorkSans-Light.ttf</file>
@@ -20,5 +20,6 @@
         <file>qml/components/DualCardView.qml</file>
         <file>qml/components/EditorStatusBar.qml</file>
         <file>qml/components/CardView.qml</file>
+        <file>PaperCardsStyle/</file>
     </qresource>
 </RCC>

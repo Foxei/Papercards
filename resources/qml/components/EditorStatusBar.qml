@@ -28,6 +28,7 @@ Pane {
 
         Label {
             text: "Ready!"
+            Layout.alignment: Qt.AlignLeft
         }
 
         RowLayout {

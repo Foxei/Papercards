@@ -22,12 +22,13 @@ Pane {
         anchors.fill: parent
         TextField {
             Layout.fillWidth: true
-
+            font.pointSize: 20
             placeholderText: "Enter question here."
         }
         TextArea {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            font.pointSize: 20
 
             placeholderText: "Enter answere here."
 

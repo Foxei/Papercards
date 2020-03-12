@@ -9,47 +9,35 @@ ToolBar{
     Component.onCompleted: BackEnd.onComplete()
 
     RowLayout {
-        spacing: 1
+        spacing: 0
+
         ToolButton {
-            icon.source: "qrc:/assets/clipboard.png"
+            icon.source: "qrc:/assets/format_bold.png"
+            padding: 0
+            spacing: 0
         }
-        ToolSeparator {}
-        ComboBox {
-            model: BackEnd.available_font_families
-            displayText: currentIndex === -1 ? "Font Families..." : currentText
-            Layout.preferredWidth: 250
+        ToolButton {
+            icon.source: "qrc:/assets/format_italic.png"
         }
-        ComboBox {
-            model: BackEnd.default_font_sizes
-            displayText: currentIndex === -1 ? "Font Sizes..." : currentText
-            Layout.preferredWidth: 70
+        ToolButton {
+            icon.source: "qrc:/assets/format_underlined.png"
         }
         ToolSeparator {}
         ToolButton {
-            icon.source: "qrc:/assets/font_bold.png"
+            icon.source: "qrc:/assets/color_lens.png"
         }
         ToolButton {
-            icon.source: "qrc:/assets/font_italic.png"
-        }
-        ToolButton {
-            icon.source: "qrc:/assets/font_underlined.png"
+            icon.source: "qrc:/assets/highlight.png"
         }
         ToolSeparator {}
         ToolButton {
-            icon.source: "qrc:/assets/font_color.png"
+            icon.source: "qrc:/assets/format_list_bulleted.png"
         }
         ToolButton {
-            icon.source: "qrc:/assets/highlighter.png"
-        }
-        ToolSeparator {}
-        ToolButton {
-            icon.source: "qrc:/assets/bullet.png"
+            icon.source: "qrc:/assets/format_indent_increase.png"
         }
         ToolButton {
-            icon.source: "qrc:/assets/increase_indentation.png"
-        }
-        ToolButton {
-            icon.source: "qrc:/assets/decrease_indentation.png"
+            icon.source: "qrc:/assets/format_indent_decrease.png"
         }
     }
 }
