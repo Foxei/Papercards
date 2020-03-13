@@ -41,14 +41,12 @@ import QtQuick.Controls.Material.impl 2.12
 
 T.Slider {
     id: control
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitHandleWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
     padding: 6
-
     handle: SliderHandle {
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
@@ -73,6 +71,15 @@ T.Slider {
             y: control.horizontal ? (parent.height - height) / 2 : control.visualPosition * parent.height
             width: control.horizontal ? control.position * parent.width : 3
             height: control.horizontal ? 3 : control.position * parent.height
+
+            color: control.Material.accentColor
+        }
+
+        Rectangle {
+            x: (parent.width - width) / 2
+            y: control.horizontal ? (parent.height - height) / 2 : control.visualPosition * parent.height
+            width: 2
+            height: 14
 
             color: control.Material.accentColor
         }

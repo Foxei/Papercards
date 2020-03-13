@@ -34,9 +34,12 @@ Pane {
         RowLayout {
             Layout.alignment: Qt.AlignRight
 
-            Label {
-                text: "50%"
+            ToolButton {
+                icon.source: "qrc:/assets/zoom_out.png"
                 Layout.alignment: Qt.AlignRight
+                onClicked: {
+                    scaleFactor = ((scaleSlider.value - 10) <  scaleSlider.from) ? (scaleSlider.value/100.0):((scaleSlider.value-10)/100.0);
+                }
             }
 
             Slider {
@@ -52,9 +55,13 @@ Pane {
                 }
             }
 
-            Label {
-                text: "150%"
+            ToolButton {
+                flat: true
+                icon.source: "qrc:/assets/zoom_in.png"
                 Layout.alignment: Qt.AlignRight
+                onClicked: {
+                    scaleFactor = ((scaleSlider.value + 10) >  scaleSlider.to) ? (scaleSlider.value/100.0):((scaleSlider.value+10)/100.0);
+                }
             }
 
         }

@@ -11,6 +11,10 @@
         <file>assets/format_indent_decrease.png</file>
         <file>assets/format_indent_increase.png</file>
         <file>assets/clipboard.png</file>
+        <file>assets/zoom_in.png</file>
+        <file>assets/zoom_out.png</file>
+        <file>assets/new_deck.png</file>
+        <file>assets/add_card.png</file>
         <file>assets/stylesheet.qss</file>
         <file>assets/WorkSans-Light.ttf</file>
         <file>assets/WorkSans-Regular.ttf</file>

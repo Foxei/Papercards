@@ -47,7 +47,7 @@ Item {
     property bool handleHasFocus: false
     property bool handlePressed: false
     property bool handleHovered: false
-    readonly property int initialSize: 13
+    readonly property int initialSize: 10
     readonly property var control: parent
 
     Rectangle {
@@ -55,6 +55,7 @@ Item {
         width: parent.width
         height: parent.height
         radius: width / 2
+        y: (parent.height - height) / 2
         color: root.control.Material.accentColor
         scale: root.handlePressed ? 1.5 : 1
 
@@ -63,6 +64,7 @@ Item {
                 duration: 250
             }
         }
+
     }
 
     Ripple {
