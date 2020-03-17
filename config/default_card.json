@@ -1,6 +1,7 @@
 {
   "orientation": "landscape",
   "size": "A6",
+  "question": "What kind of colours can a car have? Name three.",
   "front": {
     "style": "title_only",
     "fields": [

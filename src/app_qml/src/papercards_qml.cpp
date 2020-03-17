@@ -33,6 +33,15 @@ int main(int argc, char *argv[]) {
   qInfo("Initiating background management.");
   Card *default_card = new Card;
   BackEnd::instance()->setCurrentCard(default_card);
+  qInfo("Loading default card from file.");
+  QString file_name = ":default_card.json";
+  bool card_parsing_succeeded = BackEnd::instance()->loadCurrentCard(file_name);
+  if(card_parsing_succeeded)
+    qDebug("Default card loaded.");
+  else{
+    qWarning("Parsing default card failed.");
+  }
+
   // Model::instance()->init();
   qInfo("Load config files.");
   //Model::instance()->loadConfig();

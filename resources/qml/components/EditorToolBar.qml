@@ -6,6 +6,8 @@ import QtGraphicalEffects 1.0
 import io.papercards.backend 1.0
 
 ToolBar{
+    property bool enableTextFunctions: true;
+    property bool enableEditorFunctions: true;
 
     Component.onCompleted: BackEnd.onComplete()
 
@@ -32,43 +34,51 @@ ToolBar{
         }
         ToolSeparator {}
         ToolButton {
+            enabled: enableTextFunctions
             Icon {
                 iconSource: "qrc:/assets/format_bold.png"
             }
         }
         ToolButton {
+            enabled: enableTextFunctions
             Icon {
                 iconSource: "qrc:/assets/format_italic.png"
             }
         }
         ToolButton {
+            enabled: enableTextFunctions
             Icon {
                 iconSource: "qrc:/assets/format_underlined.png"
             }
         }
         ToolSeparator {}
         ToolButton {
+            enabled: enableEditorFunctions
             Icon {
                 iconSource: "qrc:/assets/color_lens.png"
             }
         }
         ToolButton {
+            enabled: enableEditorFunctions
             Icon {
                 iconSource: "qrc:/assets/highlight.png"
             }
         }
         ToolSeparator {}
         ToolButton {
+            enabled: enableEditorFunctions
             Icon {
                 iconSource: "qrc:/assets/format_list_bulleted.png"
             }
         }
         ToolButton {
+            enabled: enableEditorFunctions
             Icon {
                 iconSource: "qrc:/assets/format_indent_increase.png"
             }
         }
         ToolButton {
+            enabled: enableEditorFunctions
             Icon {
                 iconSource: "qrc:/assets/format_indent_decrease.png"
             }

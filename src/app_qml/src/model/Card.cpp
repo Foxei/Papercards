@@ -2,6 +2,7 @@
 
 #include <QJsonObject>
 #include <QPageSize>
+#include <utility>
 
 
 Card::CardOrientation stringToOrientation(const QString &style_string) {
@@ -67,7 +68,24 @@ bool Card::parse(const QJsonObject &json_node) {
     return false;
   }
   QRectF size = stringToSize(json_node["size"].toString());
+  if(card_orientation_ == Card::CardOrientation::Landscape){
+    auto buffer = size;
+    size.setWidth(buffer.height());
+    size.setHeight(buffer.width());
+  }
   setCardSize(size);
+
+  if (!json_node.contains("question")) {
+    qWarning("Parsing card from json node has failed. Missing field: \"question\"");
+    return false;
+  }
+  if (!json_node["question"].isString()) {
+    qWarning("Parsing card from json node has failed. Node is not an String: \"question\"");
+    return false;
+  }
+  QString question = json_node["question"].toString();
+  setCardQuestionText(question);
+
   return true;
 }
 
@@ -80,6 +98,10 @@ const Card::CardOrientation &Card::cardOrientation() {
   return this->card_orientation_;
 }
 
+const QString &Card::cardQuestionText() {
+    return this->card_question_text_;
+}
+
 void Card::setCardSize(QRectF card_size) {
   this->card_size_ = card_size;
 }
@@ -87,4 +109,9 @@ void Card::setCardSize(QRectF card_size) {
 void Card::setCardOrientation(Card::CardOrientation card_orientation) {
   this->card_orientation_ = card_orientation;
 }
+
+void Card::setCardQuestionText(QString card_question_text) {
+  this->card_question_text_ = std::move(card_question_text);
+}
+
 

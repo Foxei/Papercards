@@ -1,4 +1,8 @@
-#include <QtGui/QFontDatabase>
+#include <QFontDatabase>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+
 #include "Backend.h"
 
 BackEnd *BackEnd::only_instance_ = nullptr;
@@ -11,7 +15,8 @@ BackEnd *BackEnd::instance() {
   return only_instance_;
 }
 
-QObject *BackEnd::qmlInstance(QQmlEngine */*engine*/, QJSEngine */*scriptEngine*/) {
+QObject *BackEnd::qmlInstance(QQmlEngine */*engine*/,
+                              QJSEngine */*scriptEngine*/) {
   return BackEnd::instance();
 }
 
@@ -26,7 +31,8 @@ void BackEnd::onComplete() {
     default_font_families_list << family;
   }
   this->available_font_families_.append(default_font_families_list);
-  qInfo("Found %i font families in database.", this->available_font_families_.length());
+  qInfo("Found %i font families in database.",
+        this->available_font_families_.length());
   emit availableFontFamiliesChanged();
 
   qInfo("Parsing Font sizes from database.");
@@ -62,5 +68,25 @@ void BackEnd::setDefaultFontSizes(const QStringList &default_font_sizes) {
 void BackEnd::setCurrentCard(Card *card) {
   this->current_card_ = card;
   emit currentCardChanged();
+}
+bool BackEnd::loadCurrentCard(const QString &file_name) {
+  // Check if default card was allocated
+  if (!current_card_) return false;
+  // Check if file exists
+  QFile file(file_name);
+  if (!file.exists()) return false;
+
+  // Load file into memory
+  file.open(QIODevice::ReadOnly | QIODevice::Text);
+  QString content = file.readAll();
+  file.close();
+
+  // Parse json from file
+  QJsonDocument config_document = QJsonDocument::fromJson(content.toUtf8());
+  QJsonObject root_node = config_document.object();
+
+  // Parse card from json
+  bool card_parsing_succeeded = current_card_->parse(root_node);
+  return card_parsing_succeeded;
 }
 

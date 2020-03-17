@@ -8,6 +8,7 @@ import io.papercards.backend 1.0
 
 
 Pane {
+    property Card card: BackEnd.current_card
     property int cardId: 0
     property real cardWidth: BackEnd.current_card.card_size.width
     property real cardHeight: BackEnd.current_card.card_size.height
@@ -21,11 +22,24 @@ Pane {
     ColumnLayout {
         anchors.fill: parent
         TextField {
+            id: cardQuestionField
+            objectName: "card-question"
             Layout.fillWidth: true
             font.pointSize: 20
             placeholderText: "Enter question here."
+            text: card.card_question_text;
+
+            wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
+            selectByMouse: true
+            persistentSelection: true
+            padding: 0
+
+            onTextEdited: {
+                card.card_question_text = cardQuestionField.text;
+            }
         }
         TextArea {
+            objectName: "card-answer"
             Layout.fillWidth: true
             Layout.fillHeight: true
             font.pointSize: 20
@@ -34,7 +48,7 @@ Pane {
 
             id: textArea
             textFormat: Qt.RichText
-            wrapMode: TextArea.Wrap
+            wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
             focus: true
             selectByMouse: true
             persistentSelection: true

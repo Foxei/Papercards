@@ -1,7 +1,9 @@
 import QtQuick 2.9
 import QtGraphicalEffects 1.0
+import QtQuick.Controls.Material 2.2
 
 Item{
+    id: container
     anchors.fill: parent
     property url iconSource
     Image {
@@ -15,7 +17,8 @@ Item{
     ColorOverlay {
         anchors.fill: image
         source: image
-        color: "#FFFFFF"
+        color: !container.enabled ? container.Material.hintTextColor :
+                container.checked || container.highlighted ? container.Material.accent : container.Material.foreground
         cached: true
     }
 }

@@ -14,21 +14,15 @@ ApplicationWindow {
     width: 800
     height: 600
 
-    /*MouseArea {
-    anchors.fill: parent
-        onWheel: {
-            if (wheel.modifiers & Qt.ControlModifier) {
-                var scaleFactorBuffer = scaleFactor + (wheel.angleDelta.y/1200);
+    onActiveFocusControlChanged: {
+        var focusObjectName = activeFocusControl.objectName;
 
-                if(scaleFactorBuffer > 2.0){
-                    scaleFactorBuffer = 2.0;
-                }else if(scaleFactorBuffer < 1.0){
-                    scaleFactorBuffer = 1.0;
-                }
-                scaleFactor = scaleFactorBuffer;
-            }
-        }
-    }*/
+        var cardFocused = focusObjectName.startsWith("card");
+        toolBar.enableTextFunctions = cardFocused;
+
+        var textAreaFocused = focusObjectName.startsWith("card-answer");
+        toolBar.enableEditorFunctions = textAreaFocused;
+    }
 
     onScaleFactorChanged: {
         cardView.scaleFactor = scaleFactor;
@@ -36,7 +30,7 @@ ApplicationWindow {
     }
 
     header: Components.EditorToolBar{
-
+        id: toolBar
     }
 
     footer: Components.EditorStatusBar{

@@ -33,10 +33,13 @@ class BackEnd : public QObject {
   QStringList defaultFontSizes();
   Card* currentCard();
 
+
  public slots:
   void setAvailableFontFamilies(const QStringList &available_font_families);
   void setDefaultFontSizes(const QStringList &default_font_sizes);
   void setCurrentCard(Card* card);
+
+  bool loadCurrentCard(const QString &file_name);
 
  signals:
 
