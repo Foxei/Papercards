@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.11
-import QtQuick.Controls.Material 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
 import io.papercards.backend 1.0
 
 /**
@@ -35,7 +35,9 @@ Pane {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
-                icon.source: "qrc:/assets/zoom_out.png"
+                Icon{
+                    iconSource: "qrc:/assets/zoom_out.png"
+                }
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
                     scaleFactor = ((scaleSlider.value - 10) <  scaleSlider.from) ? (scaleSlider.value/100.0):((scaleSlider.value-10)/100.0);
@@ -56,8 +58,9 @@ Pane {
             }
 
             ToolButton {
-                flat: true
-                icon.source: "qrc:/assets/zoom_in.png"
+                Icon{
+                    iconSource: "qrc:/assets/zoom_in.png"
+                }
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
                     scaleFactor = ((scaleSlider.value + 10) >  scaleSlider.to) ? (scaleSlider.value/100.0):((scaleSlider.value+10)/100.0);

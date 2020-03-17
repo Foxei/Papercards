@@ -10,6 +10,9 @@
 #include <QSettings>
 #include <QDateTime>
 
+#include <cstdlib>
+#include <cassert>
+
 void MainWindow::setupGui() {
   restoreWindowStates();
   setMinimumSize(QSize(800, 600));

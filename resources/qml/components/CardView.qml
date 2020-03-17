@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.11
-import QtQuick.Controls.Material 2.12
-import QtQuick.Window 2.2
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
+import QtQuick.Window 2.3
 import io.papercards.card 1.0
 import io.papercards.backend 1.0
 

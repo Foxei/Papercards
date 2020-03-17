@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(Papercards VERSION 0.1 LANGUAGES CXX)
 
 # Set CMake policy to suppres warning of boost
-cmake_policy(SET CMP0074 NEW)
+# cmake_policy(SET CMP0074 NEW)
 
 # Set CMake flag to work with Qt
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

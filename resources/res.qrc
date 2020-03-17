@@ -24,6 +24,7 @@
         <file>qml/components/DualCardView.qml</file>
         <file>qml/components/EditorStatusBar.qml</file>
         <file>qml/components/CardView.qml</file>
-        <file>PaperCardsStyle/</file>
+        <file>PaperCardsStyle</file>
+        <file>qml/components/Icon.qml</file>
     </qresource>
 </RCC>

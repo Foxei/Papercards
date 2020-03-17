@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Templates 2.12 as T
-import QtQuick.Controls.Material 2.12
+import QtQuick 2.2
+import QtQuick.Window 2.2
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
 
 T.ApplicationWindow {
     id: window
