@@ -14,74 +14,78 @@ ToolBar{
     RowLayout {
         spacing: 0
         ToolButton {
-            Icon {
-                iconSource: "qrc:/assets/new_deck.png"
-            }
+            icon.source: "qrc:/assets/new_deck.png"
 
-            ToolTip.delay: 1000
-            ToolTip.timeout: 5000
+            ToolTip.delay: 200
             ToolTip.visible: hovered
-            ToolTip.text: "<html><h1>Creates a new deck of flashcards.</h1> <p>With this you can create a new stack of flashcards. In order to avoid losing files and to have an optimal overview of your flashcards you should create a new stack for each topic.</p> </html>"
+            ToolTip.text: "New deck"
         }
         ToolButton {
-            Icon {
-                iconSource: "qrc:/assets/add_card.png"
-            }
-            ToolTip.delay: 1000
-            ToolTip.timeout: 5000
+            icon.source: "qrc:/assets/add_card.png"
+
+            ToolTip.delay: 200
             ToolTip.visible: hovered
-            ToolTip.text: "<html><h1>Adds a new flashcards.</h1> <p>This allows you to add a new flashcard to the end of the current deck. You should create a new card for each question to get the best learning and printing results.</p> </html>"
+            ToolTip.text: "New card"
         }
         ToolSeparator {}
         ToolButton {
             enabled: enableTextFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_bold.png"
-            }
+            icon.source: "qrc:/assets/format_bold.png"
+
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Bold"
         }
         ToolButton {
             enabled: enableTextFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_italic.png"
-            }
+            icon.source: "qrc:/assets/format_italic.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Italic"
         }
         ToolButton {
             enabled: enableTextFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_underlined.png"
-            }
+            icon.source: "qrc:/assets/format_underlined.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Underline"
         }
         ToolSeparator {}
         ToolButton {
             enabled: enableEditorFunctions
-            Icon {
-                iconSource: "qrc:/assets/color_lens.png"
-            }
+            icon.source: "qrc:/assets/color_lens.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Text color"
         }
         ToolButton {
             enabled: enableEditorFunctions
-            Icon {
-                iconSource: "qrc:/assets/highlight.png"
-            }
+            icon.source: "qrc:/assets/highlight.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Highlight"
         }
         ToolSeparator {}
         ToolButton {
             enabled: enableEditorFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_list_bulleted.png"
-            }
+            icon.source: "qrc:/assets/format_list_bulleted.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Bullet list"
         }
         ToolButton {
             enabled: enableEditorFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_indent_increase.png"
-            }
+            icon.source: "qrc:/assets/format_indent_increase.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Increase list indention"
         }
         ToolButton {
             enabled: enableEditorFunctions
-            Icon {
-                iconSource: "qrc:/assets/format_indent_decrease.png"
-            }
+            icon.source: "qrc:/assets/format_indent_decrease.png"
+            ToolTip.delay: 200
+            ToolTip.visible: hovered
+            ToolTip.text: "Decrease list indention"
         }
     }
 }

@@ -1,16 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/document_orientation_landscape.png</file>
         <file>assets/format_bold.png</file>
         <file>assets/format_italic.png</file>
         <file>assets/format_underlined.png</file>
         <file>assets/color_lens.png</file>
         <file>assets/highlight.png</file>
-        <file>assets/down_arrow.png</file>
         <file>assets/format_list_bulleted.png</file>
         <file>assets/format_indent_decrease.png</file>
         <file>assets/format_indent_increase.png</file>
-        <file>assets/clipboard.png</file>
         <file>assets/zoom_in.png</file>
         <file>assets/zoom_out.png</file>
         <file>assets/new_deck.png</file>
@@ -25,6 +22,11 @@
         <file>qml/components/EditorStatusBar.qml</file>
         <file>qml/components/CardView.qml</file>
         <file>PaperCardsStyle</file>
-        <file>qml/components/Icon.qml</file>
+        <file>qml/basics/Icon.qml</file>
+        <file>qml/basics/ErrorIcon.qml</file>
+        <file>qml/basics/ErrorMessage.qml</file>
+        <file>qml/basics/TextAreaErrorField.qml</file>
+        <file>assets/error.png</file>
+
     </qresource>
 </RCC>

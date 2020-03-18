@@ -6,6 +6,7 @@ Item{
     id: container
     anchors.fill: parent
     property url iconSource
+
     Image {
         id: image
         source: iconSource

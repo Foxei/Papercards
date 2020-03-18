@@ -6,6 +6,7 @@ import QtQuick.Window 2.3
 import io.papercards.card 1.0
 import io.papercards.backend 1.0
 
+import "../basics" as Basics
 
 Pane {
     property Card card: BackEnd.current_card
@@ -21,41 +22,53 @@ Pane {
 
     ColumnLayout {
         anchors.fill: parent
+        spacing: 0
+
         TextField {
             id: cardQuestionField
             objectName: "card-question"
-            Layout.fillWidth: true
-            font.pointSize: 20
-            placeholderText: "Enter question here."
-            text: card.card_question_text;
 
+            Layout.fillWidth: true
+            padding: 0
+
+            font.pointSize: Screen.devicePixelRatio*20
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
+
+            text: card.card_question_text;
+            placeholderText: "Enter question here."
+
             selectByMouse: true
             persistentSelection: true
-            padding: 0
 
             onTextEdited: {
                 card.card_question_text = cardQuestionField.text;
             }
         }
-        TextArea {
+        Basics.TextAreaErrorField {
+            id: textArea
             objectName: "card-answer"
+
             Layout.fillWidth: true
             Layout.fillHeight: true
-            font.pointSize: 20
+            padding: 0
 
-            placeholderText: "Enter answere here."
-
-            id: textArea
+            font.pointSize: Screen.devicePixelRatio*16
             textFormat: Qt.RichText
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
-            focus: true
+
             selectByMouse: true
             persistentSelection: true
 
-            padding: 0
+            placeholderText: "Enter answere here."
 
-            onLinkActivated: Qt.openUrlExternally(link)
+            onTextChanged: {
+                var overflow = textArea.paintedHeight>textArea.height;
+                showTopErrorMessage(overflow);
+                showBottomErrorMessage(overflow, "This card contains a text overflow.");
+
+                card.card_question_text = textArea.text;
+            }
+
         }
     }
 }

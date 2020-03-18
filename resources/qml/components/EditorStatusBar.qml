@@ -35,13 +35,14 @@ Pane {
             Layout.alignment: Qt.AlignRight
 
             ToolButton {
-                Icon{
-                    iconSource: "qrc:/assets/zoom_out.png"
-                }
+                icon.source: "qrc:/assets/zoom_out.png"
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
                     scaleFactor = ((scaleSlider.value - 10) <  scaleSlider.from) ? (scaleSlider.value/100.0):((scaleSlider.value-10)/100.0);
                 }
+                ToolTip.delay: 200
+                ToolTip.visible: hovered
+                ToolTip.text: "Zoom out"
             }
 
             Slider {
@@ -58,13 +59,14 @@ Pane {
             }
 
             ToolButton {
-                Icon{
-                    iconSource: "qrc:/assets/zoom_in.png"
-                }
+                icon.source: "qrc:/assets/zoom_in.png"
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
                     scaleFactor = ((scaleSlider.value + 10) >  scaleSlider.to) ? (scaleSlider.value/100.0):((scaleSlider.value+10)/100.0);
                 }
+                ToolTip.delay: 200
+                ToolTip.visible: hovered
+                ToolTip.text: "Zoom in"
             }
 
         }
