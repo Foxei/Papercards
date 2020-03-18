@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2020-03-18T18:30:11. -->
+<!-- Written by QtCreator 4.5.2, 2020-03-18T20:17:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -59,7 +59,7 @@
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt 5.14.1 in PATH (qt514) - temporary</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt 5.14.1 in PATH (qt514)</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Qt 5.14.1 in PATH (qt514)</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{c6d54874-83c4-4ab3-b0c4-ed8892c71242}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">5</value>

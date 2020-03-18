@@ -2,6 +2,8 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDebug>
+#include <QtGui/QImageReader>
 
 #include "Backend.h"
 
@@ -88,5 +90,19 @@ bool BackEnd::loadCurrentCard(const QString &file_name) {
   // Parse card from json
   bool card_parsing_succeeded = current_card_->parse(root_node);
   return card_parsing_succeeded;
+}
+
+bool BackEnd::checkIfValidImage(const QList<QUrl> &uri_list) {
+  if(uri_list.length() > 1){
+    qInfo("[BackEnd] File list should only contain a single valid image. Rejected!");
+    return false;
+  }
+  const QUrl& uri = uri_list.front();
+  QString uri_string = uri.toString(QUrl::RemoveScheme).normalized(QString::NormalizationForm_D, QChar::Unicode_10_0);
+  QImageReader reader(uri_string);
+
+  bool accepted = reader.canRead();
+  qInfo("[BackEnd] File test for valid image: %s!", accepted?"Accepted":"Rejected");
+  return accepted;
 }
 

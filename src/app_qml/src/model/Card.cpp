@@ -86,9 +86,18 @@ bool Card::parse(const QJsonObject &json_node) {
   QString question = json_node["question"].toString();
   setCardQuestionText(question);
 
+  if (!json_node.contains("answer")) {
+    qWarning("Parsing card from json node has failed. Missing field: \"answer\"");
+    return false;
+  }
+  if (!json_node["answer"].isString()) {
+    qWarning("Parsing card from json node has failed. Node is not an String: \"answer\"");
+    return false;
+  }
+  QString answer = json_node["answer"].toString();
+  setCardAnswerText(answer);
   return true;
 }
-
 
 const QRectF& Card::cardSize() {
   return this->card_size_;
@@ -102,6 +111,10 @@ const QString &Card::cardQuestionText() {
     return this->card_question_text_;
 }
 
+const QString &Card::cardAnswerText() {
+  return this->card_answer_text_;
+}
+
 void Card::setCardSize(QRectF card_size) {
   this->card_size_ = card_size;
 }
@@ -112,6 +125,10 @@ void Card::setCardOrientation(Card::CardOrientation card_orientation) {
 
 void Card::setCardQuestionText(QString card_question_text) {
   this->card_question_text_ = std::move(card_question_text);
+}
+
+void Card::setCardAnswerText(QString card_answer_text) {
+  this->card_answer_text_ = std::move(card_answer_text);
 }
 
 

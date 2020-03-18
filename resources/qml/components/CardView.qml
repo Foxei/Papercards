@@ -59,6 +59,7 @@ Pane {
             selectByMouse: true
             persistentSelection: true
 
+            text: card.card_answer_text;
             placeholderText: "Enter answere here."
 
             onTextChanged: {
@@ -66,7 +67,29 @@ Pane {
                 showTopErrorMessage(overflow);
                 showBottomErrorMessage(overflow, "This card contains a text overflow.");
 
-                card.card_question_text = textArea.text;
+                card.card_answer_text = textArea.text;
+            }
+            DropArea {
+                id: dropArea
+                anchors.fill: parent
+                keys: ["text/uri-list"]
+                onEntered: {
+                    if(drag.hasUrls){
+                        if(BackEnd.checkIfValidImage(drag.urls)){
+                            drag.accept(Qt.CopyAction);
+                            console.log("[FrontEnd] File accepted.");
+                            return;
+                        }
+                    }
+                    console.log("[FrontEnd] File rejected.");
+                    drag.accepted = false;
+                }
+
+                onDropped: {
+                    if(drop.hasUrls){
+                        console.log(drop.urls[0]);
+                    }
+                }
             }
 
         }
