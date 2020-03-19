@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
   //QQuickStyle::setStyle("Fusion");
 
   qint32 fontId = QFontDatabase::addApplicationFont(":/assets/WorkSans-Regular.ttf");
+  qint32 fontId2 = QFontDatabase::addApplicationFont(":/assets/MaterialIcons-Regular.ttf");
   QStringList fontList = QFontDatabase::applicationFontFamilies(fontId);
 
   QString family = fontList.at(0);

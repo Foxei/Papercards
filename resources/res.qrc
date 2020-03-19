@@ -15,6 +15,7 @@
         <file>assets/stylesheet.qss</file>
         <file>assets/WorkSans-Light.ttf</file>
         <file>assets/WorkSans-Regular.ttf</file>
+        <file>assets/MaterialIcons-Regular.ttf</file>
         <file>qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>qml/components/EditorToolBar.qml</file>
@@ -26,6 +27,8 @@
         <file>qml/basics/ErrorIcon.qml</file>
         <file>qml/basics/ErrorMessage.qml</file>
         <file>qml/basics/TextAreaErrorField.qml</file>
+        <file>qml/basics/MaterialToolButton.qml</file>
+        <file>qml/basics/MaterialDesign.js</file>
         <file>assets/error.png</file>
         <file>assets/info.png</file>
         <file>assets/logo.png</file>

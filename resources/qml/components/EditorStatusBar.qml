@@ -3,74 +3,70 @@ import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 import QtQuick.Layouts 1.14
 
-import io.papercards.backend 1.0
+import "../basics/MaterialDesign.js" as MD
+import "../basics/" as Basics
 
-/**
- * @brief QML implementation of the status bar on the bottom of the screen.
- * @details
- */
 Pane {
-    id: statusBar
     property real scaleFactor: 1.0
+    property real maxScaleFactor: 1.5
+    property real minScaleFactor: 0.5
+    property string message: "Ready!"
 
-    padding: 0
-    leftPadding: 10
-    rightPadding: 10
-
-    Material.background: Material.primary
+    topPadding: 0; bottomPadding: 0
 
     onScaleFactorChanged: {
-        scaleSlider.value = scaleFactor * 100.0;
+        sliderScaleFactor.value = scaleFactor;
+    }
+
+    function zoom(value){
+        var newScaleFactor = scaleFactor + value;
+        if(newScaleFactor > maxScaleFactor){
+            newScaleFactor = maxScaleFactor;
+        }else if(newScaleFactor < minScaleFactor){
+            newScaleFactor = minScaleFactor;
+        }
+        scaleFactor = newScaleFactor;
+    }
+
+    FontLoader {
+        id: iconFont
+        source: "qrc:/assets/MaterialIcons-Regular.ttf"
     }
 
     RowLayout {
         anchors.fill: parent
-        spacing: 1
 
         Label {
-            text: "Ready!"
-            Layout.alignment: Qt.AlignLeft
+            text: message
         }
 
         RowLayout {
+            spacing: 0
             Layout.alignment: Qt.AlignRight
 
-            ToolButton {
-                icon.source: "qrc:/assets/zoom_out.png"
-                Layout.alignment: Qt.AlignRight
-                onClicked: {
-                    scaleFactor = ((scaleSlider.value - 10) <  scaleSlider.from) ? (scaleSlider.value/100.0):((scaleSlider.value-10)/100.0);
-                }
-                ToolTip.delay: 200
-                ToolTip.visible: hovered
+             Basics.MaterialToolButton {
+                text: MD.icons.zoom_out
                 ToolTip.text: "Zoom out"
+                onClicked: zoom(-0.1)
             }
 
             Slider {
-                id: scaleSlider
-                from: 50
-                stepSize:1
-                to: 150
-                value: scaleFactor*100.0
+                id: sliderScaleFactor
+
+                from: minScaleFactor
+                to: maxScaleFactor
+                stepSize:0.01
+                value: scaleFactor
                 snapMode: Slider.SnapAlways
-                Layout.alignment: Qt.AlignRight
-                onMoved: {
-                    statusBar.scaleFactor = value/100.0;
-                }
+
+                onMoved: statusBar.scaleFactor = value;
             }
 
-            ToolButton {
-                icon.source: "qrc:/assets/zoom_in.png"
-                Layout.alignment: Qt.AlignRight
-                onClicked: {
-                    scaleFactor = ((scaleSlider.value + 10) >  scaleSlider.to) ? (scaleSlider.value/100.0):((scaleSlider.value+10)/100.0);
-                }
-                ToolTip.delay: 200
-                ToolTip.visible: hovered
+            Basics.MaterialToolButton {
+                text: MD.icons.zoom_in
                 ToolTip.text: "Zoom in"
+                onClicked: zoom(0.1)
             }
-
         }
-
     }
 }
