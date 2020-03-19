@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtGraphicalEffects 1.0
-import QtQuick.Controls.Material 2.2
+import QtQuick 2.14
+import QtGraphicalEffects 1.14
+import QtQuick.Controls.Material 2.14
 
 Item{
     id: container

@@ -12,6 +12,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QFontDatabase>
+#include <QIcon>
 
 #include "Backend.h"
 
@@ -30,6 +31,7 @@ int main(int argc, char *argv[]) {
       ));
 
   QGuiApplication application(argc, argv);
+  application.setWindowIcon(QIcon(":/assets/logo.png"));
   qInfo("Initiating background management.");
   Card *default_card = new Card;
   BackEnd::instance()->setCurrentCard(default_card);

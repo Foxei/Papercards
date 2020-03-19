@@ -27,6 +27,7 @@
         <file>qml/basics/ErrorMessage.qml</file>
         <file>qml/basics/TextAreaErrorField.qml</file>
         <file>assets/error.png</file>
-
+        <file>assets/info.png</file>
+        <file>assets/logo.png</file>
     </qresource>
 </RCC>
