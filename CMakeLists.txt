@@ -23,11 +23,8 @@ find_package(Qt5 COMPONENTS Quick Core Network Qml Gui Widgets QuickControls2 RE
 message(STATUS "QT_VERSION : ${Qt5_VERSION} ")
 
 set(QT_RES
-  ${CMAKE_CURRENT_SOURCE_DIR}/resources/res.qrc
-  ${CMAKE_CURRENT_SOURCE_DIR}/config/config.qrc
-  )
-
-#enable_testing()
+    ${CMAKE_SOURCE_DIR}/resources/resources.qrc
+    ${CMAKE_SOURCE_DIR}/gui/gui.qrc)
 
 # Targets that we develop here
 add_subdirectory(src)

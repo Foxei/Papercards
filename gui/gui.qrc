@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/gui">
+        <file>qtquickcontrols2.conf</file>
+        <file>main.qml</file>
+        <file>EditorToolBar.qml</file>
+        <file>EditorContent.qml</file>
+        <file>EditorStatusBar.qml</file>
+        <file>CardView.qml</file>
+        <file>components/ErrorMessage.qml</file>
+        <file>components/TextAreaErrorField.qml</file>
+        <file>components/MaterialToolButton.qml</file>
+        <file>components/RobotoFontLoader.qml</file>
+        <file>scripts/MaterialDesign.js</file>
+        <file>DialogAbout.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>
