@@ -29,7 +29,7 @@ void DocumentHandler::setDocument(QQuickTextDocument *document) {
     m_document->textDocument()->disconnect(this);
   m_document = document;
   if (m_document) {
-    connect(m_document->textDocument(), &QTextDocument::modificationChanged, this, &DocumentHandler::modifiedChanged);
+    connect(m_document->textDocument(), &QTextDocument::contentsChanged, this, &DocumentHandler::updateCard);
   }
   emit documentChanged();
 }
@@ -71,21 +71,6 @@ void DocumentHandler::setSelectionEnd(int position) {
   emit selectionEndChanged();
 }
 
-QString DocumentHandler::fontFamily() const {
-  QTextCursor cursor = textCursor();
-  if (cursor.isNull())
-    return QString();
-  QTextCharFormat format = cursor.charFormat();
-  return format.font().family();
-}
-
-void DocumentHandler::setFontFamily(const QString &family) {
-  QTextCharFormat format;
-  format.setFontFamily(family);
-  mergeFormatOnWordOrSelection(format);
-  emit fontFamilyChanged();
-}
-
 QColor DocumentHandler::textColor() const {
   QTextCursor cursor = textCursor();
   if (cursor.isNull())
@@ -97,6 +82,35 @@ QColor DocumentHandler::textColor() const {
 void DocumentHandler::setTextColor(const QColor &color) {
   QTextCharFormat format;
   format.setForeground(QBrush(color));
+  mergeFormatOnWordOrSelection(format);
+  emit textColorChanged();
+}
+
+void DocumentHandler::resetTextColor() {
+  QTextCharFormat format;
+  format.setForeground(QBrush());
+  mergeFormatOnWordOrSelection(format);
+  emit textColorChanged();
+}
+
+QColor DocumentHandler::highlightColor() const {
+  QTextCursor cursor = textCursor();
+  if (cursor.isNull())
+    return QColor(Qt::black);
+  QTextCharFormat format = cursor.charFormat();
+  return format.background().color();
+}
+
+void DocumentHandler::setHighlightColor(const QColor &color) {
+  QTextCharFormat format;
+  format.setBackground(QBrush(color));
+  mergeFormatOnWordOrSelection(format);
+  emit textColorChanged();
+}
+
+void DocumentHandler::resetHighlightColor() {
+  QTextCharFormat format;
+  format.setBackground(QBrush());
   mergeFormatOnWordOrSelection(format);
   emit textColorChanged();
 }
@@ -213,22 +227,6 @@ void DocumentHandler::setFontSize(int size) {
   emit fontSizeChanged();
 }
 
-QString DocumentHandler::fileName() const {
-  const QString filePath = QQmlFile::urlToLocalFileOrQrc(m_fileUrl);
-  const QString fileName = QFileInfo(filePath).fileName();
-  if (fileName.isEmpty())
-    return QStringLiteral("untitled.txt");
-  return fileName;
-}
-
-QString DocumentHandler::fileType() const {
-  return QFileInfo(fileName()).suffix();
-}
-
-QUrl DocumentHandler::fileUrl() const {
-  return m_fileUrl;
-}
-
 void DocumentHandler::increaseIndentation() {
   QTextListFormat listFormat;
   listFormat.setIndent(1);
@@ -257,44 +255,18 @@ void DocumentHandler::decreaseIndentation() {
   }
 }
 
-void DocumentHandler::formatText() {
-  QTextCharFormat format;
-  format.setFontWeight(QFont::Bold);
-  QTextDocument *doc = textDocument();
-  QTextCursor cursor = QTextCursor(doc);
-  cursor.select(QTextCursor::WordUnderCursor);
-  cursor.mergeCharFormat(format);
+void DocumentHandler::updateCard() {
+  if(this->card_ && this->textDocument());
+    this->card()->updateText(this->textDocument()->toHtml(), this->card_field_);
 }
 
-void DocumentHandler::load(const QUrl &fileUrl) {
-  document()->textDocument()->setHtml("<html>This is an test.</html>");
-  //emit loaded("<html>This is an test.</html>");
-}
-
-void DocumentHandler::saveAs(const QUrl &fileUrl) {
-  QTextDocument *doc = textDocument();
-  if (!doc)
-    return;
-
-  const QString filePath = fileUrl.toLocalFile();
-  const bool isHtml = QFileInfo(filePath).suffix().contains(QLatin1String("htm"));
-  QFile file(filePath);
-  if (!file.open(QFile::WriteOnly | QFile::Truncate | (isHtml ? QFile::NotOpen : QFile::Text))) {
-    emit error(tr("Cannot save: ") + file.errorString());
-    return;
-  }
-  file.write((isHtml ? doc->toHtml() : doc->toPlainText()).toUtf8());
-  file.close();
-
-  if (fileUrl == m_fileUrl)
-    return;
-
-  m_fileUrl = fileUrl;
-  emit fileUrlChanged();
+void DocumentHandler::load() {
+  if(this->card_ == nullptr) return;
+  document()->textDocument()->setHtml(card()->text(this->card_field_));
+  emit loaded();
 }
 
 void DocumentHandler::reset() {
-  emit fontFamilyChanged();
   emit alignmentChanged();
   emit boldChanged();
   emit italicChanged();
@@ -332,11 +304,18 @@ void DocumentHandler::mergeFormatOnWordOrSelection(const QTextCharFormat &format
   cursor.mergeCharFormat(format);
 }
 
-bool DocumentHandler::modified() const {
-  return m_document && m_document->textDocument()->isModified();
+Card* DocumentHandler::card() const {
+  return this->card_;
 }
 
-void DocumentHandler::setModified(bool m) {
-  if (m_document)
-    m_document->textDocument()->setModified(m);
+void DocumentHandler::setCard(Card *card) {
+  this->card_ = card;
+  emit cardChanged();
+}
+Card::CardField DocumentHandler::cardField() const {
+  return this->card_field_;
+}
+void DocumentHandler::setCardField(Card::CardField card_field) {
+  this->card_field_ = card_field;
+  emit cardFieldChanged();
 }

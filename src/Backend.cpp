@@ -71,6 +71,7 @@ void BackEnd::setCurrentCard(Card *card) {
   this->current_card_ = card;
   emit currentCardChanged();
 }
+
 bool BackEnd::loadCurrentCard(const QString &file_name) {
   // Check if default card was allocated
   if (!current_card_) return false;
@@ -90,6 +91,27 @@ bool BackEnd::loadCurrentCard(const QString &file_name) {
   // Parse card from json
   bool card_parsing_succeeded = current_card_->parse(root_node);
   return card_parsing_succeeded;
+}
+
+bool BackEnd::storeCurrentCard(const QString &file_name) {
+  // Check if default card was allocated
+  if (!current_card_) return false;
+  // Check if file exists
+  QFile file(file_name);
+
+  // Load file into memory
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+
+  // Json root object
+  QJsonObject root_node;
+  this->current_card_->write(root_node);
+
+  // Write json from file
+  QJsonDocument config_document(root_node);
+  file.write(config_document.toJson());
+  file.close();
+
+  return true;
 }
 
 bool BackEnd::checkIfValidImage(const QList<QUrl> &uri_list) {

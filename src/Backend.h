@@ -40,6 +40,7 @@ class BackEnd : public QObject {
   void setCurrentCard(Card* card);
 
   bool loadCurrentCard(const QString &file_name);
+  bool storeCurrentCard(const QString &file_name);
   static bool checkIfValidImage(const QList<QUrl> &uri_list);
 
  signals:

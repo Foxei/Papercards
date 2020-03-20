@@ -7,6 +7,7 @@ import "scripts/MaterialDesign.js" as MD
 import "components" as Components
 
 ToolBar{
+
     id: toolBar
     property bool enableTextFunctions: true;
     property bool enableEditorFunctions: true;
@@ -17,6 +18,8 @@ ToolBar{
     signal bulletList()
     signal increaseIndentation()
     signal decreaseIndentation()
+    signal textBackground(color highlightColor)
+    signal textForground(color textColor)
 
     RowLayout {
         Components.MaterialToolButton {
@@ -30,59 +33,90 @@ ToolBar{
         ToolSeparator {}
         Components.MaterialToolButton {
             text: MD.icons.format_bold
-            ToolTip.text: "Bold"
+            ToolTip.text: "Bold (" + bold.nativeText + ")"
             onClicked: toolBar.bold()
-            focusPolicy: Qt.NoFocus
+            Shortcut {
+               id: bold
+               sequence: StandardKey.Bold
+               onActivated: toolBar.bold()
+            }
         }
+
         Components.MaterialToolButton {
             text: MD.icons.format_italic
-            ToolTip.text: "Italic"
+            ToolTip.text: "Italic (" + italic.nativeText + ")"
             onClicked: toolBar.italic()
-            focusPolicy: Qt.NoFocus
+            Shortcut {
+               id: italic
+               sequence: StandardKey.Italic
+               onActivated: toolBar.italic()
+            }
         }
         Components.MaterialToolButton {
             text: MD.icons.format_underlined
-            ToolTip.text: "Underlined"
+            ToolTip.text: "Underline (" + underlined.nativeText + ")"
             onClicked: toolBar.underlined()
-            focusPolicy: Qt.NoFocus
+            Shortcut {
+               id: underlined
+               sequence: StandardKey.Underline
+               onActivated: toolBar.underlined()
+            }
         }
         ToolSeparator {}
         Components.MaterialToolButton {
             text: MD.icons.format_color_text
             ToolTip.text: "Text color"
+            onClicked: colorPicker.opened ? colorPicker.close() : colorPicker.open()
+
+            Components.ColorPicker{
+                id: colorPicker
+                onAccepted: textForground(colorPicker.selectedColor)
+            }
         }
         Components.MaterialToolButton {
             text: MD.icons.highlight
             ToolTip.text: "Highlight"
+            onClicked: highlightPicker.opened ? highlightPicker.close() : highlightPicker.open()
+
+            Components.ColorPicker{
+                id: highlightPicker
+                onAccepted: textBackground(highlightPicker.selectedColor)
+            }
         }
         ToolSeparator {}
         Components.MaterialToolButton {
+            enabled: enableEditorFunctions
             text: MD.icons.format_list_bulleted
-            ToolTip.text: "Bullet list"
+            ToolTip.text: "Bullet list (" + bulletList.nativeText + ")"
             onClicked: toolBar.bulletList()
-            focusPolicy: Qt.NoFocus
+            Shortcut {
+               id: bulletList
+               sequence: "Ctrl+Shift+L"
+               onActivated: toolBar.bulletList()
+            }
         }
         Components.MaterialToolButton {
+            enabled: enableEditorFunctions
             text: MD.icons.format_indent_increase
-            ToolTip.text: "Increase list indention"
-            action: increaseIndentation
-            focusPolicy: Qt.NoFocus
+            ToolTip.text: "Increase list indention (" + increaseIndentation.nativeText + ")"
+            onClicked: toolBar.increaseIndentation()
+            Shortcut {
+               id: increaseIndentation
+               sequence: "Tab"
+               onActivated: toolBar.increaseIndentation()
+            }
         }
-        Action {
-           id: increaseIndentation
-           shortcut: "Tab"
-           onTriggered: toolBar.increaseIndentation()
-        }
+
         Components.MaterialToolButton {
+            enabled: enableEditorFunctions
             text: MD.icons.format_indent_decrease
-            ToolTip.text: "Decrease list indention"
-            action: decreaseIndentation
-            focusPolicy: Qt.NoFocus
-        }
-        Action {
-           id: decreaseIndentation
-           shortcut: "Shift+Tab"
-           onTriggered: toolBar.decreaseIndentation()
+            ToolTip.text: "Decrease list indention (" + decreaseIndentation.nativeText + ")"
+            onClicked: toolBar.decreaseIndentation()
+            Shortcut {
+               id: decreaseIndentation
+               sequence: "Shift+Tab"
+               onActivated: toolBar.decreaseIndentation()
+            }
         }
     }
 }

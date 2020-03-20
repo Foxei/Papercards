@@ -11,14 +11,15 @@ import io.papercards.texteditor 1.0
 import "components" as Components
 
 Pane {
-    id: cardPane
+    id: cardRoot
     objectName: "card-view"
-    property Card card: BackEnd.current_card
+    property Card displayedCard: BackEnd.current_card
 
-    property real cardWidth: BackEnd.current_card.card_size.width*Screen.pixelDensity
-    property real cardHeight: BackEnd.current_card.card_size.height*Screen.pixelDensity
-    property real cardBorder: 5*Screen.pixelDensity
-    property real fontSize: document.fontSize
+    property real pixelCardWidth: displayedCard.card_size.width*Screen.pixelDensity
+    property real pixelCardHeight: displayedCard.card_size.height*Screen.pixelDensity
+    property real pixelCardBorder: 5*Screen.pixelDensity
+
+    property DocumentHandler documentInFocus
 
     signal bold()
     signal italic()
@@ -26,125 +27,140 @@ Pane {
     signal bulletList()
     signal increaseIndentation()
     signal decreaseIndentation()
+    signal textBackground(color highlightColor)
+    signal textForground(color textColor)
 
-    onBold: document.bold = !document.bold;
-    onItalic: document.italic = !document.italic;
-    onUnderlined: document.underline = !document.underline;
+    onBold: {
+        documentInFocus.bold = !documentInFocus.bold;
+    }
+    onItalic: {
+        documentInFocus.italic = !documentInFocus.italic;
+    }
+    onUnderlined: {
+        documentInFocus.underline = !documentInFocus.underline;
+    }
     onBulletList: {
-        document.bulletList = !document.bulletList;
-        textArea.updateCursorPosition();
+        documentInFocus.bulletList = !documentInFocus.bulletList;
+        cardAnswerInput.updateCursorPosition();
     }
     onIncreaseIndentation: {
-        document.increaseIndentation();
-        textArea.updateCursorPosition();
+        documentInFocus.increaseIndentation();
+        cardAnswerInput.updateCursorPosition();
     }
     onDecreaseIndentation: {
-        document.decreaseIndentation();
-        textArea.updateCursorPosition();
+        documentInFocus.decreaseIndentation();
+        cardAnswerInput.updateCursorPosition();
     }
+    onTextBackground: {
+        if(highlightColor === Qt.rgba(1,1,1,1)) documentInFocus.resetHighlightColor();
+        else documentInFocus.highlightColor = highlightColor;
+    }
+    onTextForground: {
+        if(textColor === Qt.rgba(1,1,1,1)) documentInFocus.resetTextColor();
+        else documentInFocus.textColor = textColor;
+    }
+
+    Component.onCompleted:{
+        cardAnswerInputHandler.load();
+        cardQuestionInputHandler.load();
+    }
+
     Material.elevation: 6
     Material.theme: Material.Light
 
+    Layout.preferredWidth: pixelCardWidth
     padding: 0
-    Layout.preferredWidth: cardWidth
 
     ColumnLayout {
+        id: cardRootLayout
         anchors.fill: parent
         spacing: 0
+
         TextArea {
-            id: cardQuestionField
-            objectName: "card-question"
+            id: cardQuestionInput
+            objectName: "card-question-input"
 
             Layout.fillWidth: true
-            Layout.leftMargin: cardBorder; Layout.rightMargin: cardBorder
+            Layout.leftMargin: pixelCardBorder; Layout.rightMargin: pixelCardBorder
             Layout.bottomMargin: 0
 
             padding: 0
 
             font.pointSize: Screen.devicePixelRatio*20
+            textFormat: Qt.PlainText
+            selectByMouse: true
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
-
-            text: card.card_question_text;
             placeholderText: "Enter question here."
 
-            selectByMouse: true
-            persistentSelection: true
+            KeyNavigation.priority: KeyNavigation.BeforeItem
+            KeyNavigation.tab: cardAnswerInput
 
-            onTextChanged: {
-                card.card_question_text = cardQuestionField.text;
+            onActiveFocusChanged: {
+                if(activeFocus)
+                    documentInFocus = cardQuestionInputHandler;
+            }
+            DocumentHandler {
+                id: cardQuestionInputHandler
+                card: cardRoot.displayedCard
+                cardField: Card.Question
+                document: cardQuestionInput.textDocument
+                cursorPosition: cardQuestionInput.cursorPosition
+                selectionStart: cardQuestionInput.selectionStart
+                selectionEnd: cardQuestionInput.selectionEnd
             }
         }
+
         Rectangle {
+            id: cardSeperator
             Material.theme: Material.Dark
             color: Material.background
-            implicitWidth: cardWidth
+            implicitWidth: pixelCardWidth
             implicitHeight: 2
         }
-        Components.TextAreaErrorField {
-            id: textArea
-            objectName: "card-answer"
 
-            Layout.preferredHeight: cardHeight-2*cardBorder
+        Components.TextAreaErrorField {
+            id: cardAnswerInput
+            objectName: "card-answer-input"
+
+            Layout.preferredHeight: pixelCardHeight-2*pixelCardBorder
             Layout.fillWidth: true
-            Layout.margins: cardBorder
+            Layout.margins: pixelCardBorder
+
             padding: 0
+
             font.pointSize: Screen.devicePixelRatio*16
             textFormat: Qt.PlainText
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
-
             selectByMouse: true
-
-            text: card.card_answer_text;
             placeholderText: "Enter answer here."
+
             Keys.onPressed: {
                 if (event.key === Qt.Key_Tab) {
                     increaseIndentation();
                 }
             }
             KeyNavigation.priority: KeyNavigation.BeforeItem
-            KeyNavigation.tab: textArea
+            KeyNavigation.tab: cardAnswerInput
+
             onTextChanged: {
-                var overflow = textArea.paintedHeight>textArea.height;
+                var overflow = cardAnswerInput.paintedHeight>cardAnswerInput.height;
                 showTopErrorMessage(overflow);
                 showBottomErrorMessage(overflow, "This card contains a text overflow.");
             }
-            DropArea {
-                id: dropArea
-                anchors.fill: parent
-                keys: ["text/uri-list"]
-                onEntered: {
-                    if(drag.hasUrls){
-                        if(BackEnd.checkIfValidImage(drag.urls)){
-                            drag.accept(Qt.CopyAction);
-                            console.log("[FrontEnd] File accepted.");
-                            return;
-                        }
-                    }
-                    console.log("[FrontEnd] File rejected.");
-                    drag.accepted = false;
-                }
-
-                onDropped: {
-                    if(drop.hasUrls){
-                        console.log(drop.urls[0]);
-                    }
+            onActiveFocusChanged:{
+                if(activeFocus) {
+                    documentInFocus = cardAnswerInputHandler;
                 }
             }
 
-        }
-        Component.onCompleted: document.load("");
-        DocumentHandler {
-            id: document
-            document: textArea.textDocument
-            cursorPosition: textArea.cursorPosition
-            selectionStart: textArea.selectionStart
-            selectionEnd: textArea.selectionEnd
-            onLoaded: {
-                textArea.text = text
-            }
-            onError: {
-                errorDialog.text = message
-                errorDialog.visible = true
+            DocumentHandler {
+                id: cardAnswerInputHandler
+                card: cardRoot.displayedCard
+                cardField: Card.Answer
+                document: cardAnswerInput.textDocument
+                cursorPosition: cardAnswerInput.cursorPosition
+                selectionStart: cardAnswerInput.selectionStart
+                selectionEnd: cardAnswerInput.selectionEnd
             }
         }
     }

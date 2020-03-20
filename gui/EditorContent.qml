@@ -17,6 +17,8 @@ ScrollView {
     signal bulletList()
     signal increaseIndentation()
     signal decreaseIndentation()
+    signal textBackground(color highlightColor)
+    signal textForground(color textColor)
 
     onBold: if(focusedCard !== null) focusedCard.bold();
     onItalic: if(focusedCard !== null) focusedCard.italic();
@@ -24,16 +26,14 @@ ScrollView {
     onBulletList: if(focusedCard !== null) focusedCard.bulletList();
     onIncreaseIndentation: if(focusedCard !== null) focusedCard.increaseIndentation();
     onDecreaseIndentation: if(focusedCard !== null) focusedCard.decreaseIndentation();
+    onTextBackground: if(focusedCard !== null) focusedCard.textBackground(highlightColor);
+    onTextForground: if(focusedCard !== null) focusedCard.textForground(textColor);
 
 
     padding: 0
     anchors.fill: parent
     contentHeight: contentPane.height*scaleFactor
     contentWidth: Math.max(parent.width, contentPane.width*scaleFactor)
-
-    onFocusedCardChanged: {
-        console.log("Focused card:", focusedCard)
-    }
 
     Pane{
         id: contentPane

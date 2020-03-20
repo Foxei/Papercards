@@ -6,7 +6,8 @@ import QtQuick.Window 2.14
 ToolButton {
     font.family: "Material Icons"
     font.pointSize: Screen.devicePixelRatio*16
-    ToolTip.delay: 200
+    ToolTip.delay: 500
     ToolTip.visible: hovered
+    focusPolicy: Qt.NoFocus
 }
 

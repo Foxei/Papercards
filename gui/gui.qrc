@@ -12,6 +12,7 @@
         <file>components/RobotoFontLoader.qml</file>
         <file>scripts/MaterialDesign.js</file>
         <file>DialogAbout.qml</file>
+        <file>components/ColorPicker.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>

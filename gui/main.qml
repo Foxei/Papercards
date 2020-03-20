@@ -18,7 +18,7 @@ ApplicationWindow {
     onActiveFocusControlChanged: {
         if(activeFocusControl == null) return;
         var focusObjectName = activeFocusControl.objectName;
-
+        console.log(activeFocusControl)
         var cardFocused = focusObjectName.startsWith("card");
         toolBar.enableTextFunctions = cardFocused;
 
@@ -37,6 +37,8 @@ ApplicationWindow {
         toolBar.bulletList.connect(editorContent.bulletList);
         toolBar.increaseIndentation.connect(editorContent.increaseIndentation);
         toolBar.decreaseIndentation.connect(editorContent.decreaseIndentation);
+        toolBar.textBackground.connect(editorContent.textBackground);
+        toolBar.textForground.connect(editorContent.textForground);
     }
 
     onScaleFactorChanged: {
@@ -54,15 +56,16 @@ ApplicationWindow {
             Action { text: qsTr("&Save") }
             Action { text: qsTr("Save &As...") }
             MenuSeparator { }
-            Action { text: qsTr("&Quit") }
+            Action {
+                text: qsTr("&Quit")
+                onTriggered: Qt.callLater(Qt.quit)
+            }
         }
         Menu {
             title: qsTr("&Help")
             Action {
                 text: qsTr("&About")
-                onTriggered:{
-                    aboutPopup.open();
-                }
+                onTriggered:aboutPopup.open();
             }
         }
     }

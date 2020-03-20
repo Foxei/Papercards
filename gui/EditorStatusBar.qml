@@ -53,6 +53,7 @@ Pane {
                 stepSize:0.01
                 value: scaleFactor
                 snapMode: Slider.SnapAlways
+                focusPolicy: Qt.NoFocus
 
                 onMoved: statusBar.scaleFactor = value;
             }

@@ -62,6 +62,8 @@ int main(int argc, char *argv[]) {
   auto return_code = QGuiApplication::exec();
 
   qInfo("Store config files.");
+  QString target_file_name = "changed_card.json";
+  BackEnd::instance()->storeCurrentCard(target_file_name);
   qInfo("Free background management.");
 
   qInfo("Terminating %s", APPLICATION_NAME);

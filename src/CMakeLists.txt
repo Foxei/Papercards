@@ -1,9 +1,9 @@
-add_executable(Papercards-QML ${QT_RES}
+add_executable(Papercards ${QT_RES}
     papercards_qml.cpp
     Backend.cpp
     DocumentHandler.cpp
     model/Card.cpp)
 
-target_include_directories(Papercards-QML PRIVATE app_qml/src)
+target_include_directories(Papercards PRIVATE src)
 
-qt5_use_modules(Papercards-QML Core Gui Qml Quick QuickControls2)
+qt5_use_modules(Papercards Core Gui Qml Quick QuickControls2)

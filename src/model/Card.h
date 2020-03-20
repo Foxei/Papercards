@@ -10,12 +10,17 @@ class Card : public QObject {
     Landscape,
     Portrait
   };
+  Q_ENUM(CardOrientation)
+  enum CardField {
+    Question,
+    Answer
+  };
+  Q_ENUM(CardField)
  private:
   // @formatter:off
   Q_OBJECT
   Q_PROPERTY(QRectF card_size READ cardSize WRITE setCardSize NOTIFY cardsSizeChanged)
   Q_PROPERTY(CardOrientation card_orientation_ READ cardOrientation WRITE setCardOrientation NOTIFY cardsOrientationChanged)
-  Q_ENUM(CardOrientation)
   Q_PROPERTY(QString card_question_text READ cardQuestionText WRITE setCardQuestionText NOTIFY cardQuestionTextChanged)
   Q_PROPERTY(QString card_answer_text READ cardAnswerText WRITE setCardAnswerText NOTIFY cardAnswerTextChanged)
   // @formatter:on
@@ -36,12 +41,14 @@ class Card : public QObject {
   const CardOrientation &cardOrientation();
   const QString &cardQuestionText();
   const QString &cardAnswerText();
+  const QString &text(CardField field);
 
  public slots:
   void setCardSize(QRectF card_size);
   void setCardOrientation(CardOrientation card_orientation);
   void setCardQuestionText(QString card_question_text);
   void setCardAnswerText(QString card_answer_text);
+  void updateText(const QString& text, CardField field);
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "NotImplementedFunctions"

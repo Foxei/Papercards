@@ -4,7 +4,6 @@
 #include <QPageSize>
 #include <utility>
 
-
 Card::CardOrientation stringToOrientation(const QString &style_string) {
   if (style_string == "portrait") {
     return Card::CardOrientation::Portrait;
@@ -24,11 +23,11 @@ QRectF stringToSize(const QString &style_string) {
     return QPageSize(QPageSize::A5).rect(QPageSize::Unit::Millimeter);
   }
   // Fallback size
-  return  QPageSize(QPageSize::A6).rect(QPageSize::Unit::Millimeter);
+  return QPageSize(QPageSize::A6).rect(QPageSize::Unit::Millimeter);
 }
 
 QString sizeToString(const QRectF &size) {
-  if(QPageSize(QPageSize::A5).rect(QPageSize::Unit::Millimeter) == size){
+  if (QPageSize(QPageSize::A5).rect(QPageSize::Unit::Millimeter) == size) {
     return "A5";
   }
   // Fallback size
@@ -40,7 +39,7 @@ Card::Card(QObject *parent) : QObject(parent) {
   card_size_ = stringToSize("A6");
   card_orientation_ = Card::CardOrientation::Landscape;
 
-  if(card_orientation_ == Card::CardOrientation::Landscape){
+  if (card_orientation_ == Card::CardOrientation::Landscape) {
     auto buffer = this->card_size_;
     this->card_size_.setWidth(buffer.height());
     this->card_size_.setHeight(buffer.width());
@@ -68,7 +67,7 @@ bool Card::parse(const QJsonObject &json_node) {
     return false;
   }
   QRectF size = stringToSize(json_node["size"].toString());
-  if(card_orientation_ == Card::CardOrientation::Landscape){
+  if (card_orientation_ == Card::CardOrientation::Landscape) {
     auto buffer = size;
     size.setWidth(buffer.height());
     size.setHeight(buffer.width());
@@ -99,7 +98,15 @@ bool Card::parse(const QJsonObject &json_node) {
   return true;
 }
 
-const QRectF& Card::cardSize() {
+bool Card::write(QJsonObject &json_node) {
+  json_node.insert("orientation", orientationToString(this->card_orientation_));
+  json_node.insert("size", sizeToString(this->card_size_));
+  json_node.insert("question", this->card_question_text_);
+  json_node.insert("answer", this->card_answer_text_);
+  return false;
+}
+
+const QRectF &Card::cardSize() {
   return this->card_size_;
 }
 
@@ -108,11 +115,18 @@ const Card::CardOrientation &Card::cardOrientation() {
 }
 
 const QString &Card::cardQuestionText() {
-    return this->card_question_text_;
+  return this->card_question_text_;
 }
 
 const QString &Card::cardAnswerText() {
   return this->card_answer_text_;
+}
+
+const QString &Card::text(Card::CardField field) {
+  switch (field){
+    case Question: return cardQuestionText();
+    case Answer: return cardAnswerText();
+  }
 }
 
 void Card::setCardSize(QRectF card_size) {
@@ -129,6 +143,17 @@ void Card::setCardQuestionText(QString card_question_text) {
 
 void Card::setCardAnswerText(QString card_answer_text) {
   this->card_answer_text_ = std::move(card_answer_text);
+}
+
+void Card::updateText(const QString& text, Card::CardField field) {
+  switch (field) {
+    case Question:
+      setCardQuestionText(text);
+      break;
+    case Answer:
+      setCardAnswerText(text);
+      break;
+  }
 }
 
 
