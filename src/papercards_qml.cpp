@@ -18,7 +18,7 @@
 #include "DocumentHandler.h"
 
 void init_application_information(){
- //  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
   QGuiApplication::setOrganizationName("Team Koeln");
   QGuiApplication::setApplicationName("Papercards");
@@ -28,6 +28,23 @@ void init_application_information(){
         QString::number(MINOR_VERSION) + "." +
         QString::number(REVISION)
     ));
+}
+
+void load_fonts(){
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BlackItalic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Black.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Bold.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BoldItalic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Medium.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-MediumItalic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Regular.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Italic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Light.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-LightItalic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Thin.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-ThinItalic.ttf");
+  QFontDatabase::addApplicationFont(":/resources/MaterialIcons-Regular.ttf");
+  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BlackItalic.ttf");
 }
 
 void register_qml() {
@@ -46,6 +63,9 @@ int main(int argc, char *argv[]) {
   qInfo("Loading default card from file.");
   BackEnd::instance()->newDeck();
 
+  qInfo("Loading fonts.");
+  load_fonts();
+  
   qInfo("Executing qml and java script.");
   register_qml();
   QQmlApplicationEngine engine;

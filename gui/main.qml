@@ -67,8 +67,6 @@ ApplicationWindow {
         BackEnd.newDeck();
     }
 
-    Components.RobotoFontLoader{}
-
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")

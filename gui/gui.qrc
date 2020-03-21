@@ -9,7 +9,6 @@
         <file>components/ErrorMessage.qml</file>
         <file>components/TextAreaErrorField.qml</file>
         <file>components/MaterialToolButton.qml</file>
-        <file>components/RobotoFontLoader.qml</file>
         <file>scripts/MaterialDesign.js</file>
         <file>DialogAbout.qml</file>
         <file>components/ColorPicker.qml</file>
