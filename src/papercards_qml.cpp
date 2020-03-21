@@ -18,7 +18,7 @@
 #include "DocumentHandler.h"
 
 void init_application_information(){
-  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+ //  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
   QGuiApplication::setOrganizationName("Team Koeln");
   QGuiApplication::setApplicationName("Papercards");

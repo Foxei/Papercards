@@ -126,7 +126,6 @@ ApplicationWindow {
 
     FileDialog {
         id: openDialog
-        modality: Qt.ApplicationModal
         fileMode: FileDialog.OpenFile
         nameFilters: ["Json files (*.json)", "All files (*)"]
         folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
@@ -138,7 +137,6 @@ ApplicationWindow {
 
     FileDialog {
         id: saveDialog
-        modality: Qt.ApplicationModal
         fileMode: FileDialog.SaveFile
         defaultSuffix: "json"
         nameFilters: openDialog.nameFilters
