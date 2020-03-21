@@ -3,8 +3,8 @@ import Qt.labs.platform 1.0
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.14
-import QtQuick.Controls.Material 2.14
-import QtGraphicalEffects 1.14
+//import QtQuick.Controls.Material 2.14
+//import QtGraphicalEffects 1.14
 import io.papercards.backend 1.0
 
 import "components" as Components
@@ -18,10 +18,17 @@ ApplicationWindow {
     width: 800
     height: 600
 
+    signal newDeck()
+    signal openDeck()
+    signal saveDeck()
+    signal saveDeckAs()
+    signal quitApplication()
+    signal aboutApplication()
+
     onActiveFocusControlChanged: {
         if(activeFocusControl == null) return;
         var focusObjectName = activeFocusControl.objectName;
-        console.log(activeFocusControl)
+
         var cardFocused = focusObjectName.startsWith("card");
         toolBar.enableTextFunctions = cardFocused;
 
@@ -31,6 +38,36 @@ ApplicationWindow {
         if(cardFocused){
             var cardView = activeFocusControl.parent.parent;
         }
+    }
+
+    onNewDeck: {
+        busyPopup.open();
+        BackEnd.newDeck();
+    }
+
+    onOpenDeck: {
+        openDialog.open()
+    }
+
+    onSaveDeck: {
+        if(!BackEnd.isUrlValid()){
+            saveDialog.open();
+        }else{
+            busyPopup.open();
+            BackEnd.saveAs(BackEnd.fileUrl);
+        }
+    }
+
+    onSaveDeckAs: {
+        saveDialog.open()
+    }
+
+    onQuitApplication: {
+        Qt.callLater(Qt.quit)
+    }
+
+    onAboutApplication: {
+        aboutPopup.open();
     }
 
     Component.onCompleted: {
@@ -47,61 +84,36 @@ ApplicationWindow {
 
         BackEnd.loaded.connect(backgroundWorkDone);
         BackEnd.saved.connect(backgroundWorkDone);
+
+        //defaultMenuBar.newDeck.connect(newDeck);
+        //defaultMenuBar.openDeck.connect(openDeck);
+        //defaultMenuBar.saveDeck.connect(saveDeck);
+        //defaultMenuBar.saveDeckAs.connect(saveDeckAs);
+        //defaultMenuBar.quitApplication.connect(quitApplication);
+        //defaultMenuBar.aboutApplication.connect(aboutApplication);
+
+         var component;
+         var os = Qt.platform.os;
+         if(os == "osx") component = Qt.createComponent("components/NativeMenuBar.qml");
+         else component = Qt.createComponent("components/DefaultMenuBar.qml");
+         var object = component.createObject(root.menuBar);
+         object.newDeck.connect(newDeck);
+         object.openDeck.connect(openDeck);
+         object.saveDeck.connect(saveDeck);
+         object.saveDeckAs.connect(saveDeckAs);
+         object.quitApplication.connect(quitApplication);
+         object.aboutApplication.connect(aboutApplication);
     }
 
     function backgroundWorkDone() {
         busyPopup.close();
     }
 
-    function save() {
-        if(!BackEnd.isUrlValid()){
-            saveDialog.open();
-        }else{
-            busyPopup.open();
-            BackEnd.saveAs(BackEnd.fileUrl);
+    /*menuBar: Item {
+        Components.NativeMenuBar{
+            id: defaultMenuBar
         }
-    }
-
-    function newDeck() {
-        busyPopup.open();
-        BackEnd.newDeck();
-    }
-
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("&File")
-            Action {
-                text: qsTr("&New...")
-                onTriggered: newDeck()
-            }
-            Action {
-                text: qsTr("&Open...")
-                shortcut: StandardKey.Open
-                onTriggered: openDialog.open()
-            }
-            Action {
-                text: qsTr("&Save")
-                onTriggered: save()
-            }
-            Action {
-                text: "Save &As..."
-                shortcut: StandardKey.SaveAs
-                onTriggered: saveDialog.open()
-            }
-            MenuSeparator { }
-            Action {
-                text: qsTr("&Quit")
-                onTriggered: Qt.callLater(Qt.quit)
-            }
-        }
-        Menu {
-            title: qsTr("&Help")
-            Action {
-                text: qsTr("&About")
-                onTriggered:aboutPopup.open();
-            }
-        }
-    }
+    }*/
 
     DialogAbout{
         id: aboutPopup
@@ -153,12 +165,12 @@ ApplicationWindow {
         closePolicy: Popup.CloseOnEscape
         ColumnLayout{
             anchors.fill: parent
-            BusyIndicator {
-                running: true
-            }
-            Label {
-                text: "Saving..."
-            }
+            //BusyIndicator {
+            //    running: true
+            //}
+            //Label {
+            //   text: "Saving..."
+            //}
         }
     }
 

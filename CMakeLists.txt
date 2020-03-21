@@ -19,7 +19,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED 14)
 include(GNUInstallDirs)
 
 # Finding Qt
-find_package(Qt5 COMPONENTS Quick Core Network Qml Gui Widgets QuickControls2 REQUIRED)
+find_package(Qt5 COMPONENTS Quick Core Network Qml Gui Widgets QuickControls2 Widgets REQUIRED)
 message(STATUS "QT_VERSION : ${Qt5_VERSION} ")
 
 set(QT_RES

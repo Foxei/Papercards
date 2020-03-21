@@ -13,6 +13,8 @@
         <file>DialogAbout.qml</file>
         <file>components/ColorPicker.qml</file>
         <file>components/MoveableScrollView.qml</file>
+        <file>components/DefaultMenuBar.qml</file>
+        <file>components/NativeMenuBar.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>

@@ -8,7 +8,7 @@
 #define MINOR_VERSION 1
 #define REVISION 1
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QFontDatabase>
@@ -18,11 +18,11 @@
 #include "DocumentHandler.h"
 
 void init_application_information(){
-  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-  QGuiApplication::setOrganizationName("Team Koeln");
-  QGuiApplication::setApplicationName("Papercards");
-  QGuiApplication::setApplicationVersion(
+  QApplication::setOrganizationName("Team Koeln");
+  QApplication::setApplicationName("Papercards");
+  QApplication::setApplicationVersion(
     QString(
       QString::number(MAJOR_VERSION) + "." +
         QString::number(MINOR_VERSION) + "." +
@@ -57,8 +57,8 @@ int main(int argc, char *argv[]) {
   qInfo("Executing %s, version %i.%i.%i.", APPLICATION_NAME, MAJOR_VERSION, MINOR_VERSION, REVISION);
   init_application_information();
 
-  QGuiApplication application(argc, argv);
-  QGuiApplication::setWindowIcon(QIcon(":/resources/logo.png"));
+  QApplication application(argc, argv);
+  QApplication::setWindowIcon(QIcon(":/resources/logo.png"));
 
   qInfo("Loading default card from file.");
   BackEnd::instance()->newDeck();
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/gui/main.qml")));
 
-  auto return_code = QGuiApplication::exec();
+  auto return_code = QApplication::exec();
 
   qInfo("Terminating %s.", APPLICATION_NAME);
   return return_code;
