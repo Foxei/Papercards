@@ -93,7 +93,9 @@ ApplicationWindow {
             component = Qt.createComponent("components/DefaultMenuBar.qml");
          }
          var object = component.createObject(root);
-         root.menuBar = object;
+         if(os !== "osx"){
+            root.menuBar = object;
+         }
          object.newDeck.connect(newDeck);
          object.openDeck.connect(openDeck);
          object.saveDeck.connect(saveDeck);
