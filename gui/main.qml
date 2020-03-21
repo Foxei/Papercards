@@ -1,10 +1,8 @@
-import Qt.labs.platform 1.0
-
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
+import Qt.labs.platform 1.0
 import QtQuick.Controls 2.14
-//import QtQuick.Controls.Material 2.14
-//import QtGraphicalEffects 1.14
+import QtQuick.Controls.Material 2.14
 import io.papercards.backend 1.0
 
 import "components" as Components
@@ -85,18 +83,17 @@ ApplicationWindow {
         BackEnd.loaded.connect(backgroundWorkDone);
         BackEnd.saved.connect(backgroundWorkDone);
 
-        //defaultMenuBar.newDeck.connect(newDeck);
-        //defaultMenuBar.openDeck.connect(openDeck);
-        //defaultMenuBar.saveDeck.connect(saveDeck);
-        //defaultMenuBar.saveDeckAs.connect(saveDeckAs);
-        //defaultMenuBar.quitApplication.connect(quitApplication);
-        //defaultMenuBar.aboutApplication.connect(aboutApplication);
-
          var component;
          var os = Qt.platform.os;
-         if(os == "osx") component = Qt.createComponent("components/NativeMenuBar.qml");
-         else component = Qt.createComponent("components/DefaultMenuBar.qml");
-         var object = component.createObject(root.menuBar);
+         if(os == "osx"){
+             print("Os supports native menu bar: " + os + ".");
+             component = Qt.createComponent("components/NativeMenuBar.qml");
+         } else {
+             print("Os does not supports native menu bar: " + os + ".");
+            component = Qt.createComponent("components/DefaultMenuBar.qml");
+         }
+         var object = component.createObject(root);
+         root.menuBar = object;
          object.newDeck.connect(newDeck);
          object.openDeck.connect(openDeck);
          object.saveDeck.connect(saveDeck);
@@ -109,11 +106,6 @@ ApplicationWindow {
         busyPopup.close();
     }
 
-    /*menuBar: Item {
-        Components.NativeMenuBar{
-            id: defaultMenuBar
-        }
-    }*/
 
     DialogAbout{
         id: aboutPopup

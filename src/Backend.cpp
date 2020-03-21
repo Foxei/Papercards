@@ -223,11 +223,12 @@ void BackEnd::saveAs(const QUrl &fileUrl) {
 }
 
 void BackEnd::newDeck() {
-  this->cards_.clear();
   emit cleared();
+  this->cards_.clear();
 
   Card* card = new Card;
   this->cards_.append(card);
+  this->current_card_ = this->cards_.first();
   emit loaded();
 
   file_url_.clear();
