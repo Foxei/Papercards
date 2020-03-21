@@ -40,23 +40,23 @@ MenuBar {
         title: qsTr("File")
         MenuItem {
             text: qsTr("New...")
-            //onTriggered: newDeck()
+            onTriggered: newDeck()
         }
         MenuItem {
             text: qsTr("&Open...")
-            //shortcut: StandardKey.Open
+            shortcut: StandardKey.Open
             onTriggered: openDeck()
         }
         MenuItem {
             text: qsTr("&Save")
+            shortcut: StandardKey.Save
             onTriggered: saveDeck()
         }
         MenuItem {
             text: "Save &As..."
-            //shortcut: StandardKey.SaveAs
+            shortcut: StandardKey.SaveAs
             onTriggered: saveDeckAs()
         }
-        //MenuSeparator { }
         MenuItem {
             text: qsTr("&Quit")
             onTriggered: quitApplication()
