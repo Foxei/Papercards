@@ -14,6 +14,7 @@ Pane {
 
     topPadding: 0; bottomPadding: 0
 
+    Material.background: Material.primary
     onScaleFactorChanged: {
         sliderScaleFactor.value = scaleFactor;
     }
@@ -30,9 +31,11 @@ Pane {
 
     RowLayout {
         anchors.fill: parent
+        spacing: 0
 
         Label {
             text: message
+            Layout.alignment: Qt.AlignLeft
         }
 
         RowLayout {

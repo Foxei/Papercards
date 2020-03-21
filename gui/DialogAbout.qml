@@ -39,7 +39,7 @@ Dialog {
             readOnly: true
             text: "<style>a:link { color: " + Material.accent + "; text-decoration: none;}</style><html>
 <h1>Papercards</h1>
-<p><small>Version 1.0</small></p>
+<p><small>Version "+Qt.application.version+"</small></p>
 <p>This project is open source and<br/>contributions are welcomed.</p>
 <p>Visit <a href=\"https://github.com/Foxei/Papercards\">https://github.com/Foxei/<br/>Papercards</a> for more information, to report<br/>a bug or to suggest a new feature.</p>
 <p><small>Copyright © 2019-2020 Simon Schäfer. All<br/>rights reserved.</small></p>

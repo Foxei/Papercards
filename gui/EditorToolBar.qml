@@ -21,14 +21,24 @@ ToolBar{
     signal textBackground(color highlightColor)
     signal textForground(color textColor)
 
+    signal newCard()
+    signal newDeck()
+
     RowLayout {
         Components.MaterialToolButton {
             text: MD.icons.library_add
             ToolTip.text: "New deck"
+            onClicked: toolBar.newDeck()
         }
         Components.MaterialToolButton {
             text: MD.icons.post_add
-            ToolTip.text: "New card"
+            ToolTip.text: "New card (" + newCard.nativeText + ")"
+            onClicked: toolBar.newCard()
+            Shortcut {
+               id: newCard
+               sequence: StandardKey.New
+               onActivated: toolBar.newCard()
+            }
         }
         ToolSeparator {}
         Components.MaterialToolButton {

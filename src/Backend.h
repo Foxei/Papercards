@@ -10,15 +10,19 @@
 class BackEnd : public QObject {
   // @formatter::off
   Q_OBJECT
-  Q_PROPERTY(QStringList available_font_families READ availableFontFamilies WRITE setAvailableFontFamilies NOTIFY availableFontFamiliesChanged)
   Q_PROPERTY(QStringList default_font_sizes READ defaultFontSizes WRITE setDefaultFontSizes NOTIFY defaultFontSizesChanged)
   Q_PROPERTY(Card* current_card READ currentCard WRITE setCurrentCard NOTIFY currentCardChanged)
+  Q_PROPERTY(QList<Card*> cards READ cards WRITE setCards NOTIFY cardsChanged)
+  Q_PROPERTY(QString fileName READ fileName NOTIFY fileUrlChanged)
+  Q_PROPERTY(QString fileType READ fileType NOTIFY fileUrlChanged)
+  Q_PROPERTY(QUrl fileUrl READ fileUrl NOTIFY fileUrlChanged)
   // @formatter::on
 
  private:
-  QStringList available_font_families_;
   QStringList default_font_sizes_;
   Card *current_card_ = nullptr;
+  QList<Card*> cards_;
+  QUrl file_url_;
 
   static BackEnd* only_instance_;
   explicit BackEnd(QObject *parent = nullptr);
@@ -28,29 +32,44 @@ class BackEnd : public QObject {
   static QObject *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
 
   Q_INVOKABLE void onComplete();
+  Q_INVOKABLE bool isUrlValid();
 
-  QStringList availableFontFamilies();
   QStringList defaultFontSizes();
-  Card* currentCard();
-
-
- public slots:
-  void setAvailableFontFamilies(const QStringList &available_font_families);
   void setDefaultFontSizes(const QStringList &default_font_sizes);
+
+  Card* currentCard();
   void setCurrentCard(Card* card);
 
-  bool loadCurrentCard(const QString &file_name);
-  bool storeCurrentCard(const QString &file_name);
+  const QList<Card*>& cards();
+  void setCards(QList<Card*> cards);
+
+  QString fileName() const;
+  QString fileType() const;
+  QUrl fileUrl() const;
+
+  bool loadDefaultDeck();
+  void storeDefaultDeck();
+
+ public Q_SLOTS:
   static bool checkIfValidImage(const QList<QUrl> &uri_list);
+  void addNewCard();
 
- signals:
+  void load(const QUrl &fileUrl);
+  void saveAs(const QUrl &fileUrl);
+  void newDeck();
 
+ Q_SIGNALS:
   #pragma clang diagnostic push
   #pragma ide diagnostic ignored "NotImplementedFunctions"
-  void availableFontFamiliesChanged();
   void defaultFontSizesChanged();
   void currentCardChanged();
-  #pragma clang diagnostic pop
+  void cardsChanged();
+  void cardAdded(Card*);
+  void fileUrlChanged();
+  void loaded();
+  void saved();
+  void cleared();
+#pragma clang diagnostic pop
 
 };
 

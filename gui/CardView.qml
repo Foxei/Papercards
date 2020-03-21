@@ -31,36 +31,47 @@ Pane {
     signal textForground(color textColor)
 
     onBold: {
+        if(documentInFocus == null) return;
         documentInFocus.bold = !documentInFocus.bold;
     }
     onItalic: {
+        if(documentInFocus == null) return;
         documentInFocus.italic = !documentInFocus.italic;
     }
     onUnderlined: {
+        if(documentInFocus == null) return;
         documentInFocus.underline = !documentInFocus.underline;
     }
     onBulletList: {
+        if(documentInFocus == null) return;
         documentInFocus.bulletList = !documentInFocus.bulletList;
         cardAnswerInput.updateCursorPosition();
     }
     onIncreaseIndentation: {
+        if(documentInFocus == null) return;
         documentInFocus.increaseIndentation();
         cardAnswerInput.updateCursorPosition();
     }
     onDecreaseIndentation: {
+        if(documentInFocus == null) return;
         documentInFocus.decreaseIndentation();
         cardAnswerInput.updateCursorPosition();
     }
     onTextBackground: {
+        if(documentInFocus == null) return;
         if(highlightColor === Qt.rgba(1,1,1,1)) documentInFocus.resetHighlightColor();
         else documentInFocus.highlightColor = highlightColor;
     }
     onTextForground: {
+        if(documentInFocus == null) return;
         if(textColor === Qt.rgba(1,1,1,1)) documentInFocus.resetTextColor();
         else documentInFocus.textColor = textColor;
     }
 
     Component.onCompleted:{
+
+    }
+    function loadCard(){
         cardAnswerInputHandler.load();
         cardQuestionInputHandler.load();
     }
