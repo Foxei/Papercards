@@ -10,7 +10,7 @@ import "components" as Components
 ApplicationWindow {
     property real scaleFactor: statusBar.scaleFactor
     property var targetFunction
-    property bool discard: false
+    property bool discard: true
 
     id: root
     visible: true
