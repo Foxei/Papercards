@@ -24,7 +24,7 @@ class BackEnd : public QObject {
   Card *current_card_ = nullptr;
   QList<Card*> cards_;
   QUrl file_url_;
-  bool modified_;
+  bool modified_ = false;
 
   static BackEnd* only_instance_;
   explicit BackEnd(QObject *parent = nullptr);

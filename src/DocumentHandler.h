@@ -37,6 +37,7 @@ class DocumentHandler : public QObject {
   // Card that should be updated
   Q_PROPERTY(Card* card READ card WRITE setCard NOTIFY cardChanged)
   Q_PROPERTY(Card::CardField cardField READ cardField WRITE setCardField NOTIFY cardFieldChanged)
+
   //@formatter:on
  public:
   explicit DocumentHandler(QObject *parent = nullptr);

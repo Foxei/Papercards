@@ -68,9 +68,6 @@ Pane {
         else documentInFocus.textColor = textColor;
     }
 
-    Component.onCompleted:{
-
-    }
     function loadCard(){
         cardAnswerInputHandler.load();
         cardQuestionInputHandler.load();
@@ -149,7 +146,6 @@ Pane {
                 if (event.key === Qt.Key_Tab) {
                     increaseIndentation();
                 }
-                BackEnd.modified = true;
             }
             KeyNavigation.priority: KeyNavigation.BeforeItem
             KeyNavigation.tab: cardAnswerInput

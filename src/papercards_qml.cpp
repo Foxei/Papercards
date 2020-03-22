@@ -44,6 +44,7 @@ void load_fonts(){
   QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Thin.ttf");
   QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-ThinItalic.ttf");
   QFontDatabase::addApplicationFont(":/resources/MaterialIcons-Regular.ttf");
+  QFontDatabase::addApplicationFont(":/resources/PapercardsIcons.ttf");
   QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BlackItalic.ttf");
 }
 
