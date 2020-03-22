@@ -9,6 +9,8 @@ import "components" as Components
 
 ApplicationWindow {
     property real scaleFactor: statusBar.scaleFactor
+    property var targetFunction
+    property bool discard: false
 
     id: root
     visible: true
@@ -39,12 +41,24 @@ ApplicationWindow {
     }
 
     onNewDeck: {
-        busyPopup.open();
-        BackEnd.newDeck();
+        var modified = BackEnd.modified;
+        if(modified || !discard) {
+            discardDialog.open();
+            targetFunction = newDeck
+        } else {
+            busyPopup.open();
+            BackEnd.newDeck();
+        }
     }
 
     onOpenDeck: {
-        openDialog.open()
+        var modified = BackEnd.modified;
+        if(modified || !discard) {
+            discardDialog.open();
+            targetFunction = openDeck;
+        } else {
+            openDialog.open()
+        }
     }
 
     onSaveDeck: {
@@ -53,6 +67,8 @@ ApplicationWindow {
         }else{
             busyPopup.open();
             BackEnd.saveAs(BackEnd.fileUrl);
+            BackEnd.modified = false;
+            discard = true;
         }
     }
 
@@ -60,8 +76,20 @@ ApplicationWindow {
         saveDialog.open()
     }
 
+    onClosing: {
+        close.accepted = false;
+        quitApplication();
+    }
+
     onQuitApplication: {
-        Qt.callLater(Qt.quit)
+        var modified = BackEnd.modified;
+        if(modified || !discard) {
+            discardDialog.open();
+            targetFunction = quitApplication;
+        } else {
+            busyPopup.open();
+            Qt.callLater(Qt.quit)
+        }
     }
 
     onAboutApplication: {
@@ -102,6 +130,8 @@ ApplicationWindow {
          object.saveDeckAs.connect(saveDeckAs);
          object.quitApplication.connect(quitApplication);
          object.aboutApplication.connect(aboutApplication);
+
+         BackEnd.modified = false;
     }
 
     function backgroundWorkDone() {
@@ -137,6 +167,7 @@ ApplicationWindow {
             busyPopup.open()
             BackEnd.load(file)
         }
+        onRejected: discard = false
     }
 
     FileDialog {
@@ -148,6 +179,8 @@ ApplicationWindow {
         onAccepted: {
             busyPopup.open();
             BackEnd.saveAs(file)
+            BackEnd.modified = false;
+            discard = true;
         }
     }
 
@@ -159,13 +192,23 @@ ApplicationWindow {
         closePolicy: Popup.CloseOnEscape
         ColumnLayout{
             anchors.fill: parent
-            //BusyIndicator {
-            //    running: true
-            //}
-            //Label {
-            //   text: "Saving..."
-            //}
+            BusyIndicator {
+                running: true
+            }
+            Label {
+               text: "Please wait..."
+            }
         }
+    }
+
+    DialogConfirmDiscard {
+        id: discardDialog
+        onAccepted: {
+            discard = true;
+            BackEnd.modified=false;
+            targetFunction();
+        }
+        onRejected: targetFunction = null;
     }
 
 }

@@ -17,6 +17,9 @@ HEADERS += src/Backend.h src/DocumentHandler.h src/model/Card.h
 
 RESOURCES += resources/resources.qrc gui/gui.qrc
 
+OTHER_FILES += gui/*.qml gui/components/*.qml
+
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 

@@ -16,6 +16,7 @@ class BackEnd : public QObject {
   Q_PROPERTY(QString fileName READ fileName NOTIFY fileUrlChanged)
   Q_PROPERTY(QString fileType READ fileType NOTIFY fileUrlChanged)
   Q_PROPERTY(QUrl fileUrl READ fileUrl NOTIFY fileUrlChanged)
+  Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged)
   // @formatter::on
 
  private:
@@ -23,6 +24,7 @@ class BackEnd : public QObject {
   Card *current_card_ = nullptr;
   QList<Card*> cards_;
   QUrl file_url_;
+  bool modified_;
 
   static BackEnd* only_instance_;
   explicit BackEnd(QObject *parent = nullptr);
@@ -47,6 +49,9 @@ class BackEnd : public QObject {
   QString fileType() const;
   QUrl fileUrl() const;
 
+  bool modified() const;
+  void setModified(bool m);
+
   bool loadDefaultDeck();
   void storeDefaultDeck();
 
@@ -66,6 +71,7 @@ class BackEnd : public QObject {
   void cardsChanged();
   void cardAdded(Card*);
   void fileUrlChanged();
+  void modifiedChanged();
   void loaded();
   void saved();
   void cleared();

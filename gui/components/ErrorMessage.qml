@@ -71,7 +71,7 @@ Pane {
                     height: 30
                     layer.samples: 8
                     layer.enabled: true
-                    transform: Translate{x:7}
+                    transform: Translate{x:42}
                     ShapePath {
                         strokeColor: Material.background
                         strokeWidth: 3

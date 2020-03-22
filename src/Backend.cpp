@@ -43,8 +43,8 @@ void BackEnd::onComplete() {
 
 bool BackEnd::isUrlValid() {
   bool valid = true;
-  if(this->file_url_.toLocalFile().startsWith(":")) valid = false;
-  if(this->file_url_.toLocalFile().isEmpty()) valid = false;
+  if (this->file_url_.toLocalFile().startsWith(":")) valid = false;
+  if (this->file_url_.toLocalFile().isEmpty()) valid = false;
   return valid;
 }
 
@@ -96,6 +96,14 @@ QUrl BackEnd::fileUrl() const {
   return file_url_;
 }
 
+bool BackEnd::modified() const {
+  return this->modified_;
+}
+
+void BackEnd::setModified(bool m) {
+  this->modified_ = m;
+}
+
 bool BackEnd::loadDefaultDeck() {
   // Try used stored file
   QString file_name = "./default_deck.json";
@@ -103,7 +111,7 @@ bool BackEnd::loadDefaultDeck() {
     qInfo() << "No user default deck found. Parsing system version!";
     // Try system stored file
     file_name = ":resources/default_deck.json";
-  }else{
+  } else {
     qInfo() << "User default deck found.";
   }
   load(QUrl::fromLocalFile(file_name));
@@ -128,12 +136,12 @@ bool BackEnd::checkIfValidImage(const QList<QUrl> &uri_list) {
   return accepted;
 }
 
-void BackEnd::load(const QUrl &fileUrl){
+void BackEnd::load(const QUrl &fileUrl) {
   if (fileUrl == file_url_) return;
   qInfo() << "Parsing cards from json deck:" << fileUrl;
 
   const QString fileName = fileUrl.toLocalFile();
-  if (!QFile::exists(fileName)){
+  if (!QFile::exists(fileName)) {
     qWarning() << "Parsing deck from json file has failed. File not found:" << fileName;
     return;
   }
@@ -226,7 +234,7 @@ void BackEnd::newDeck() {
   emit cleared();
   this->cards_.clear();
 
-  Card* card = new Card;
+  Card *card = new Card;
   this->cards_.append(card);
   this->current_card_ = this->cards_.first();
   emit loaded();
