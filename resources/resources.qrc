@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/resources/">
+    <qresource prefix="/resources">
         <file>WorkSans-Light.ttf</file>
         <file>WorkSans-Regular.ttf</file>
         <file>MaterialIcons-Regular.ttf</file>

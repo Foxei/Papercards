@@ -13,6 +13,8 @@
 #include <QTextDocument>
 #include <QDebug>
 
+#include "Backend.h"
+
 DocumentHandler::DocumentHandler(QObject *parent)
   : QObject(parent), m_document(nullptr), m_cursorPosition(-1), m_selectionStart(0), m_selectionEnd(0) {
 }
@@ -256,13 +258,16 @@ void DocumentHandler::decreaseIndentation() {
 }
 
 void DocumentHandler::updateCard() {
-  if(this->card_ && this->textDocument())
+  if(this->card_ && this->textDocument()){
     this->card()->updateText(this->textDocument()->toHtml(), this->card_field_);
+    BackEnd::instance()->setModified(true);
+  }
 }
 
 void DocumentHandler::load() {
   if(this->card_ == nullptr) return;
   document()->textDocument()->setHtml(card()->text(this->card_field_));
+  BackEnd::instance()->setModified(false);
   emit loaded();
 }
 

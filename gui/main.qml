@@ -42,7 +42,7 @@ ApplicationWindow {
 
     onNewDeck: {
         var modified = BackEnd.modified;
-        if(modified || !discard) {
+        if(modified && !discard) {
             discardDialog.open();
             targetFunction = newDeck
         } else {
@@ -53,7 +53,8 @@ ApplicationWindow {
 
     onOpenDeck: {
         var modified = BackEnd.modified;
-        if(modified || !discard) {
+        console.log("Modified:", modified, "Discard:", discard);
+        if(modified && !discard) {
             discardDialog.open();
             targetFunction = openDeck;
         } else {
@@ -83,7 +84,7 @@ ApplicationWindow {
 
     onQuitApplication: {
         var modified = BackEnd.modified;
-        if(modified || !discard) {
+        if(modified && !discard) {
             discardDialog.open();
             targetFunction = quitApplication;
         } else {
@@ -205,10 +206,12 @@ ApplicationWindow {
         id: discardDialog
         onAccepted: {
             discard = true;
-            BackEnd.modified=false;
             targetFunction();
         }
-        onRejected: targetFunction = null;
+        onRejected: {
+            discard = false;
+            targetFunction = null;
+        }
     }
 
 }
