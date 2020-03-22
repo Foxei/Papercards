@@ -18,7 +18,7 @@ Dialog {
     y:parent.height+20
     x: -17
 
-    focus: false
+    //focus: false
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     ColumnLayout{

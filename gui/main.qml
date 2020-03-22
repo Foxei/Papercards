@@ -156,6 +156,7 @@ ApplicationWindow {
         id: editorContent
         anchors.fill: parent
         scaleFactor: root.scaleFactor
+        focus: true
     }
 
     FileDialog {
@@ -188,7 +189,6 @@ ApplicationWindow {
         id: busyPopup
         anchors.centerIn: Overlay.overlay
         modal: true
-        focus: true
         closePolicy: Popup.CloseOnEscape
         ColumnLayout{
             anchors.fill: parent

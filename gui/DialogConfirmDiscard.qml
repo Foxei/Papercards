@@ -13,7 +13,6 @@ Dialog {
 
     anchors.centerIn: Overlay.overlay
     modal: true
-    focus: true
     standardButtons: Dialog.Apply | Dialog.Cancel
     closePolicy: Popup.CloseOnEscape
 

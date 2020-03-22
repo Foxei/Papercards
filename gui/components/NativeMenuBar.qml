@@ -35,7 +35,7 @@ MenuBar {
     signal saveDeckAs()
     signal quitApplication()
     signal aboutApplication()
-
+    //focus: true
     Menu {
         title: qsTr("File")
         MenuItem {

@@ -256,7 +256,7 @@ void DocumentHandler::decreaseIndentation() {
 }
 
 void DocumentHandler::updateCard() {
-  if(this->card_ && this->textDocument());
+  if(this->card_ && this->textDocument())
     this->card()->updateText(this->textDocument()->toHtml(), this->card_field_);
 }
 

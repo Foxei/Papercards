@@ -27,4 +27,27 @@ set(QT_RES
     ${CMAKE_SOURCE_DIR}/gui/gui.qrc)
 
 # Targets that we develop here
-add_subdirectory(src)
+set(SRC ${QT_RES}
+    src/papercards_qml.cpp
+    src/Backend.cpp
+    src/DocumentHandler.cpp
+    src/model/Card.cpp)
+
+add_executable(Papercards ${SRC})
+if (APPLE)
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE TRUE)
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Papercards" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_EXECUTABLE_NAME "Papercards" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_INFO_STRING "Papercards - Version 0.1.1" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_BUNDLE_VERSION "0.1.1" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_LONG_VERSION_STRING "0.1.1" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1.1" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_GUI_IDENTIFIER "com.teamkoeln.Papercards" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_COPYRIGHT "Copyright © 2019–2020 Simon Schäfer. All rights reserved." )
+  # Change following line to point to actual icns file in bundle.
+  #set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_ICON_FILE "atom.icns" )
+  set_target_properties(Papercards PROPERTIES MACOSX_BUNDLE_INFO_PLIST "${CMAKE_SOURCE_DIR}/resources/MacOSXBundleInfo.plist.in")
+endif()
+
+target_include_directories(Papercards PRIVATE src)
+target_link_libraries(Papercards Qt5::Core Qt5::Widgets Qt5::Gui Qt5::Qml Qt5::Quick Qt5::QuickControls2)

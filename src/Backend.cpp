@@ -115,6 +115,7 @@ bool BackEnd::loadDefaultDeck() {
     qInfo() << "User default deck found.";
   }
   load(QUrl::fromLocalFile(file_name));
+  return true;
 }
 
 void BackEnd::storeDefaultDeck() {

@@ -98,6 +98,7 @@ Pane {
             padding: 0
 
             font.pointSize: Screen.devicePixelRatio*20
+            //font.pointSize: 20
             textFormat: Qt.PlainText
             selectByMouse: true
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
@@ -140,6 +141,7 @@ Pane {
             padding: 0
 
             font.pointSize: Screen.devicePixelRatio*16
+            //font.pointSize: 16
             textFormat: Qt.PlainText
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
             selectByMouse: true

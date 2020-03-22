@@ -2,6 +2,9 @@
 *.idea
 *cmake-build*
 
+# Qt
+*.user
+
 # MacOs
 *.DS*
 

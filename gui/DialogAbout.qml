@@ -8,7 +8,7 @@ Dialog {
     id: aboutPopup
     anchors.centerIn: Overlay.overlay
     modal: true
-    focus: true
+    //focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     ColumnLayout{

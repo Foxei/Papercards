@@ -1,5 +1,8 @@
+TEMPLATE = app
 QT += core gui quick quickcontrols2 widgets
 CONFIG += c++11
+VERSION = 0.1.1
+#ICON = not set
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
