@@ -3,11 +3,6 @@
  * @date 12.07.2019
  * @file papercards.cpp
  */
-#define APPLICATION_NAME "Papercards"
-#define MAJOR_VERSION 0
-#define MINOR_VERSION 1
-#define REVISION 1
-
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
@@ -55,7 +50,7 @@ void register_qml() {
 }
 
 int main(int argc, char *argv[]) {
-  qInfo("Executing %s, version %i.%i.%i.", APPLICATION_NAME, MAJOR_VERSION, MINOR_VERSION, REVISION);
+  qInfo("Executing Papercards, Version %i.%i.%i.", MAJOR_VERSION, MINOR_VERSION, REVISION);
   init_application_information();
 
   QApplication application(argc, argv);
@@ -74,6 +69,6 @@ int main(int argc, char *argv[]) {
 
   auto return_code = QApplication::exec();
 
-  qInfo("Terminating %s.", APPLICATION_NAME);
+  qInfo("Terminating .");
   return return_code;
 }

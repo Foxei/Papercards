@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Utility;Education;Office;WordProcessor;
+Comment=A creating tool for printable flashcards.
+Exec=@PROJECT_PATH@
+GenericName=@PROJECT_NAME@
+Icon=@PROJECT_ICON@
+Name=@PROJECT_NAME@
+StartupNotify=false
+Type=Application
+Version=@PROJECT_VERSION@
+Encoding=UTF-8
+Terminal=false

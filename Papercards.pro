@@ -1,7 +1,13 @@
 TEMPLATE = app
 QT += core gui quick quickcontrols2 widgets
-CONFIG += c++11
-VERSION = 0.1.1
+CONFIG += c++14
+
+VERSION = 0.1.0
+
+VERSIONS = $$split(VERSION, ".")
+DEFINES += MAJOR_VERSION=$$member(VERSIONS, 0)
+DEFINES += MINOR_VERSION=$$member(VERSIONS, 1)
+DEFINES += REVISION=$$member(VERSIONS, 2)
 #ICON = not set
 
 # The following define makes your compiler emit warnings if you use
