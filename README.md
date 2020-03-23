@@ -8,8 +8,29 @@ A direct print view is irreplaceable, no matter if several cards on one sheet or
 - Creation of a basic view for creating, managing and editing cards
 - Management of different decks with individual cards
 - Creation of a PDF with A6 flashcards
-- Creation of a PDF with any paper size
 
-## Further Versions
-TBA
+# Compile from Source
+**Papercards** is based on Qt and supports both major compiling platforms (`cmake` and `qmake`). It's desined to work and Unix based systems (MacOs and Linux) but may work on Windows as well.
+
+Tested Platform:
+- Ubuntu 18.04 (Qt 5.14.1)
+- MacOs 10.15.3 (Qt 5.14.1)
+
+### Compile with CMake (3.12+)
+```shell
+cd <papercards-src>
+mkdir build
+cd build
+cmake ..
+cmake --build . -j 2
+```
+
+### Compile with qmake (3.1+)
+```shell
+cd <papercards-src>
+mkdir build
+cd build
+qmake ..
+make -j 2
+```
 
