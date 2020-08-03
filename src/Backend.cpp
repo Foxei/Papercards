@@ -251,6 +251,13 @@ void BackEnd::newDeck() {
   emit fileUrlChanged();
 }
 
+QString injectHtmlColorSet(const QString &text){
+  QString buffer = text;
+  int index = buffer.indexOf("font-style:normal;");
+  buffer.insert(index, "color:#000000;");
+  return buffer;
+}
+
 void BackEnd::exportAsPdf(const QUrl &fileUrl) {
   const QString filePath = fileUrl.toLocalFile();
   QFile file(filePath);
@@ -260,8 +267,8 @@ void BackEnd::exportAsPdf(const QUrl &fileUrl) {
   }
   QPdfWriter writer(filePath);
   writer.setCreator("Simon Schäfer");
-  writer.setPdfVersion(QPagedPaintDevice::PdfVersion_1_6);
-  writer.setResolution(110);
+  writer.setPdfVersion(QPagedPaintDevice::PdfVersion_A1b);
+  writer.setResolution(130);
   writer.setTitle("Tests Deck");
 
   QPageSize page_size = QPageSize(QPageSize::A6);
@@ -271,21 +278,25 @@ void BackEnd::exportAsPdf(const QUrl &fileUrl) {
   writer.setPageLayout(page_layout);
 
   QPainter painter;
+
   painter.begin(&writer);
   for (Card *card : this->cards_) {
     writer.newPage();
     QTextDocument print_document;
+
     print_document.setPageSize(painter.viewport().size());
     painter.setClipRect(painter.viewport());
 
-    print_document.setHtml(card->cardQuestionText());
+    print_document.setHtml(injectHtmlColorSet(card->cardQuestionText()));
     print_document.drawContents(&painter);
 
     writer.newPage();
-    print_document.setHtml(card->cardAnswerText());
+    print_document.setHtml(injectHtmlColorSet(card->cardAnswerText()));
     print_document.drawContents(&painter);
   }
   painter.end();
 
   emit exported();
 }
+
+

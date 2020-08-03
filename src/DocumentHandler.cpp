@@ -90,7 +90,7 @@ void DocumentHandler::setTextColor(const QColor &color) {
 
 void DocumentHandler::resetTextColor() {
   QTextCharFormat format;
-  format.setForeground(QBrush());
+  format.setForeground(QBrush(Qt::black));
   mergeFormatOnWordOrSelection(format);
   emit textColorChanged();
 }

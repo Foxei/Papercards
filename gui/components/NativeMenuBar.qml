@@ -47,6 +47,7 @@ MenuBar {
             shortcut: StandardKey.Open
             onTriggered: openDeck()
         }
+        MenuSeparator {}
         MenuItem {
             text: qsTr("&Save")
             shortcut: StandardKey.Save
@@ -56,6 +57,12 @@ MenuBar {
             text: "Save &As..."
             shortcut: StandardKey.SaveAs
             onTriggered: saveDeckAs()
+        }
+        MenuSeparator {}
+        MenuItem {
+            text: "&Export As..."
+            shortcut: StandardKey.Print
+            onTriggered: exportAsPdf()
         }
         MenuItem {
             text: qsTr("&Quit")
