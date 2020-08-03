@@ -13,6 +13,13 @@
 #include <QQmlFileSelector>
 #include <QFileSelector>
 
+#include <QPdfWriter>
+#include <QPageLayout>
+#include <QtGui/QPainter>
+#include <QTextDocument>
+#include <QAbstractTextDocumentLayout>
+#include <QTextBlock>
+
 #include "Backend.h"
 
 BackEnd *BackEnd::only_instance_ = nullptr;
@@ -242,4 +249,43 @@ void BackEnd::newDeck() {
 
   file_url_.clear();
   emit fileUrlChanged();
+}
+
+void BackEnd::exportAsPdf(const QUrl &fileUrl) {
+  const QString filePath = fileUrl.toLocalFile();
+  QFile file(filePath);
+  if (!file.open(QFile::WriteOnly | QFile::Truncate | QFile::Text)) {
+    qWarning() << "Cannot save: " + file.errorString();
+    return;
+  }
+  QPdfWriter writer(filePath);
+  writer.setCreator("Simon Schäfer");
+  writer.setPdfVersion(QPagedPaintDevice::PdfVersion_1_6);
+  writer.setResolution(110);
+  writer.setTitle("Tests Deck");
+
+  QPageSize page_size = QPageSize(QPageSize::A6);
+  QPageLayout::Orientation page_orientation = QPageLayout::Orientation::Landscape;
+  QMarginsF page_margins = QMarginsF(20,20,20,20);
+  QPageLayout page_layout = QPageLayout(page_size, page_orientation, page_margins);
+  writer.setPageLayout(page_layout);
+
+  QPainter painter;
+  painter.begin(&writer);
+  for (Card *card : this->cards_) {
+    writer.newPage();
+    QTextDocument print_document;
+    print_document.setPageSize(painter.viewport().size());
+    painter.setClipRect(painter.viewport());
+
+    print_document.setHtml(card->cardQuestionText());
+    print_document.drawContents(&painter);
+
+    writer.newPage();
+    print_document.setHtml(card->cardAnswerText());
+    print_document.drawContents(&painter);
+  }
+  painter.end();
+
+  emit exported();
 }

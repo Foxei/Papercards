@@ -33,6 +33,7 @@ set(SRC ${QT_RES}
     src/papercards_qml.cpp
     src/Backend.cpp
     src/DocumentHandler.cpp
+    src/PdfHandler.cpp
     src/model/Card.cpp)
 
 # Copy version to source code

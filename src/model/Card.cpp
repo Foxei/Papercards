@@ -129,20 +129,28 @@ const QString &Card::text(Card::CardField field) {
   }
 }
 
+QTextDocument *Card::document() const {
+  return this->document_;
+}
+
 void Card::setCardSize(QRectF card_size) {
   this->card_size_ = card_size;
+  emit cardsOrientationChanged();
 }
 
 void Card::setCardOrientation(Card::CardOrientation card_orientation) {
   this->card_orientation_ = card_orientation;
+  emit cardsOrientationChanged();
 }
 
 void Card::setCardQuestionText(QString card_question_text) {
   this->card_question_text_ = std::move(card_question_text);
+  emit cardQuestionTextChanged();
 }
 
 void Card::setCardAnswerText(QString card_answer_text) {
   this->card_answer_text_ = std::move(card_answer_text);
+  emit cardAnswerTextChanged();
 }
 
 void Card::updateText(const QString& text, Card::CardField field) {
@@ -157,3 +165,7 @@ void Card::updateText(const QString& text, Card::CardField field) {
 }
 
 
+void Card::setDocument(QTextDocument *document) {
+  this->document_ = document;
+  emit documentChanged();
+}

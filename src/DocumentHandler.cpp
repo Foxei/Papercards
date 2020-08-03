@@ -259,8 +259,11 @@ void DocumentHandler::decreaseIndentation() {
 
 void DocumentHandler::updateCard() {
   if(this->card_ && this->textDocument()){
+    //TODO Fix this shit!
+    this->card()->setDocument(this->textDocument());
     this->card()->updateText(this->textDocument()->toHtml(), this->card_field_);
     BackEnd::instance()->setModified(true);
+    qDebug() << "Card updated.";
   }
 }
 

@@ -62,6 +62,7 @@ class BackEnd : public QObject {
   void load(const QUrl &fileUrl);
   void saveAs(const QUrl &fileUrl);
   void newDeck();
+  void exportAsPdf(const QUrl &fileUrl);
 
  Q_SIGNALS:
   #pragma clang diagnostic push
@@ -75,6 +76,7 @@ class BackEnd : public QObject {
   void loaded();
   void saved();
   void cleared();
+  void exported();
 #pragma clang diagnostic pop
 
 };

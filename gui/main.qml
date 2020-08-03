@@ -10,7 +10,7 @@ import "components" as Components
 ApplicationWindow {
     property real scaleFactor: statusBar.scaleFactor
     property var targetFunction
-    property bool discard: true
+    property bool discard: false
 
     id: root
     visible: true
@@ -22,6 +22,7 @@ ApplicationWindow {
     signal openDeck()
     signal saveDeck()
     signal saveDeckAs()
+    signal exportAsPdf()
     signal quitApplication()
     signal aboutApplication()
 
@@ -42,12 +43,14 @@ ApplicationWindow {
 
     onNewDeck: {
         var modified = BackEnd.modified;
+        console.log("Modified:", modified, "Discard:", discard);
         if(modified && !discard) {
             discardDialog.open();
             targetFunction = newDeck
         } else {
             busyPopup.open();
             BackEnd.newDeck();
+            discard = false;
         }
     }
 
@@ -75,6 +78,10 @@ ApplicationWindow {
 
     onSaveDeckAs: {
         saveDialog.open()
+    }
+
+    onExportAsPdf: {
+        exportDialog.open();
     }
 
     onClosing: {
@@ -111,6 +118,7 @@ ApplicationWindow {
 
         BackEnd.loaded.connect(backgroundWorkDone);
         BackEnd.saved.connect(backgroundWorkDone);
+        BackEnd.exported.connect(backgroundWorkDone);
 
          var component;
          var os = Qt.platform.os;
@@ -129,6 +137,7 @@ ApplicationWindow {
          object.openDeck.connect(openDeck);
          object.saveDeck.connect(saveDeck);
          object.saveDeckAs.connect(saveDeckAs);
+         object.exportAsPdf.connect(exportAsPdf);
          object.quitApplication.connect(quitApplication);
          object.aboutApplication.connect(aboutApplication);
 
@@ -183,6 +192,18 @@ ApplicationWindow {
             BackEnd.saveAs(file)
             BackEnd.modified = false;
             discard = true;
+        }
+    }
+
+    FileDialog {
+        id: exportDialog
+        fileMode: FileDialog.SaveFile
+        defaultSuffix: "pdf"
+        nameFilters: ["Portable Document Format (PDF) (*.pdf)", "All files (*)"]
+        folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+        onAccepted: {
+            busyPopup.open();
+            BackEnd.exportAsPdf(file)
         }
     }
 

@@ -7,6 +7,7 @@ MenuBar {
     signal openDeck()
     signal saveDeck()
     signal saveDeckAs()
+    signal exportAsPdf()
     signal quitApplication()
     signal aboutApplication()
 
@@ -29,6 +30,12 @@ MenuBar {
             text: "Save &As..."
             shortcut: StandardKey.SaveAs
             onTriggered: saveDeckAs()
+        }
+        MenuSeparator { }
+        Action {
+            text: "&Export As..."
+            shortcut: StandardKey.Print
+            onTriggered: exportAsPdf()
         }
         MenuSeparator { }
         Action {
