@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/ui">
+        <file>mainwindow.ui</file>
+        <file>sidepanel.ui</file>
+    </qresource>
+</RCC>

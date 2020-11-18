@@ -268,7 +268,7 @@ void BackEnd::exportAsPdf(const QUrl &fileUrl) {
   QPdfWriter writer(filePath);
   writer.setCreator("Simon Schäfer");
   writer.setPdfVersion(QPagedPaintDevice::PdfVersion_A1b);
-  writer.setResolution(130);
+  writer.setResolution(600);
   writer.setTitle("Tests Deck");
 
   QPageSize page_size = QPageSize(QPageSize::A6);
@@ -280,6 +280,7 @@ void BackEnd::exportAsPdf(const QUrl &fileUrl) {
   QPainter painter;
 
   painter.begin(&writer);
+  painter.scale(10,10);
   for (Card *card : this->cards_) {
     writer.newPage();
     QTextDocument print_document;

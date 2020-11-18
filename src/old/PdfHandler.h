@@ -5,6 +5,7 @@
 
 class PdfHandler : public QObject {
 
+
 };
 
 #endif //PDF_HANDLER_H

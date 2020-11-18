@@ -28,13 +28,13 @@ set(QT_RES
     ${CMAKE_SOURCE_DIR}/resources/resources.qrc
     ${CMAKE_SOURCE_DIR}/gui/gui.qrc)
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/ui/)
+
 # Set Qt source files
 set(SRC ${QT_RES}
     src/papercards_qml.cpp
-    src/Backend.cpp
-    src/DocumentHandler.cpp
-    src/PdfHandler.cpp
-    src/model/Card.cpp)
+    src/mainwindow.cpp
+    src/sidepanel.cpp)
 
 # Copy version to source code
 add_definitions(-DMAJOR_VERSION=${PROJECT_VERSION_MAJOR})

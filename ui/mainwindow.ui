@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="central_widget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="SidePanel" name="side_panel" native="true"/>
+      <widget class="QWidget" name="content_panel" native="true"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="action_save"/>
+    <addaction name="action_load"/>
+    <addaction name="action_export"/>
+    <addaction name="separator"/>
+    <addaction name="action_add"/>
+    <addaction name="separator"/>
+    <addaction name="action_quit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="action_about"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="action_bold"/>
+    <addaction name="action_italic"/>
+    <addaction name="action_underline"/>
+    <addaction name="separator"/>
+    <addaction name="action_text_color"/>
+    <addaction name="action_highlight"/>
+    <addaction name="separator"/>
+    <addaction name="action_list_bulleted"/>
+    <addaction name="action_indent_increase"/>
+    <addaction name="action_indent_decrease"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolBar {
+	padding: 5px;
+}
+QToolButton {
+	font-family: &quot;feather&quot;;
+	font-size: 22pt;
+    border-radius: 5;
+    width: 32px;
+    height: 32px;
+}
+QToolButton:hover
+{
+    background: palette(base);
+}
+QToolButton:checked
+{
+    background: palette(base);
+}
+QToolButton:pressed
+{
+    background: palette(base);
+}</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_add"/>
+   <addaction name="separator"/>
+   <addaction name="action_bold"/>
+   <addaction name="action_italic"/>
+   <addaction name="action_underline"/>
+   <addaction name="separator"/>
+   <addaction name="action_text_color"/>
+   <addaction name="action_highlight"/>
+   <addaction name="separator"/>
+   <addaction name="action_list_bulleted"/>
+   <addaction name="action_indent_increase"/>
+   <addaction name="action_indent_decrease"/>
+  </widget>
+  <action name="action_quit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>save</string>
+   </property>
+  </action>
+  <action name="action_load">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="action_export">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="action_bold">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bold</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes text appear bold.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="action_italic">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Italic</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Make text appear italic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="action_underline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Underline</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Underlines the selected text.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="action_indent_decrease">
+   <property name="text">
+    <string>Decrease Indention</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Decreases the indentation of the bullet point list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="action_indent_increase">
+   <property name="text">
+    <string>Increse Indention</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Increases the indentation of the bullet point list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="action_text_color">
+   <property name="text">
+    <string>Text Color</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the color of the selected text.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="action_list_bulleted">
+   <property name="text">
+    <string>List</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes the selected text to appear in a bullet point list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="action_highlight">
+   <property name="text">
+    <string>Highlight Color</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Highlight the selected text with a marker.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="action_add">
+   <property name="text">
+    <string>Add Deck</string>
+   </property>
+   <property name="iconText">
+    <string></string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a new card to the deck.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SidePanel</class>
+   <extends>QWidget</extends>
+   <header>SidePanel.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

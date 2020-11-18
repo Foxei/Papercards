@@ -16,6 +16,7 @@
         <file>components/DefaultMenuBar.qml</file>
         <file>components/NativeMenuBar.qml</file>
         <file>DialogConfirmDiscard.qml</file>
+        <file>Test.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>

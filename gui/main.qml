@@ -8,6 +8,7 @@ import io.papercards.backend 1.0
 import "components" as Components
 
 ApplicationWindow {
+//    flags: Qt.FramelessWindowHint
     property real scaleFactor: statusBar.scaleFactor
     property var targetFunction
     property bool discard: false

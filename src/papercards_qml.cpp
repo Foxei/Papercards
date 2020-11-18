@@ -8,9 +8,10 @@
 #include <QQuickStyle>
 #include <QFontDatabase>
 #include <QIcon>
+#include <QDebug>
 
-#include "Backend.h"
-#include "DocumentHandler.h"
+#include "MainWindow.h"
+
 
 void init_application_information(){
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -26,28 +27,17 @@ void init_application_information(){
 }
 
 void load_fonts(){
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BlackItalic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Black.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Bold.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BoldItalic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Medium.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-MediumItalic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Regular.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Italic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Light.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-LightItalic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-Thin.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-ThinItalic.ttf");
-  QFontDatabase::addApplicationFont(":/resources/MaterialIcons-Regular.ttf");
-  QFontDatabase::addApplicationFont(":/resources/PapercardsIcons.ttf");
-  QFontDatabase::addApplicationFont(":/resources/roboto/Roboto-BlackItalic.ttf");
+  const auto id = QFontDatabase::addApplicationFont(":/resources/feather.ttf");
+  qDebug() << QFontDatabase::applicationFontFamilies(id).front();
 }
 
+/*
 void register_qml() {
   qmlRegisterSingletonType<BackEnd>("io.papercards.backend", 1, 0, "BackEnd", &BackEnd::qmlInstance);
   qmlRegisterType<Card>("io.papercards.card", 1, 0, "Card");
   qmlRegisterType<DocumentHandler>("io.papercards.texteditor", 1, 0, "DocumentHandler");
 }
+*/
 
 int main(int argc, char *argv[]) {
   qInfo("Executing Papercards, Version %i.%i.%i.", MAJOR_VERSION, MINOR_VERSION, REVISION);
@@ -57,16 +47,20 @@ int main(int argc, char *argv[]) {
   QApplication::setWindowIcon(QIcon(":/resources/logo.png"));
 
   qInfo("Loading default card from file.");
-  BackEnd::instance()->newDeck();
+  //BackEnd::instance()->newDeck();
 
   qInfo("Loading fonts.");
   load_fonts();
+
+  QIcon::setThemeName( "papercards-icon-theme" );
   
   qInfo("Executing qml and java script.");
-  register_qml();
-  QQmlApplicationEngine engine;
-  engine.load(QUrl(QStringLiteral("qrc:/gui/main.qml")));
+  //register_qml();
+  //QQmlApplicationEngine engine;
+  //engine.load(QUrl(QStringLiteral("qrc:/gui/main.qml")));
 
+  auto* window = new MainWindow;
+  window->show();
   auto return_code = QApplication::exec();
 
   qInfo("Terminating .");

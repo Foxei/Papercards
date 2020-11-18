@@ -21,10 +21,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += src/papercards_qml.cpp src/Backend.cpp src/DocumentHandler.cpp src/model/Card.cpp
-HEADERS += src/Backend.h src/DocumentHandler.h src/model/Card.h
+SOURCES += src/papercards_qml.cpp src/Backend.cpp src/DocumentHandler.cpp src/model/Card.cpp \
+    src/mainwindow.cpp
+HEADERS += src/Backend.h src/DocumentHandler.h src/model/Card.h \
+    src/mainwindow.h \
+    src/material_icons.h
 
-RESOURCES += resources/resources.qrc gui/gui.qrc
+RESOURCES += resources/resources.qrc gui/gui.qrc \
+    ui/ui.qrc
 
 OTHER_FILES += gui/*.qml gui/components/*.qml
 
@@ -39,3 +43,6 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    ui/mainwindow.ui
